@@ -1,6 +1,19 @@
+'use strict';
+
 // Переменные
-var author = "";
-var objects = 8;
+
+var userID = [
+  "01",
+  "02",
+  "03",
+  "04",
+  "05",
+  "06",
+  "07",
+  "08"
+];
+
+var avatar = "img/avatars/user{{" + getRandomID(userID) + "}}";
 var title = [
   "Большая уютная квартира",
   "Маленькая неуютная квартира",
@@ -12,31 +25,26 @@ var title = [
   "Неуютное бунгало по колено в воде"
 ];
 
-//     "avatar": строка, адрес изображения вида img/avatars/user{{xx}}.png, где xx это число от 1 до 8 с ведущим нулем.
-//     Например 01, 02 и т. д. Адреса изображений не повторяются
+var address = "{{" + location_x + "}}, {{" + location_y + "}}";
 
+var price = getRandomOfSet(1000, 10000000);
 var type = [
   "flat",
   "house",
   "bungalo"
 ];
-
+var rooms = getRandomOfSet(1, 5);
+var guests = getRandomOfSet(1, 10);
 var checkin = [
   "12:00",
   "13:00",
   "14:00"
 ];
-
 var checkout = [
   "12:00",
   "13:00",
   "14:00"
 ];
-
-var price = Math.floor(Math.random() * (10000000 - 1000)) + 1000;
-var rooms = Math.floor(Math.random() * 5) + 1;
-var guests = Math.floor(Math.random() * 10) + 1;
-
 var features = [
   "wifi",
   "dishwasher",
@@ -45,20 +53,28 @@ var features = [
   "elevator",
   "conditioner"
 ];
-
 var description = "";
 var photos = [];
+var location_x = getRandomOfSet(300, 600);
+var location_y = getRandomOfSet(100, 400);
 
-var location_x = Math.floor(Math.random() * 600) + 300;
-var location_y = Math.floor(Math.random() * 400) + 100;
+function getRandomID(userID) {
+  var randomID = userID[Math.floor(Math.random() * 8)];
+  return randomID;
+}
 
-// {
-//   "author": {
-//     "avatar": строка, адрес изображения вида img/avatars/user{{xx}}.png, где xx это число от 1 до 8 с ведущим нулем.
-//     Например 01, 02 и т. д. Адреса изображений не повторяются
-//   },
+function getRandomOfSet(minValue, maxValue) {
+  var randomNumber = Math.floor(Math.random() * (maxValue - minValue)) + minValue;
+  return randomNumber;
+}
 
-//   "offer": {
-//     "address": строка, адрес предложения, представляет собой запись вида "{{location.x}}, {{location.y}}"
-//   },
-// }
+
+// ====================
+
+var objects = 8;
+
+
+
+
+
+
