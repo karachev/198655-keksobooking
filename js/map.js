@@ -1,7 +1,6 @@
 'use strict';
 
 // Переменные
-
 var userID = [
   "01",
   "02",
@@ -12,8 +11,6 @@ var userID = [
   "07",
   "08"
 ];
-
-var avatar = "img/avatars/user{{" + getRandomID(userID) + "}}";
 var title = [
   "Большая уютная квартира",
   "Маленькая неуютная квартира",
@@ -25,16 +22,11 @@ var title = [
   "Неуютное бунгало по колено в воде"
 ];
 
-var address = "{{" + location_x + "}}, {{" + location_y + "}}";
-
-var price = getRandomOfSet(1000, 10000000);
 var type = [
   "flat",
   "house",
   "bungalo"
 ];
-var rooms = getRandomOfSet(1, 5);
-var guests = getRandomOfSet(1, 10);
 var checkin = [
   "12:00",
   "13:00",
@@ -55,12 +47,10 @@ var features = [
 ];
 var description = "";
 var photos = [];
-var location_x = getRandomOfSet(300, 600);
-var location_y = getRandomOfSet(100, 400);
 
-function getRandomID(userID) {
-  var randomID = userID[Math.floor(Math.random() * 8)];
-  return randomID;
+function getRandomNumber(array, number) {
+  var randomNumber = array[Math.floor(Math.random() * number)];
+  return randomNumber;
 }
 
 function getRandomOfSet(minValue, maxValue) {
@@ -69,12 +59,35 @@ function getRandomOfSet(minValue, maxValue) {
 }
 
 
-// ====================
+// Массив для 8 объявлений
+var listOfAdvertisement = [];
 
-var objects = 8;
-
-
-
+for (var i = 0; i < 8; i++) {
 
 
+  var advertisement = { // объявление
+    "author": {
+      "avatar": "img/avatars/user{{" + getRandomNumber(userID, 8) + "}}",
+    },
+    "offer": {
+      "title": getRandomNumber(title, 8), //нужно придумать как его удалять
+      "address": getRandomOfSet(300, 600) + ", " + getRandomOfSet(100, 400),
+      "price": getRandomOfSet(1000, 10000000),
+      "type": getRandomNumber(type, 3),
+      "rooms": getRandomOfSet(1, 5),
+      "guests": getRandomOfSet(1, 10),
+      "checkin": getRandomNumber(checkin, 3),
+      "checkout": getRandomNumber(checkout, 3),
+      "features": getRandomNumber(features, 6),
+      "description": '',
+      "photos": []
+    },
+    "location": {
+      "x": getRandomOfSet(300, 600),
+      "y": getRandomOfSet(100, 400)
+    }
+  }
 
+
+  listOfAdvertisement[i] = advertisement;
+}
