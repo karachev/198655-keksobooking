@@ -70,7 +70,7 @@ for (var i = 0; i < 8; i++) {
       "avatar": "img/avatars/user{{" + getRandomNumber(userID, 8) + "}}",
     },
     "offer": {
-      "title": getRandomNumber(title, 8), //нужно придумать как его удалять
+      "title": title[i],
       "address": getRandomOfSet(300, 600) + ", " + getRandomOfSet(100, 400),
       "price": getRandomOfSet(1000, 10000000),
       "type": getRandomNumber(type, 3),
@@ -88,6 +88,24 @@ for (var i = 0; i < 8; i++) {
     }
   }
 
-
   listOfAdvertisement[i] = advertisement;
 }
+
+// Создаем pin
+var pin = document.createElement('div');
+var img = document.createElement('img');
+
+pin.className = 'pin';
+img.className = 'rounded';
+
+pin.style.left = advertisement.location.x;
+pin.style.top = advertisement.location.y;
+
+img.style.width = 40;
+img.style.height = 40;
+
+
+
+// <div class="pin" style="left: {{location.x}}px; top: {{location.y}}px">
+//   <img src="{{author.avatar}}" class="rounded" width="40" height="40">
+// </div>
