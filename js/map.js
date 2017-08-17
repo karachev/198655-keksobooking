@@ -21,7 +21,6 @@ var title = [
   "Уютное бунгало далеко от моря",
   "Неуютное бунгало по колено в воде"
 ];
-
 var type = [
   "flat",
   "house",
@@ -45,8 +44,8 @@ var features = [
   "elevator",
   "conditioner"
 ];
-var description = "";
-var photos = [];
+// var description = "";
+// var photos = [];
 
 function getRandomNumber(array, number) {
   var randomNumber = array[Math.floor(Math.random() * number)];
@@ -65,7 +64,7 @@ var listOfAdvertisement = [];
 for (var i = 0; i < 8; i++) {
   var advertisement = { // объявление
     "author": {
-      "avatar": "img/avatars/user{{" + getRandomNumber(userID, 8) + "}}",
+      "avatar": "img/avatars/user" + getRandomNumber(userID, 8) + ".png",
     },
     "offer": {
       "title": title[i],
@@ -90,7 +89,7 @@ for (var i = 0; i < 8; i++) {
 }
 
 // Создаем pin
-function createPin() {
+function createPin(advertisement) {
   var pin = document.createElement('div');
   var img = document.createElement('img');
 
@@ -101,14 +100,53 @@ function createPin() {
   img.className = 'rounded';
   img.width = 40;
   img.height = 40;
-  img.src = ;
+  img.src = advertisement.author.avatar;
 
   return pin;
 };
 
+// отрисовка в DOM-блок
+function renderPin(advertisement) {
+  var pin = document.querySelector('.tokyo__pin-map');
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < advertisement; i++) {
+    fragment.appendChild(createPin(advertisement[i]));
+  }
+  pin.appendChild(fragment);
+};
 
 
+function getOnMap (advertisementItem) {
+  var lodgeTemplate = document.querySelector('#lodge-template').content;
+  var lodgeItem = lodgeTemplate.cloneNode(true);
+  var lodgeTitle = lodgeItem.querySelector('.lodge__title');
+  var lodgeAddress = lodgeItem.querySelector('.lodge__address');
+  var lodgePrice = lodgeItem.querySelector('.lodge__price');
+  var lodgeType = lodgeItem.querySelector('.lodge__type');
+  var lodgeRooms = lodgeItem.querySelector('.lodge__rooms-and-guests');
+  var lodgeCheck = lodgeItem.querySelector('.lodge__checkin-time');
+  var dialog = document.querySelector('.dialog');
+  var dialogPanel = document.querySelector('.dialog__panel');
 
-// <div class="pin" style="left: {{location.x}}px; top: {{location.y}}px">
-//   <img src="{{author.avatar}}" class="rounded" width="40" height="40">
-// </div>
+  lodgeTitle.textContent = advertisementItem.offer.title;
+  lodgeAddress.textContent = advertisementItem.offer.address;
+  lodgePrice.innerHTML = advertisementItem.offer.price + ' &#x20bd;/ночь';
+  lodgeType.textContent = type[advertisementItem.offer.type];
+  lodgeRooms.textContent = 'Для ' + advertisementItem.offer.guests + ' гостей в ' + advertisementItem.offer.rooms + ' комнатах';
+  lodgeCheck.textContent = 'Заезд после ' + advertisementItem.offer.checkin + ', выезд до ' + advertisementItem.offer.checkout;
+
+  for (var i = 0; i < advertisementItem.offer.features.length; i++) {
+    var span = document.createElement('span');
+    span.className = 'feature__image feature__image--' + advertisementItem.offer.features[i];
+    lodgeItem.querySelector('.lodge__features').appendChild(span);
+  }
+
+  lodgeItem.querySelector('.lodge__description').textContent = advertisementItem.offer.description;
+  document.querySelector('.dialog__title img').src = advertisementItem.author.avatar;
+
+  dialog.replaceChild(lodgeItem, dialogPanel);
+
+};
+
+renderPin(listOfAdvertisement);
+getOnMap(listOfAdvertisement[0]);
