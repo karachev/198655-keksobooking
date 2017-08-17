@@ -1,6 +1,7 @@
 'use strict';
 
 // Переменные
+var advertisementCount = 8;
 var userID = [
   "01",
   "02",
@@ -11,15 +12,16 @@ var userID = [
   "07",
   "08"
 ];
-var title = [
-  "Большая уютная квартира",
-  "Маленькая неуютная квартира",
-  "Огромный прекрасный дворец",
-  "Маленький ужасный дворец",
-  "Красивый гостевой домик",
-  "Некрасивый негостеприимный домик",
-  "Уютное бунгало далеко от моря",
-  "Неуютное бунгало по колено в воде"
+
+var titles = [
+  'Большая уютная квартира',
+  'Маленькая неуютная квартира',
+  'Огромный прекрасный дворец',
+  'Маленький ужасный дворец',
+  'Красивый гостевой домик',
+  'Некрасивый негостеприимный домик',
+  'Уютное бунгало далеко от моря',
+  'Неуютное бунгало по колено в воде'
 ];
 var type = [
   "flat",
@@ -44,11 +46,14 @@ var features = [
   "elevator",
   "conditioner"
 ];
-// var description = "";
-// var photos = [];
 
-function getRandomNumber(array, number) {
-  var randomNumber = array[Math.floor(Math.random() * number)];
+// уникальный номер
+var getRandomUniqueItem = function (array) {
+  return array.splice(getRandomNumber(0, array.length - 1), 1);
+};
+
+function getRandomNumber(array) {
+  var randomNumber = array[Math.floor(Math.random() * array.length)];
   return randomNumber;
 }
 
@@ -57,25 +62,33 @@ function getRandomOfSet(minValue, maxValue) {
   return randomNumber;
 }
 
+var createFeatures = function () {
+  var someFeatures = features.slice(0);
+  var positions = [];
+  var rand = getRandomOfSet(0, features.length - 1);
+  for (var i = 0; i <= rand; i++) {
+    positions[i] = getRandomUniqueItem(someFeatures)[0];
+  }
+  return positions;
+};
 
-// Массив для 8 объявлений
-var listOfAdvertisement = [];
 
-for (var i = 0; i < 8; i++) {
+function createAdvertesement() {
   var advertisement = { // объявление
     "author": {
-      "avatar": "img/avatars/user" + getRandomNumber(userID, 8) + ".png",
+      "avatar": "img/avatars/user" + getRandomNumber(userID) + ".png",
     },
+
     "offer": {
-      "title": title[i],
+      "title": getRandomUniqueItem(titles),
       "address": getRandomOfSet(300, 600) + ", " + getRandomOfSet(100, 400),
       "price": getRandomOfSet(1000, 10000000),
-      "type": getRandomNumber(type, 3),
+      "type": getRandomNumber(type),
       "rooms": getRandomOfSet(1, 5),
       "guests": getRandomOfSet(1, 10),
       "checkin": getRandomNumber(checkin, 3),
-      "checkout": getRandomNumber(checkout, 3),
-      "features": getRandomNumber(features, 6),
+      "checkout": getRandomNumber(checkout),
+      "features": createFeatures,
       "description": '',
       "photos": []
     },
@@ -85,8 +98,16 @@ for (var i = 0; i < 8; i++) {
     }
   }
 
-  listOfAdvertisement[i] = advertisement;
-}
+  return advertisement;
+};
+
+var createAdvertsList = function (avdertsCount) {
+  var advertsList = [];
+  for (var i = 0; i < avdertsCount; i++) {
+    advertsList.push(createAdvertesement());
+  }
+  return advertsList;
+};
 
 // Создаем pin
 function createPin(advertisement) {
@@ -94,13 +115,14 @@ function createPin(advertisement) {
   var img = document.createElement('img');
 
   pin.className = 'pin';
-  pin.style.left = advertisement.location.x;
-  pin.style.top = advertisement.location.y;
+  pin.style.left = advertisement.location.x + 'px';
+  pin.style.top = advertisement.location.y + 'px';
 
   img.className = 'rounded';
   img.width = 40;
   img.height = 40;
   img.src = advertisement.author.avatar;
+  pin.appendChild(img);
 
   return pin;
 };
@@ -109,13 +131,13 @@ function createPin(advertisement) {
 function renderPin(advertisement) {
   var pin = document.querySelector('.tokyo__pin-map');
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < advertisement; i++) {
+  for (var i = 0; i < advertisement.length; i++) {
     fragment.appendChild(createPin(advertisement[i]));
   }
   pin.appendChild(fragment);
 };
 
-
+// Добавление на карту
 function getOnMap (advertisementItem) {
   var lodgeTemplate = document.querySelector('#lodge-template').content;
   var lodgeItem = lodgeTemplate.cloneNode(true);
@@ -148,5 +170,6 @@ function getOnMap (advertisementItem) {
 
 };
 
+var listOfAdvertisement = createAdvertsList(advertisementCount);
 renderPin(listOfAdvertisement);
 getOnMap(listOfAdvertisement[0]);
