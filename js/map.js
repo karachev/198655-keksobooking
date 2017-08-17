@@ -63,8 +63,6 @@ function getRandomOfSet(minValue, maxValue) {
 var listOfAdvertisement = [];
 
 for (var i = 0; i < 8; i++) {
-
-
   var advertisement = { // объявление
     "author": {
       "avatar": "img/avatars/user{{" + getRandomNumber(userID, 8) + "}}",
@@ -92,17 +90,22 @@ for (var i = 0; i < 8; i++) {
 }
 
 // Создаем pin
-var pin = document.createElement('div');
-var img = document.createElement('img');
+function createPin() {
+  var pin = document.createElement('div');
+  var img = document.createElement('img');
 
-pin.className = 'pin';
-img.className = 'rounded';
+  pin.className = 'pin';
+  pin.style.left = advertisement.location.x;
+  pin.style.top = advertisement.location.y;
 
-pin.style.left = advertisement.location.x;
-pin.style.top = advertisement.location.y;
+  img.className = 'rounded';
+  img.width = 40;
+  img.height = 40;
+  img.src = ;
 
-img.style.width = 40;
-img.style.height = 40;
+  return pin;
+};
+
 
 
 
