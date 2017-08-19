@@ -1,7 +1,7 @@
 'use strict';
 // Переменные
 var advtCount = 8;
-var userID = ["01", "02", "03", "04", "05", "06", "07", "08"];
+var userID = ['01', '02, 03', '04', '05', '06', '07', '08'];
 var titles = [
   'Большая уютная квартира',
   'Маленькая неуютная квартира',
@@ -12,35 +12,35 @@ var titles = [
   'Уютное бунгало далеко от моря',
   'Неуютное бунгало по колено в воде'
 ];
-var type = ["flat", "house", "bungalo"];
+var type = ['flat', 'house', 'bungalo'];
 var checkin = [
-  "12:00",
-  "13:00",
-  "14:00"
+  '12:00',
+  '13:00',
+  '14:00'
 ];
 var features = [
-  "wifi",
-  "dishwasher",
-  "parking",
-  "washer",
-  "elevator",
-  "conditioner"
+  'wifi',
+  'dishwasher',
+  'parking',
+  'washer',
+  'elevator',
+  'conditioner'
 ];
 
 // получение уникального номера
 function getRandomUniqueItem(array) {
   return array.splice(getRandomNumber(0, array.length - 1), 1);
-};
+}
 // получение случайного номера
 function getRandomNumber(array) {
   var randomNumber = array[Math.floor(Math.random() * array.length)];
   return randomNumber;
-};
+}
 // получение случайного значения в отрезке
 function getRandomOfSet(minValue, maxValue) {
   var randomNumber = Math.floor(Math.random() * (maxValue - minValue)) + minValue;
   return randomNumber;
-};
+}
 // создание и присваивание уникального преимущества
 function createFeatures() {
   var someFeatures = features.slice(0);
@@ -50,35 +50,35 @@ function createFeatures() {
     positions[i] = getRandomUniqueItem(someFeatures)[0];
   }
   return positions;
-};
+}
 // создание объявления
 function createAdv() {
   var advt = { // объявление
-    "author": {
-      "avatar": "img/avatars/user" + getRandomNumber(userID) + ".png",
+    'author': {
+      'avatar': 'img/avatars/user' + getRandomNumber(userID) + '.png',
     },
 
-    "offer": {
-      "title": getRandomUniqueItem(titles),
-      "address": getRandomOfSet(300, 600) + ", " + getRandomOfSet(100, 400),
-      "price": getRandomOfSet(1000, 10000000),
-      "type": getRandomNumber(type),
-      "rooms": getRandomOfSet(1, 5),
-      "guests": getRandomOfSet(1, 10),
-      "checkin": getRandomNumber(checkin),
-      "checkout": getRandomNumber(checkin),
-      "features": createFeatures,
-      "description": '',
-      "photos": []
+    'offer': {
+      'title': getRandomUniqueItem(titles),
+      'address': getRandomOfSet(300, 600) + ', ' + getRandomOfSet(100, 400),
+      'price': getRandomOfSet(1000, 10000000),
+      'type': getRandomNumber(type),
+      'rooms': getRandomOfSet(1, 5),
+      'guests': getRandomOfSet(1, 10),
+      'checkin': getRandomNumber(checkin),
+      'checkout': getRandomNumber(checkin),
+      'features': createFeatures,
+      'description': '',
+      'photos': []
     },
-    "location": {
-      "x": getRandomOfSet(300, 600),
-      "y": getRandomOfSet(100, 400)
+    'location': {
+      'x': getRandomOfSet(300, 600),
+      'y': getRandomOfSet(100, 400)
     }
-  }
+  };
 
   return advt;
-};
+}
 
 // Добавление созданных объектов в массив
 function createAdvtList(advtCount) {
