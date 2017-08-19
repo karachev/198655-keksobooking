@@ -81,13 +81,13 @@ function createAdv() {
 }
 
 // Добавление созданных объектов в массив
-function createAdvtList(advtCount) {
+function createAdvtList() {
   var advtList = [];
   for (var i = 0; i < advtCount; i++) {
     advtList.push(createAdv());
   }
   return advtList;
-};
+}
 
 // Создаем pin
 function createPin(advt) {
@@ -103,12 +103,12 @@ function createPin(advt) {
   img.height = 40;
   img.src = advt.author.avatar;
 
-  pin.appendChild(img); //Добавляю img в текущий div
+  pin.appendChild(img); // Добавляю img в текущий div
 
   return pin;
-};
+}
 
-// отрисовка в DOM-блок
+// Отрисовка в DOM-блок
 function renderPin(advt) {
   var pin = document.querySelector('.tokyo__pin-map');
   var fragment = document.createDocumentFragment();
@@ -116,10 +116,10 @@ function renderPin(advt) {
     fragment.appendChild(createPin(advt[i]));
   }
   pin.appendChild(fragment);
-};
+}
 
 // Добавление на карту
-function getOnMap (advtItem) {
+function getOnMap(advtItem) {
   var lodgeTemplate = document.querySelector('#lodge-template').content;
   var lodgeItem = lodgeTemplate.cloneNode(true);
   var lodgeTitle = lodgeItem.querySelector('.lodge__title');
@@ -134,7 +134,7 @@ function getOnMap (advtItem) {
   // Задаем шаблону значения
   lodgeTitle.textContent = advtItem.offer.title;
   lodgeAddress.textContent = advtItem.offer.address;
-  lodgePrice.innerHTML = advtItem.offer.price + ' &#x20bd;/ночь';  //Использую inner для значка с рублем
+  lodgePrice.innerHTML = advtItem.offer.price + ' &#x20bd;/ночь'; // Использую inner для значка с рублем
   lodgeType.textContent = type[advtItem.offer.type];
   lodgeRooms.textContent = 'Для ' + advtItem.offer.guests + ' гостей в ' + advtItem.offer.rooms + ' комнатах';
   lodgeCheck.textContent = 'Заезд после ' + advtItem.offer.checkin + ', выезд до ' + advtItem.offer.checkout;
@@ -149,8 +149,7 @@ function getOnMap (advtItem) {
   document.querySelector('.dialog__title img').src = advtItem.author.avatar;
 
   dialog.replaceChild(lodgeItem, dialogPanel);
-
-};
+}
 
 var listOfAdvt = createAdvtList(advtCount);
 renderPin(listOfAdvt);
