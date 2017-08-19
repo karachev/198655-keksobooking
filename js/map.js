@@ -103,7 +103,7 @@ function createPin(advt) {
   img.height = 40;
   img.src = advt.author.avatar;
 
-  pin.appendChild(img);
+  pin.appendChild(img); //Добавляю img в текущий div
 
   return pin;
 };
@@ -131,9 +131,10 @@ function getOnMap (advtItem) {
   var dialog = document.querySelector('.dialog');
   var dialogPanel = document.querySelector('.dialog__panel');
 
+  // Задаем шаблону значения
   lodgeTitle.textContent = advtItem.offer.title;
   lodgeAddress.textContent = advtItem.offer.address;
-  lodgePrice.innerHTML = advtItem.offer.price + ' &#x20bd;/ночь';
+  lodgePrice.innerHTML = advtItem.offer.price + ' &#x20bd;/ночь';  //Использую inner для значка с рублем
   lodgeType.textContent = type[advtItem.offer.type];
   lodgeRooms.textContent = 'Для ' + advtItem.offer.guests + ' гостей в ' + advtItem.offer.rooms + ' комнатах';
   lodgeCheck.textContent = 'Заезд после ' + advtItem.offer.checkin + ', выезд до ' + advtItem.offer.checkout;
