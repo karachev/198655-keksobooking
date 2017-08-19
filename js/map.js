@@ -1,7 +1,7 @@
 'use strict';
 // Переменные
 var advtCount = 8;
-var userID = ['01', '02, 03', '04', '05', '06', '07', '08'];
+var userID = ['01', '02', '03', '04', '05', '06', '07', '08'];
 var titles = [
   'Большая уютная квартира',
   'Маленькая неуютная квартира',
@@ -33,13 +33,11 @@ function getRandomUniqueItem(array) {
 }
 // получение случайного номера
 function getRandomNumber(array) {
-  var randomNumber = array[Math.floor(Math.random() * array.length)];
-  return randomNumber;
+  return array[Math.floor(Math.random() * array.length)];
 }
 // получение случайного значения в отрезке
 function getRandomOfSet(minValue, maxValue) {
-  var randomNumber = Math.floor(Math.random() * (maxValue - minValue)) + minValue;
-  return randomNumber;
+  return Math.floor(Math.random() * (maxValue - minValue)) + minValue;
 }
 // создание и присваивание уникального преимущества
 function createFeatures() {
@@ -67,7 +65,7 @@ function createAdv() {
       'guests': getRandomOfSet(1, 10),
       'checkin': getRandomNumber(checkin),
       'checkout': getRandomNumber(checkin),
-      'features': createFeatures,
+      'features': createFeatures(),
       'description': '',
       'photos': []
     },
@@ -139,10 +137,12 @@ function getOnMap(advtItem) {
   lodgeRooms.textContent = 'Для ' + advtItem.offer.guests + ' гостей в ' + advtItem.offer.rooms + ' комнатах';
   lodgeCheck.textContent = 'Заезд после ' + advtItem.offer.checkin + ', выезд до ' + advtItem.offer.checkout;
 
-  for (var i = 0; i < advtItem.offer.features.length; i++) { // Почему-то не работает (?)
+  for (var i = 0; i < advtItem.offer.features.length; i++) {
     var span = document.createElement('span');
     span.className = 'feature__image feature__image--' + advtItem.offer.features[i];
     lodgeItem.querySelector('.lodge__features').appendChild(span);
+
+    console.log(work);
   }
 
   lodgeItem.querySelector('.lodge__description').textContent = advtItem.offer.description;
