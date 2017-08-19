@@ -52,7 +52,7 @@ function createFeatures() {
   return positions;
 };
 // создание объявления
-function createAdvt() {
+function createAdv() {
   var advt = { // объявление
     "author": {
       "avatar": "img/avatars/user" + getRandomNumber(userID) + ".png",
@@ -80,12 +80,13 @@ function createAdvt() {
   return advt;
 };
 
-var createAdvertsList = function (avdertsCount) {
-  var advertsList = [];
-  for (var i = 0; i < avdertsCount; i++) {
-    advertsList.push(createAdvt());
+// Добавление созданных объектов в массив
+function createAdvtList(advtCount) {
+  var advtList = [];
+  for (var i = 0; i < advtCount; i++) {
+    advtList.push(createAdv());
   }
-  return advertsList;
+  return advtList;
 };
 
 // Создаем pin
@@ -101,6 +102,7 @@ function createPin(advt) {
   img.width = 40;
   img.height = 40;
   img.src = advt.author.avatar;
+
   pin.appendChild(img);
 
   return pin;
@@ -136,7 +138,7 @@ function getOnMap (advtItem) {
   lodgeRooms.textContent = 'Для ' + advtItem.offer.guests + ' гостей в ' + advtItem.offer.rooms + ' комнатах';
   lodgeCheck.textContent = 'Заезд после ' + advtItem.offer.checkin + ', выезд до ' + advtItem.offer.checkout;
 
-  for (var i = 0; i < advtItem.offer.features.length; i++) {
+  for (var i = 0; i < advtItem.offer.features.length; i++) { // Почему-то не работает (?)
     var span = document.createElement('span');
     span.className = 'feature__image feature__image--' + advtItem.offer.features[i];
     lodgeItem.querySelector('.lodge__features').appendChild(span);
@@ -149,6 +151,6 @@ function getOnMap (advtItem) {
 
 };
 
-var listOfadvt = createAdvertsList(advtCount);
-renderPin(listOfadvt);
-getOnMap(listOfadvt[0]);
+var listOfAdvt = createAdvtList(advtCount);
+renderPin(listOfAdvt);
+getOnMap(listOfAdvt[0]);
