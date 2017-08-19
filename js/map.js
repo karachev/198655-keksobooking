@@ -141,8 +141,6 @@ function getOnMap(advtItem) {
     var span = document.createElement('span');
     span.className = 'feature__image feature__image--' + advtItem.offer.features[i];
     lodgeItem.querySelector('.lodge__features').appendChild(span);
-
-    console.log(work);
   }
 
   lodgeItem.querySelector('.lodge__description').textContent = advtItem.offer.description;
