@@ -168,9 +168,9 @@ function renderPin(advt) {
   var pin = document.querySelector('.tokyo__pin-map');
   var fragment = document.createDocumentFragment();
 
-  advt.forEach(function (value, index, advt){
+  advt.forEach(function (value, index, advt) {
     fragment.appendChild(createPin(advt[index]));
-  })
+  });
 
   pin.appendChild(fragment);
 }
@@ -198,11 +198,11 @@ function createOfferCard(advtItem) {
   lodgeCheck.textContent = 'Заезд после ' + advtItem.offer.checkin + ', выезд до ' + advtItem.offer.checkout;
 
   var advtItemFeatures = advtItem.offer.features;
-  advtItemFeatures.forEach(function(value, index, advtItemFeatures){
+  advtItemFeatures.forEach(function (value, index, advtItemFeatures) {
     var span = document.createElement('span');
     span.className = 'feature__image feature__image--' + advtItemFeatures[index];
     lodgeItem.querySelector('.lodge__features').appendChild(span);
-  })
+  });
 
   lodgeItem.querySelector('.lodge__description').textContent = advtItem.offer.description;
   document.querySelector('.dialog__title img').src = advtItem.author.avatar;
