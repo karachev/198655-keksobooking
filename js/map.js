@@ -43,7 +43,9 @@ function getRandomUniqueItem(array) {
 * @return {string} array - перемешанный массив
 */
 function getRefreshArray(array) {
-  var m = array.length, t, i;
+  var m = array.length;
+  var t;
+  var i;
   while (m) {
     i = Math.floor(Math.random() * m--);
     t = array[m];
@@ -64,7 +66,7 @@ function getRandomNumber(array) {
 * Получение случайного значения в отрезке
 * @param {number} minValue - минимальное значение из отрезка
 * @param {number} maxValue - максимальное значение из отрезка
-* @retun {number} случайное значение из данного отрезка
+* @return {number} случайное значение из данного отрезка
 */
 function getRandomOfSet(minValue, maxValue) {
   return Math.floor(Math.random() * (maxValue - minValue)) + minValue;
