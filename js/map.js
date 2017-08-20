@@ -30,8 +30,8 @@ var FEATURES = [
 ];
 /**
 * Получение уникального номера
-* @param {string} массив объектов
-* @return {string} уникальный элемент из массива
+* @param {string} array - массив объектов
+* @return {string} newArray - уникальный элемент из массива
 */
 function getRandomUniqueItem(array) {
   var newArray = getRefreshArray(array);
