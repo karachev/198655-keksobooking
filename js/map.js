@@ -28,12 +28,20 @@ var FEATURES = [
   'elevator',
   'conditioner'
 ];
-/** Получение уникального номера */
+/**
+* Получение уникального номера
+* @param {string} массив объектов
+* @return {string} уникальный элемент из массива
+*/
 function getRandomUniqueItem(array) {
   var newArray = getRefreshArray(array);
   return newArray.splice(getRandomNumber(0, newArray.length - 1), 1);
 }
-/** Перемешивание массива объектов */
+/**
+* Перемешивание массива объектов
+* @param {string} массив объектов
+* @return {string} перемешанный массив
+*/
 function getRefreshArray(array) {
   var m = array.length, t, i;
   while (m) {
@@ -44,11 +52,20 @@ function getRefreshArray(array) {
   }
   return array;
 }
-/** Получение случайного номера */
+/**
+* Получение случайного номера
+* @param {string} массив объектов
+* @return {string} случайный элемент из массива
+*/
 function getRandomNumber(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
-/** Получение случайного значения в отрезке */
+/**
+* Получение случайного значения в отрезке
+* @param {number} минимальное значение из отрезка
+* @param {number} максимальное значение из отрезка
+* @retun {number} случайное значение из данного отрезка
+*/
 function getRandomOfSet(minValue, maxValue) {
   return Math.floor(Math.random() * (maxValue - minValue)) + minValue;
 }
