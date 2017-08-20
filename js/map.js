@@ -2,8 +2,8 @@
 
 /** Переменные */
 var ADVT_COUNT = 8;
-var userID = ['01', '02', '03', '04', '05', '06', '07', '08'];
-var titles = [
+var USER_ID = ['01', '02', '03', '04', '05', '06', '07', '08'];
+var TITLES = [
   'Большая уютная квартира',
   'Маленькая неуютная квартира',
   'Огромный прекрасный дворец',
@@ -13,13 +13,14 @@ var titles = [
   'Уютное бунгало далеко от моря',
   'Неуютное бунгало по колено в воде'
 ];
-var type = ['flat', 'house', 'bungalo'];
-var checkin = [
+var TYPE = ['flat', 'house', 'bungalo'];
+var TYPE_RUS = {'flat': 'Квартира', 'house': 'Дом', 'bungalo': 'Бунгало'};
+var CHECKIN = [
   '12:00',
   '13:00',
   '14:00'
 ];
-var features = [
+var FEATURES = [
   'wifi',
   'dishwasher',
   'parking',
@@ -29,7 +30,19 @@ var features = [
 ];
 /** Получение уникального номера */
 function getRandomUniqueItem(array) {
-  return array.splice(getRandomNumber(0, array.length - 1), 1);
+  var newArray = getRefreshArray(array);
+  return newArray.splice(getRandomNumber(0, newArray.length - 1), 1);
+}
+/** Перемешивание массива объектов */
+function getRefreshArray(array) {
+  var m = array.length, t, i;
+  while (m) {
+    i = Math.floor(Math.random() * m--);
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+  }
+  return array;
 }
 /** Получение случайного номера */
 function getRandomNumber(array) {
@@ -41,13 +54,18 @@ function getRandomOfSet(minValue, maxValue) {
 }
 /** Создание и присваивание уникального преимущества */
 function createFeatures() {
-  var someFeatures = features.slice(0);
+  var someFeatures = FEATURES.slice(0);
   var positions = [];
-  var rand = getRandomOfSet(0, features.length - 1);
+  var rand = getRandomOfSet(0, FEATURES.length - 1);
   for (var i = 0; i <= rand; i++) {
     positions[i] = getRandomUniqueItem(someFeatures)[0];
   }
   return positions;
+}
+/** Запись price с учетом разрядов */
+function getPriceByLevel(minValue, maxValue) {
+  var priceByLevel = getRandomOfSet(minValue, maxValue);
+  return priceByLevel.toLocaleString('ru');
 }
 /** Создание объявления */
 function createAdv() {
@@ -55,18 +73,18 @@ function createAdv() {
   var locationY = getRandomOfSet(100, 400);
   var advt = { /** Объявление */
     'author': {
-      'avatar': 'img/avatars/user' + getRandomNumber(userID) + '.png',
+      'avatar': 'img/avatars/user' + getRandomUniqueItem(USER_ID) + '.png'
     },
 
     'offer': {
-      'title': getRandomUniqueItem(titles),
+      'title': getRandomUniqueItem(TITLES).toString(),
       'address': locationX + ', ' + locationY,
-      'price': getRandomOfSet(1000, 1000000),
-      'type': getRandomNumber(type),
+      'price': getPriceByLevel(1000, 1000000),
+      'type': getRandomNumber(TYPE),
       'rooms': getRandomOfSet(1, 5),
       'guests': getRandomOfSet(1, 10),
-      'checkin': getRandomNumber(checkin),
-      'checkout': getRandomNumber(checkin),
+      'checkin': getRandomNumber(CHECKIN),
+      'checkout': getRandomNumber(CHECKIN),
       'features': createFeatures(),
       'description': '',
       'photos': []
@@ -109,9 +127,11 @@ function createPin(advt) {
 function renderPin(advt) {
   var pin = document.querySelector('.tokyo__pin-map');
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < advt.length; i++) {
-    fragment.appendChild(createPin(advt[i]));
-  }
+
+  advt.forEach(function(value, index, advt){
+    fragment.appendChild(createPin(advt[index]));
+  })
+
   pin.appendChild(fragment);
 }
 /** Добавление на карту */
@@ -130,15 +150,16 @@ function createOfferCard(advtItem) {
   lodgeTitle.textContent = advtItem.offer.title;
   lodgeAddress.textContent = advtItem.offer.address;
   lodgePrice.textContent = advtItem.offer.price + '\u20BD/ночь';
-  lodgeType.textContent = type[advtItem.offer.type];
+  lodgeType.textContent = TYPE_RUS[advtItem.offer.type];
   lodgeRooms.textContent = 'Для ' + advtItem.offer.guests + ' гостей в ' + advtItem.offer.rooms + ' комнатах';
   lodgeCheck.textContent = 'Заезд после ' + advtItem.offer.checkin + ', выезд до ' + advtItem.offer.checkout;
 
-  for (var i = 0; i < advtItem.offer.features.length; i++) {
+  var advtItemFeatures = advtItem.offer.features;
+  advtItemFeatures.forEach(function(value, index, check){
     var span = document.createElement('span');
-    span.className = 'feature__image feature__image--' + advtItem.offer.features[i];
+    span.className = 'feature__image feature__image--' + advtItemFeatures[index];
     lodgeItem.querySelector('.lodge__features').appendChild(span);
-  }
+  })
 
   lodgeItem.querySelector('.lodge__description').textContent = advtItem.offer.description;
   document.querySelector('.dialog__title img').src = advtItem.author.avatar;
