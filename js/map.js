@@ -39,8 +39,8 @@ function getRandomUniqueItem(array) {
 }
 /**
 * Перемешивание массива объектов
-* @param {string} массив объектов
-* @return {string} перемешанный массив
+* @param {string} array - массив объектов
+* @return {string} array - перемешанный массив
 */
 function getRefreshArray(array) {
   var m = array.length, t, i;
@@ -54,22 +54,25 @@ function getRefreshArray(array) {
 }
 /**
 * Получение случайного номера
-* @param {string} массив объектов
-* @return {string} случайный элемент из массива
+* @param {string} array - массив объектов
+* @return {string} array - случайный элемент из массива
 */
 function getRandomNumber(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
 /**
 * Получение случайного значения в отрезке
-* @param {number} минимальное значение из отрезка
-* @param {number} максимальное значение из отрезка
+* @param {number} minValue - минимальное значение из отрезка
+* @param {number} maxValue - максимальное значение из отрезка
 * @retun {number} случайное значение из данного отрезка
 */
 function getRandomOfSet(minValue, maxValue) {
   return Math.floor(Math.random() * (maxValue - minValue)) + minValue;
 }
-/** Создание и присваивание уникального преимущества */
+/**
+*Создание и присваивание уникального преимущества
+* @return {string} positions - уникальное преимущество
+*/
 function createFeatures() {
   var someFeatures = FEATURES.slice(0);
   var positions = [];
@@ -79,16 +82,24 @@ function createFeatures() {
   }
   return positions;
 }
-/** Запись price с учетом разрядов */
+/**
+* Запись price с учетом разрядов
+* @param {number} minValue - минимальное значение из отрезка
+* @param {number} maxValue - максимальное значение из отрезка
+* @return {string} priceByLevel - цена с учетом разрядов
+*/
 function getPriceByLevel(minValue, maxValue) {
   var priceByLevel = getRandomOfSet(minValue, maxValue);
   return priceByLevel.toLocaleString('ru');
 }
-/** Создание объявления */
+/**
+* Создание объявления
+* @return {string} advt - созданный объект объявление
+*/
 function createAdv() {
   var locationX = getRandomOfSet(300, 600);
   var locationY = getRandomOfSet(100, 400);
-  var advt = { /** Объявление */
+  var advt = {
     'author': {
       'avatar': 'img/avatars/user' + getRandomUniqueItem(USER_ID) + '.png'
     },
@@ -114,7 +125,10 @@ function createAdv() {
 
   return advt;
 }
-/** Добавление созданных объектов в массив */
+/**
+* Добавление созданных объектов в массив
+* @return {string} advtList - массив объектов
+*/
 function createAdvtList() {
   var advtList = [];
   for (var i = 0; i < ADVT_COUNT; i++) {
@@ -122,7 +136,11 @@ function createAdvtList() {
   }
   return advtList;
 }
-/** Создаем pin */
+/**
+* Создаем pin
+* @param {string} advt - объект объявление
+* @return {} pin -
+*/
 function createPin(advt) {
   var pin = document.createElement('div');
   var img = document.createElement('img');
@@ -140,7 +158,10 @@ function createPin(advt) {
 
   return pin;
 }
-/** Отрисовка в DOM-блок */
+/**
+* Отрисовка в DOM-блок
+* @param {string} advt - объект объявление
+*/
 function renderPin(advt) {
   var pin = document.querySelector('.tokyo__pin-map');
   var fragment = document.createDocumentFragment();
@@ -151,7 +172,10 @@ function renderPin(advt) {
 
   pin.appendChild(fragment);
 }
-/** Добавление на карту */
+/**
+* Добавление на карту
+* @param {string} advtItem - один из элементов массива объектов
+*/
 function createOfferCard(advtItem) {
   var lodgeTemplate = document.querySelector('#lodge-template').content;
   var lodgeItem = lodgeTemplate.cloneNode(true);
