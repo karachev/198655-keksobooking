@@ -141,7 +141,7 @@ function createAdvtList() {
 /**
 * Создаем pin
 * @param {string} advt - объект объявление
-* @return {} pin -
+* @return {object} pin - блок на карте
 */
 function createPin(advt) {
   var pin = document.createElement('div');
@@ -168,7 +168,7 @@ function renderPin(advt) {
   var pin = document.querySelector('.tokyo__pin-map');
   var fragment = document.createDocumentFragment();
 
-  advt.forEach(function(value, index, advt){
+  advt.forEach(function (value, index, advt){
     fragment.appendChild(createPin(advt[index]));
   })
 
@@ -198,7 +198,7 @@ function createOfferCard(advtItem) {
   lodgeCheck.textContent = 'Заезд после ' + advtItem.offer.checkin + ', выезд до ' + advtItem.offer.checkout;
 
   var advtItemFeatures = advtItem.offer.features;
-  advtItemFeatures.forEach(function(value, index, check){
+  advtItemFeatures.forEach(function(value, index, advtItemFeatures){
     var span = document.createElement('span');
     span.className = 'feature__image feature__image--' + advtItemFeatures[index];
     lodgeItem.querySelector('.lodge__features').appendChild(span);
