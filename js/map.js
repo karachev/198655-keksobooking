@@ -1,6 +1,7 @@
 'use strict';
-// Переменные
-var advtCount = 8;
+
+/** Переменные */
+var ADVT_COUNT = 8;
 var userID = ['01', '02', '03', '04', '05', '06', '07', '08'];
 var titles = [
   'Большая уютная квартира',
@@ -26,20 +27,19 @@ var features = [
   'elevator',
   'conditioner'
 ];
-
-// получение уникального номера
+/** Получение уникального номера */
 function getRandomUniqueItem(array) {
   return array.splice(getRandomNumber(0, array.length - 1), 1);
 }
-// получение случайного номера
+/** Получение случайного номера */
 function getRandomNumber(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
-// получение случайного значения в отрезке
+/** Получение случайного значения в отрезке */
 function getRandomOfSet(minValue, maxValue) {
   return Math.floor(Math.random() * (maxValue - minValue)) + minValue;
 }
-// создание и присваивание уникального преимущества
+/** Создание и присваивание уникального преимущества */
 function createFeatures() {
   var someFeatures = features.slice(0);
   var positions = [];
@@ -49,17 +49,19 @@ function createFeatures() {
   }
   return positions;
 }
-// создание объявления
+/** Создание объявления */
 function createAdv() {
-  var advt = { // объявление
+  var locationX = getRandomOfSet(300, 600);
+  var locationY = getRandomOfSet(100, 400);
+  var advt = { /** Объявление */
     'author': {
       'avatar': 'img/avatars/user' + getRandomNumber(userID) + '.png',
     },
 
     'offer': {
       'title': getRandomUniqueItem(titles),
-      'address': getRandomOfSet(300, 600) + ', ' + getRandomOfSet(100, 400),
-      'price': getRandomOfSet(1000, 10000000),
+      'address': locationX + ', ' + locationY,
+      'price': getRandomOfSet(1000, 1000000),
       'type': getRandomNumber(type),
       'rooms': getRandomOfSet(1, 5),
       'guests': getRandomOfSet(1, 10),
@@ -70,24 +72,22 @@ function createAdv() {
       'photos': []
     },
     'location': {
-      'x': getRandomOfSet(300, 600),
-      'y': getRandomOfSet(100, 400)
+      'x': locationX,
+      'y': locationY
     }
   };
 
   return advt;
 }
-
-// Добавление созданных объектов в массив
+/** Добавление созданных объектов в массив */
 function createAdvtList() {
   var advtList = [];
-  for (var i = 0; i < advtCount; i++) {
+  for (var i = 0; i < ADVT_COUNT; i++) {
     advtList.push(createAdv());
   }
   return advtList;
 }
-
-// Создаем pin
+/** Создаем pin */
 function createPin(advt) {
   var pin = document.createElement('div');
   var img = document.createElement('img');
@@ -101,12 +101,11 @@ function createPin(advt) {
   img.height = 40;
   img.src = advt.author.avatar;
 
-  pin.appendChild(img); // Добавляю img в текущий div
+  pin.appendChild(img); /** Добавляю img в текущий div */
 
   return pin;
 }
-
-// Отрисовка в DOM-блок
+/** Отрисовка в DOM-блок */
 function renderPin(advt) {
   var pin = document.querySelector('.tokyo__pin-map');
   var fragment = document.createDocumentFragment();
@@ -115,9 +114,8 @@ function renderPin(advt) {
   }
   pin.appendChild(fragment);
 }
-
-// Добавление на карту
-function getOnMap(advtItem) {
+/** Добавление на карту */
+function createOfferCard(advtItem) {
   var lodgeTemplate = document.querySelector('#lodge-template').content;
   var lodgeItem = lodgeTemplate.cloneNode(true);
   var lodgeTitle = lodgeItem.querySelector('.lodge__title');
@@ -127,12 +125,11 @@ function getOnMap(advtItem) {
   var lodgeRooms = lodgeItem.querySelector('.lodge__rooms-and-guests');
   var lodgeCheck = lodgeItem.querySelector('.lodge__checkin-time');
   var dialog = document.querySelector('.dialog');
-  var dialogPanel = document.querySelector('.dialog__panel');
-
-  // Задаем шаблону значения
+  var dialogPanel = dialog.querySelector('.dialog__panel');
+  /** Задаем шаблону значения */
   lodgeTitle.textContent = advtItem.offer.title;
   lodgeAddress.textContent = advtItem.offer.address;
-  lodgePrice.innerHTML = advtItem.offer.price + ' &#x20bd;/ночь'; // Использую inner для значка с рублем
+  lodgePrice.textContent = advtItem.offer.price + '\u20BD/ночь';
   lodgeType.textContent = type[advtItem.offer.type];
   lodgeRooms.textContent = 'Для ' + advtItem.offer.guests + ' гостей в ' + advtItem.offer.rooms + ' комнатах';
   lodgeCheck.textContent = 'Заезд после ' + advtItem.offer.checkin + ', выезд до ' + advtItem.offer.checkout;
@@ -149,6 +146,6 @@ function getOnMap(advtItem) {
   dialog.replaceChild(lodgeItem, dialogPanel);
 }
 
-var listOfAdvt = createAdvtList(advtCount);
+var listOfAdvt = createAdvtList(ADVT_COUNT);
 renderPin(listOfAdvt);
-getOnMap(listOfAdvt[0]);
+createOfferCard(listOfAdvt[0]);
