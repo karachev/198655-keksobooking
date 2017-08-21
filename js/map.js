@@ -168,8 +168,8 @@ function renderPin(advt) {
   var pin = document.querySelector('.tokyo__pin-map');
   var fragment = document.createDocumentFragment();
 
-  advt.forEach(function (value, index) {
-    fragment.appendChild(createPin(advt[index]));
+  advt.forEach(function (value) {
+    fragment.appendChild(createPin(value));
   });
 
   pin.appendChild(fragment);
@@ -198,9 +198,9 @@ function createOfferCard(advtItem) {
   lodgeCheck.textContent = 'Заезд после ' + advtItem.offer.checkin + ', выезд до ' + advtItem.offer.checkout;
 
   var advtItemFeatures = advtItem.offer.features;
-  advtItemFeatures.forEach(function (value, index) {
+  advtItemFeatures.forEach(function (value) {
     var span = document.createElement('span');
-    span.className = 'feature__image feature__image--' + advtItemFeatures[index];
+    span.className = 'feature__image feature__image--' + value;
     lodgeItem.querySelector('.lodge__features').appendChild(span);
   });
 
