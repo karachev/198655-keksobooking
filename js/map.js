@@ -213,3 +213,51 @@ function createOfferCard(advtItem) {
 var listOfAdvt = createAdvtList(ADVT_COUNT);
 renderPin(listOfAdvt);
 createOfferCard(listOfAdvt[0]);
+
+// MODULE4-TASK1
+var pinMap = document.querySelector('.tokyo__pin-map');
+var selectedPin;
+
+pinMap.onclick = function(event) {
+  var target = event.target;
+
+  // цикл двигается вверх от target к родителям до table
+  while (target != pinMap) {
+    if (target.className == 'pin') {
+      // нашли элемент, который нас интересует!
+      getPinActive(target);
+      return;
+    }
+    target = target.parentNode;
+  }
+}
+
+function getPinActive(node) {
+  if (selectedPin) {
+    selectedPin.classList.remove('pin--active');
+    createOfferCard(listOfAdvt[5]);
+  }
+  selectedPin = node;
+  selectedPin.classList.add('pin--active');
+  getActiveNumber();
+}
+
+
+// При нажатии на элемент .dialog__close карточка объявления должна скрываться.
+// При этом должен деактивироваться элемент .pin, который был помечен как активный
+var dialogClose = document.querySelector('.dialog__close');
+var pinElementsActive;
+
+dialogClose.addEventListener('click', function() {
+    pinActive.classList.remove('pin--active');
+});
+
+var pinElements = pinMap.querySelectorAll('.pin');
+function getActiveNumber() {
+  for (var i = 0; i < pinElements.length; i++) {
+      if (pinElements[i].className == 'pin pin--active') {
+        pinElementsActive = i;
+        createOfferCard(listOfAdvt[i-1]);
+      }
+  }
+}
