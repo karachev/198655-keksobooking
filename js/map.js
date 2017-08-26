@@ -218,6 +218,7 @@ function createOfferCard(advtItem) {
   document.querySelector('.dialog__title img').src = advtItem.author.avatar;
 
   dialog.replaceChild(lodgeItem, dialogPanel);
+  document.addEventListener('keydown', onCloseDialogEsc);
 }
 
 var listOfAdvt = createAdvtList(ADVT_COUNT);
@@ -231,7 +232,6 @@ var dialogWindow = document.querySelector('.dialog');
 var dialogClose = document.querySelector('.dialog__close');
 var pinElements = pinMap.querySelectorAll('.pin');
 var pinActive = document.querySelector('.pin--active');
-
 /**
 * Добавляем текущему элементу класс pin--active
 * @param {DocumentFragment} node - узел
@@ -247,7 +247,6 @@ function getPinActive(node) {
   selectedPin.classList.add('pin--active');
   getActiveNumber();
 }
-
 /**
 * Вызываем объявление активного элемента
 */
@@ -259,7 +258,6 @@ function getActiveNumber() {
     }
   }
 }
-
 /**
 * Открываем объявление
 * @param {Objects} event - событие
@@ -278,30 +276,51 @@ function onOpenDialog() {
     }
   }
 }
-
 /**
 * Закрытие объявления
 */
-function onCloseDialog () {
+function onCloseDialog() {
   if (isEscapePressed(event) || isClicked(event)) {
     dialogWindow.style.display = 'none';
     pinActive.classList.remove('pin--active');
     selectedPin.classList.remove('pin--active');
   }
 }
-
-// Событие есть и нажат esc
-var isEscapePressed = function (event) {
+/**
+* Закрытие объявления в любой момент по ESC
+* @param {Objects} event - событие
+*/
+function onCloseDialogEsc(event) {
+  if (isEscapePressed(event)) {
+    dialogWindow.style.display = 'none';
+    pinActive.classList.remove('pin--active');
+    selectedPin.classList.remove('pin--active');
+  }
+}
+/**
+* Событие по нажатию на ESC
+* @param {Objects} event - событие
+* @return {boolean} event - было ли именно такое событие
+*/
+function isEscapePressed(event) {
   return event && event.keyCode === ESCAPE_KEY_CODE;
-};
-// Событие есть и нажат enter
-var isEnterPressed = function (event) {
+}
+/**
+* Событие по нажатию на ENTER
+* @param {Objects} event - событие
+* @return {boolean} event - было ли именно такое событие
+*/
+function isEnterPressed(event) {
   return event && event.keyCode === ENTER_KEY_CODE;
-};
-// По клику мышки
-var isClicked = function (event) {
+}
+/**
+* Событие по нажатию мыши
+* @param {Objects} event - событие
+* @return {boolean} event - было ли именно такое событие
+*/
+function isClicked(event) {
   return event.type === 'click';
-};
+}
 
 dialogClose.addEventListener('click', onCloseDialog);
 dialogClose.addEventListener('keydown', onCloseDialog);
