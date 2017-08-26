@@ -28,6 +28,8 @@ var FEATURES = [
   'elevator',
   'conditioner'
 ];
+var ESCAPE_KEY_CODE = 27;
+var ENTER_KEY_CODE = 13;
 /**
 * Получение уникального номера
 * @param {string} array - массив объектов
@@ -229,22 +231,7 @@ var dialogWindow = document.querySelector('.dialog');
 var dialogClose = document.querySelector('.dialog__close');
 var pinElements = pinMap.querySelectorAll('.pin');
 var pinActive = document.querySelector('.pin--active');
-/**
-* Ловим клик на элементе 'pin'
-* @param {Objects} event - событие
-*/
-pinMap.onclick = function (event) {
-  var target = event.target;
-  // цикл двигается вверх от target к родителям до table
-  while (target !== pinMap) {
-    if (target.className === 'pin') {
-      // нашли элемент, который нас интересует!
-      getPinActive(target);
-      return;
-    }
-    target = target.parentNode;
-  }
-};
+
 /**
 * Добавляем текущему элементу класс pin--active
 * @param {DocumentFragment} node - узел
@@ -262,7 +249,7 @@ function getPinActive(node) {
 }
 
 /**
-* Вызываем карточку с описанием активного элемента
+* Вызываем объявление активного элемента
 */
 function getActiveNumber() {
   for (var i = 0; i < pinElements.length; i++) {
@@ -273,6 +260,50 @@ function getActiveNumber() {
   }
 }
 
-dialogClose.addEventListener('click', function () {
-  dialogWindow.style.display = 'none';
-});
+/**
+* Открываем объявление
+* @param {Objects} event - событие
+*/
+function onOpenDialog() {
+  if (isEnterPressed(event) || isClicked(event)) {
+    var target = event.target;
+    // цикл двигается вверх от target к родителям до table
+    while (target !== pinMap) {
+      if (target.className === 'pin') {
+        // нашли элемент, который нас интересует!
+        getPinActive(target);
+        return;
+      }
+      target = target.parentNode;
+    }
+  }
+}
+
+/**
+* Закрытие объявления
+*/
+function onCloseDialog () {
+  if (isEscapePressed(event) || isClicked(event)) {
+    dialogWindow.style.display = 'none';
+    pinActive.classList.remove('pin--active');
+    selectedPin.classList.remove('pin--active');
+  }
+}
+
+// Событие есть и нажат esc
+var isEscapePressed = function (event) {
+  return event && event.keyCode === ESCAPE_KEY_CODE;
+};
+// Событие есть и нажат enter
+var isEnterPressed = function (event) {
+  return event && event.keyCode === ENTER_KEY_CODE;
+};
+// По клику мышки
+var isClicked = function (event) {
+  return event.type === 'click';
+};
+
+dialogClose.addEventListener('click', onCloseDialog);
+dialogClose.addEventListener('keydown', onCloseDialog);
+pinMap.addEventListener('click', onOpenDialog);
+pinMap.addEventListener('keydown', onOpenDialog);
