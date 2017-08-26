@@ -141,6 +141,7 @@ function createAdvtList() {
 /**
 * Создаем pin
 * @param {string} advt - объект объявление
+* @param {number} stage - номер объявления при нанесение
 * @return {object} pin - блок на карте
 */
 function createPin(advt, stage) {
@@ -225,25 +226,28 @@ createOfferCard(listOfAdvt[0]);
 var pinMap = document.querySelector('.tokyo__pin-map');
 var selectedPin;
 var dialogWindow = document.querySelector('.dialog');
-
+var dialogClose = document.querySelector('.dialog__close');
+var pinElements = pinMap.querySelectorAll('.pin');
+var pinActive = document.querySelector('.pin--active');
 /**
 * Ловим клик на элементе 'pin'
+* @param {Objects} event - событие
 */
-pinMap.onclick = function(event) {
+pinMap.onclick = function (event) {
   var target = event.target;
   // цикл двигается вверх от target к родителям до table
-  while (target != pinMap) {
-    if (target.className == 'pin') {
+  while (target !== pinMap) {
+    if (target.className === 'pin') {
       // нашли элемент, который нас интересует!
       getPinActive(target);
       return;
     }
     target = target.parentNode;
   }
-}
-
+};
 /**
 * Добавляем текущему элементу класс pin--active
+* @param {DocumentFragment} node - узел
 */
 function getPinActive(node) {
   if (selectedPin) {
@@ -262,25 +266,13 @@ function getPinActive(node) {
 */
 function getActiveNumber() {
   for (var i = 0; i < pinElements.length; i++) {
-      if (pinElements[i].className == 'pin pin--active') {
-        pinElementsActive = i;
-        createOfferCard(listOfAdvt[i-1]);
-        dialogWindow.style.display = 'block';
-      }
+    if (pinElements[i].className === 'pin pin--active') {
+      createOfferCard(listOfAdvt[i - 1]);
+      dialogWindow.style.display = 'block';
+    }
   }
 }
 
-
-// При нажатии на элемент .dialog__close карточка объявления должна скрываться.
-// При этом должен деактивироваться элемент .pin, который был помечен как активный
-var dialogClose = document.querySelector('.dialog__close');
-var pinElementsActive;
-var pinElements = pinMap.querySelectorAll('.pin');
-var pinActive = document.querySelector('.pin--active');
-
-
-dialogClose.addEventListener('click', function() {
+dialogClose.addEventListener('click', function () {
   dialogWindow.style.display = 'none';
 });
-
-
