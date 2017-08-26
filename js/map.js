@@ -143,11 +143,17 @@ function createAdvtList() {
 * @param {string} advt - объект объявление
 * @return {object} pin - блок на карте
 */
-function createPin(advt) {
+function createPin(advt, stage) {
   var pin = document.createElement('div');
   var img = document.createElement('img');
 
-  pin.className = 'pin';
+  if (stage === 0) {
+    pin.className = 'pin pin--active';
+    pinActive = pin;
+  } else {
+    pin.className = 'pin';
+  }
+
   pin.style.left = advt.location.x + 'px';
   pin.style.top = advt.location.y + 'px';
 
@@ -157,6 +163,7 @@ function createPin(advt) {
   img.src = advt.author.avatar;
 
   pin.appendChild(img); /** Добавляю img в текущий div */
+  pin.setAttribute('tabindex', 0);
 
   return pin;
 }
@@ -168,8 +175,8 @@ function renderPin(advt) {
   var pin = document.querySelector('.tokyo__pin-map');
   var fragment = document.createDocumentFragment();
 
-  advt.forEach(function (value) {
-    fragment.appendChild(createPin(value));
+  advt.forEach(function (value, index) {
+    fragment.appendChild(createPin(value, index));
   });
 
   pin.appendChild(fragment);
@@ -217,10 +224,13 @@ createOfferCard(listOfAdvt[0]);
 // MODULE4-TASK1
 var pinMap = document.querySelector('.tokyo__pin-map');
 var selectedPin;
+var dialogWindow = document.querySelector('.dialog');
 
+/**
+* Ловим клик на элементе 'pin'
+*/
 pinMap.onclick = function(event) {
   var target = event.target;
-
   // цикл двигается вверх от target к родителям до table
   while (target != pinMap) {
     if (target.className == 'pin') {
@@ -232,14 +242,32 @@ pinMap.onclick = function(event) {
   }
 }
 
+/**
+* Добавляем текущему элементу класс pin--active
+*/
 function getPinActive(node) {
   if (selectedPin) {
     selectedPin.classList.remove('pin--active');
-    createOfferCard(listOfAdvt[5]);
+  }
+  if (pinActive) {
+    pinActive.classList.remove('pin--active');
   }
   selectedPin = node;
   selectedPin.classList.add('pin--active');
   getActiveNumber();
+}
+
+/**
+* Вызываем карточку с описанием активного элемента
+*/
+function getActiveNumber() {
+  for (var i = 0; i < pinElements.length; i++) {
+      if (pinElements[i].className == 'pin pin--active') {
+        pinElementsActive = i;
+        createOfferCard(listOfAdvt[i-1]);
+        dialogWindow.style.display = 'block';
+      }
+  }
 }
 
 
@@ -247,17 +275,12 @@ function getPinActive(node) {
 // При этом должен деактивироваться элемент .pin, который был помечен как активный
 var dialogClose = document.querySelector('.dialog__close');
 var pinElementsActive;
+var pinElements = pinMap.querySelectorAll('.pin');
+var pinActive = document.querySelector('.pin--active');
+
 
 dialogClose.addEventListener('click', function() {
-    pinActive.classList.remove('pin--active');
+  dialogWindow.style.display = 'none';
 });
 
-var pinElements = pinMap.querySelectorAll('.pin');
-function getActiveNumber() {
-  for (var i = 0; i < pinElements.length; i++) {
-      if (pinElements[i].className == 'pin pin--active') {
-        pinElementsActive = i;
-        createOfferCard(listOfAdvt[i-1]);
-      }
-  }
-}
+
