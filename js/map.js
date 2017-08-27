@@ -150,12 +150,14 @@ function createPin(advt, stage) {
   var pin = document.createElement('div');
   var img = document.createElement('img');
 
-  if (stage === 0) {
-    pin.className = 'pin pin--active';
-    pinActive = pin;
-  } else {
-    pin.className = 'pin';
-  }
+  // if (stage === 0) {
+  //   pin.className = 'pin pin--active';
+  //   pinActive = pin;
+  // } else {
+  //   pin.className = 'pin';
+  // }
+
+  pin.className = 'pin';
 
   pin.style.left = advt.location.x + 'px';
   pin.style.top = advt.location.y + 'px';
@@ -223,7 +225,7 @@ function createOfferCard(advtItem) {
 
 var listOfAdvt = createAdvtList(ADVT_COUNT);
 renderPin(listOfAdvt);
-createOfferCard(listOfAdvt[0]);
+// createOfferCard(listOfAdvt[0]);
 
 // MODULE4-TASK1
 var pinMap = document.querySelector('.tokyo__pin-map');
@@ -232,6 +234,7 @@ var dialogWindow = document.querySelector('.dialog');
 var dialogClose = document.querySelector('.dialog__close');
 var pinElements = pinMap.querySelectorAll('.pin');
 var pinActive = document.querySelector('.pin--active');
+dialogWindow.style.display = 'none';
 /**
 * Добавляем текущему элементу класс pin--active
 * @param {DocumentFragment} node - узел
