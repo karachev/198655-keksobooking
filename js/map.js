@@ -146,16 +146,9 @@ function createAdvtList() {
 * @param {number} stage - номер объявления при нанесение
 * @return {object} pin - блок на карте
 */
-function createPin(advt, stage) {
+function createPin(advt) {
   var pin = document.createElement('div');
   var img = document.createElement('img');
-
-  // if (stage === 0) {
-  //   pin.className = 'pin pin--active';
-  //   pinActive = pin;
-  // } else {
-  //   pin.className = 'pin';
-  // }
 
   pin.className = 'pin';
 
@@ -180,8 +173,8 @@ function renderPin(advt) {
   var pin = document.querySelector('.tokyo__pin-map');
   var fragment = document.createDocumentFragment();
 
-  advt.forEach(function (value, index) {
-    fragment.appendChild(createPin(value, index));
+  advt.forEach(function (value) {
+    fragment.appendChild(createPin(value));
   });
 
   pin.appendChild(fragment);
@@ -225,7 +218,6 @@ function createOfferCard(advtItem) {
 
 var listOfAdvt = createAdvtList(ADVT_COUNT);
 renderPin(listOfAdvt);
-// createOfferCard(listOfAdvt[0]);
 
 // MODULE4-TASK1
 var pinMap = document.querySelector('.tokyo__pin-map');
@@ -254,12 +246,12 @@ function getPinActive(node) {
 * Вызываем объявление активного элемента
 */
 function getActiveNumber() {
-  for (var i = 0; i < pinElements.length; i++) {
-    if (pinElements[i].className === 'pin pin--active') {
-      createOfferCard(listOfAdvt[i - 1]);
+  pinElements.forEach(function (value, index) {
+    if (value.classList.contains('pin--active')) {
+      createOfferCard(listOfAdvt[index - 1]);
       dialogWindow.style.display = 'block';
     }
-  }
+  });
 }
 /**
 * Открываем объявление
@@ -296,7 +288,6 @@ function onCloseDialog() {
 function onCloseDialogEsc(event) {
   if (isEscapePressed(event)) {
     dialogWindow.style.display = 'none';
-    pinActive.classList.remove('pin--active');
     selectedPin.classList.remove('pin--active');
   }
 }
