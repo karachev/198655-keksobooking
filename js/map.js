@@ -28,6 +28,8 @@ var FEATURES = [
   'elevator',
   'conditioner'
 ];
+var ESCAPE_KEY_CODE = 27;
+var ENTER_KEY_CODE = 13;
 /**
 * Получение уникального номера
 * @param {string} array - массив объектов
@@ -141,6 +143,7 @@ function createAdvtList() {
 /**
 * Создаем pin
 * @param {string} advt - объект объявление
+* @param {number} stage - номер объявления при нанесение
 * @return {object} pin - блок на карте
 */
 function createPin(advt) {
@@ -148,6 +151,7 @@ function createPin(advt) {
   var img = document.createElement('img');
 
   pin.className = 'pin';
+
   pin.style.left = advt.location.x + 'px';
   pin.style.top = advt.location.y + 'px';
 
@@ -157,6 +161,7 @@ function createPin(advt) {
   img.src = advt.author.avatar;
 
   pin.appendChild(img); /** Добавляю img в текущий div */
+  pin.setAttribute('tabindex', 0);
 
   return pin;
 }
@@ -208,8 +213,110 @@ function createOfferCard(advtItem) {
   document.querySelector('.dialog__title img').src = advtItem.author.avatar;
 
   dialog.replaceChild(lodgeItem, dialogPanel);
+  document.addEventListener('keydown', onCloseDialogEsc);
 }
 
 var listOfAdvt = createAdvtList(ADVT_COUNT);
 renderPin(listOfAdvt);
-createOfferCard(listOfAdvt[0]);
+
+// MODULE4-TASK1
+var pinMap = document.querySelector('.tokyo__pin-map');
+var selectedPin;
+var dialogWindow = document.querySelector('.dialog');
+var dialogClose = document.querySelector('.dialog__close');
+var pinElements = pinMap.querySelectorAll('.pin');
+var pinActive = document.querySelector('.pin--active');
+dialogWindow.style.display = 'none';
+/**
+* Добавляем текущему элементу класс pin--active
+* @param {DocumentFragment} node - узел
+*/
+function getPinActive(node) {
+  if (selectedPin) {
+    selectedPin.classList.remove('pin--active');
+  }
+  if (pinActive) {
+    pinActive.classList.remove('pin--active');
+  }
+  selectedPin = node;
+  selectedPin.classList.add('pin--active');
+  getActiveNumber();
+}
+/**
+* Вызываем объявление активного элемента
+*/
+function getActiveNumber() {
+  pinElements.forEach(function (value, index) {
+    if (value.classList.contains('pin--active')) {
+      createOfferCard(listOfAdvt[index - 1]);
+      dialogWindow.style.display = 'block';
+    }
+  });
+}
+/**
+* Открываем объявление
+* @param {Objects} event - событие
+*/
+function onOpenDialog() {
+  if (isEnterPressed(event) || isClicked(event)) {
+    var target = event.target;
+    // цикл двигается вверх от target к родителям до table
+    while (target !== pinMap) {
+      if (target.className === 'pin') {
+        // нашли элемент, который нас интересует!
+        getPinActive(target);
+        return;
+      }
+      target = target.parentNode;
+    }
+  }
+}
+/**
+* Закрытие объявления
+*/
+function onCloseDialog() {
+  if (isEscapePressed(event) || isClicked(event)) {
+    dialogWindow.style.display = 'none';
+    pinActive.classList.remove('pin--active');
+    selectedPin.classList.remove('pin--active');
+  }
+}
+/**
+* Закрытие объявления в любой момент по ESC
+* @param {Objects} event - событие
+*/
+function onCloseDialogEsc(event) {
+  if (isEscapePressed(event)) {
+    dialogWindow.style.display = 'none';
+    selectedPin.classList.remove('pin--active');
+  }
+}
+/**
+* Событие по нажатию на ESC
+* @param {Objects} event - событие
+* @return {boolean} event - было ли именно такое событие
+*/
+function isEscapePressed(event) {
+  return event && event.keyCode === ESCAPE_KEY_CODE;
+}
+/**
+* Событие по нажатию на ENTER
+* @param {Objects} event - событие
+* @return {boolean} event - было ли именно такое событие
+*/
+function isEnterPressed(event) {
+  return event && event.keyCode === ENTER_KEY_CODE;
+}
+/**
+* Событие по нажатию мыши
+* @param {Objects} event - событие
+* @return {boolean} event - было ли именно такое событие
+*/
+function isClicked(event) {
+  return event.type === 'click';
+}
+
+dialogClose.addEventListener('click', onCloseDialog);
+dialogClose.addEventListener('keydown', onCloseDialog);
+pinMap.addEventListener('click', onOpenDialog);
+pinMap.addEventListener('keydown', onOpenDialog);
