@@ -358,7 +358,6 @@ function checkForm() {
   */
   function clearForm() {
     var description = noticeForm.querySelector('#description');
-    var file = noticeForm.querySelector('#file');
 
     title.value = '';
     type.value = 'flat';
@@ -373,6 +372,7 @@ function checkForm() {
 
   /**
   * Синхронизация времени въезда и времни отъезда
+  * @param {Objects} event - событие
   */
   function onTimeChange(event) {
     if (event.target.id === 'timein') {
@@ -385,7 +385,7 @@ function checkForm() {
   /**
   * Валидация типов жилья и интервала стоимости
   */
-  function onTypeChange(event) {
+  function onTypeChange() {
     switch (type.value) {
       case 'bungalo':
         price.min = PRICE_BUNGALO_MIN;
@@ -396,7 +396,7 @@ function checkForm() {
         price.max = PRICE_MAX;
         break;
       case 'house':
-        price.min = PRICE_HOUSE_MIN
+        price.min = PRICE_HOUSE_MIN;
         price.max = PRICE_MAX;
         break;
       case 'palace':
@@ -423,11 +423,12 @@ function checkForm() {
 
   /**
   * Связь количества гостей и количеством комнат
+  * @param {Objects} event - событие
   */
   function onCapacityChange(event) {
     if (event.target.id === 'room_number') {
       if (roomNumber.value === '1') {
-        capacity.value = '1'
+        capacity.value = '1';
       } else if (roomNumber.value === '2') {
         capacity.value = '2';
       } else if (roomNumber.value === '3') {
@@ -437,7 +438,7 @@ function checkForm() {
       }
     } else if (event.target.id === 'capacity') {
       if (capacity.value === '1') {
-        roomNumber.value = '1'
+        roomNumber.value = '1';
       } else if (capacity.value === '2') {
         roomNumber.value = '2';
       } else if (capacity.value === '3') {
@@ -450,6 +451,8 @@ function checkForm() {
 
   /**
   * Рисую рамку, если значение не валидно
+  * @param {Objects} checkedField  - првоеряемое поле
+  * @return {boolean} event - проходит ли валидацию
   */
   function checkValid(checkedField) {
     if (checkedField.validity.valid) {
@@ -464,11 +467,13 @@ function checkForm() {
 
   /**
   * Нажатие на кнопку и валидация полей
+  * @param {Objects} event - событие
   */
   function onButtonForm(event) {
-    var validTitle = checkFieldValid(title);
-    var validPrice = checkFieldValid(price);
-    if (validTitle && validPrice) {
+    var validTitle = checkValid(title);
+    var validPrice = checkValid(price);
+    var validAddress = checkValid(address);
+    if (validTitle && validPrice && validAddress) {
       event.preventDefault();
       clearForm();
     }
