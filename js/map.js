@@ -321,6 +321,9 @@ dialogClose.addEventListener('keydown', onCloseDialog);
 pinMap.addEventListener('click', onOpenDialog);
 pinMap.addEventListener('keydown', onOpenDialog);
 
+/**
+* Валидация формы
+*/
 function checkForm() {
   var noticeForm = document.querySelector('.notice__form');
   var title = noticeForm.querySelector('#title');
@@ -350,9 +353,11 @@ function checkForm() {
   price.setAttribute('min', PRICE_MIN);
   price.setAttribute('max', PRICE_MAX);
 
-  function clearForm () {
+  /**
+  * Очистка всех значений в форме
+  */
+  function clearForm() {
     var description = noticeForm.querySelector('#description');
-    var features = noticeForm.querySelector('#features');
     var file = noticeForm.querySelector('#file');
 
     title.value = '';
@@ -364,14 +369,11 @@ function checkForm() {
     capacity.value = 1;
     description.value = '';
     address.value = '';
-
-    // timeIn.value = TIMES_CHECK_IN[0].substring(0, 2);
-    // timeCheckOut.value = TIMES_CHECK_OUT[0].substring(0, 2);
-    // for (var i = 0; i < tagsInput.length; i++) {
-    //   tagsInput[i].checked = false;
-    // }
   }
 
+  /**
+  * Синхронизация времени въезда и времни отъезда
+  */
   function onTimeChange(event) {
     if (event.target.id === 'timein') {
       timeOut.value = timeIn.value;
@@ -380,6 +382,9 @@ function checkForm() {
     }
   }
 
+  /**
+  * Валидация типов жилья и интервала стоимости
+  */
   function onTypeChange(event) {
     switch (type.value) {
       case 'bungalo':
@@ -401,6 +406,9 @@ function checkForm() {
     }
   }
 
+  /**
+  * Предложение жилья по стоимости
+  */
   function onPriceChange() {
     if (price.value < PRICE_FLAT_MIN) {
       type.value = 'bungalo';
@@ -413,11 +421,56 @@ function checkForm() {
     }
   }
 
+  /**
+  * Связь количества гостей и количеством комнат
+  */
   function onCapacityChange(event) {
     if (event.target.id === 'room_number') {
-      capacity.value = (roomNumber.value === '1') ? '1' : '3';
+      if (roomNumber.value === '1') {
+        capacity.value = '1'
+      } else if (roomNumber.value === '2') {
+        capacity.value = '2';
+      } else if (roomNumber.value === '3') {
+        capacity.value = '3';
+      } else {
+        capacity.value = '0';
+      }
     } else if (event.target.id === 'capacity') {
-      roomNumber.value = (capacity.value === '1') ? '1' : '2';
+      if (capacity.value === '1') {
+        roomNumber.value = '1'
+      } else if (capacity.value === '2') {
+        roomNumber.value = '2';
+      } else if (capacity.value === '3') {
+        roomNumber.value = '3';
+      } else {
+        roomNumber.value = '100';
+      }
+    }
+  }
+
+  /**
+  * Рисую рамку, если значение не валидно
+  */
+  function checkValid(checkedField) {
+    if (checkedField.validity.valid) {
+      checkedField.style.border = '1px solid #d9d9d3';
+      return true;
+    } else {
+      checkedField.style.boxShadow = 'none';
+      checkedField.style.border = '2px solid red';
+      return false;
+    }
+  }
+
+  /**
+  * Нажатие на кнопку и валидация полей
+  */
+  function onButtonForm(event) {
+    var validTitle = checkFieldValid(title);
+    var validPrice = checkFieldValid(price);
+    if (validTitle && validPrice) {
+      event.preventDefault();
+      clearForm();
     }
   }
 
@@ -427,6 +480,7 @@ function checkForm() {
   price.addEventListener('change', onPriceChange);
   roomNumber.addEventListener('change', onCapacityChange);
   capacity.addEventListener('change', onCapacityChange);
+  buttonForm.addEventListener('click', onButtonForm);
 }
 
 checkForm();
