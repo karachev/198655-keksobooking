@@ -361,7 +361,7 @@ function checkForm() {
 
     title.value = '';
     type.value = 'flat';
-    price.value = '';
+    price.value = '1000';
     price.max = PRICE_MAX;
     price.min = PRICE_MIN;
     roomNumber.value = 1;
@@ -390,18 +390,22 @@ function checkForm() {
       case 'bungalo':
         price.min = PRICE_BUNGALO_MIN;
         price.max = PRICE_MAX;
+        price.value = price.min;
         break;
       case 'flat':
         price.min = PRICE_FLAT_MIN;
         price.max = PRICE_MAX;
+        price.value = price.min;
         break;
       case 'house':
         price.min = PRICE_HOUSE_MIN;
         price.max = PRICE_MAX;
+        price.value = price.min;
         break;
       case 'palace':
         price.min = PRICE_PALACE_MIN;
         price.max = PRICE_MAX;
+        price.value = price.min;
         break;
     }
   }
@@ -429,22 +433,49 @@ function checkForm() {
     if (event.target.id === 'room_number') {
       if (roomNumber.value === '1') {
         capacity.value = '1';
+        for (var i = 0; i < capacity.options.length; i++) {
+          if (capacity.options[i].value !== '1') {
+            capacity.options[i].disabled = true;
+          } else {
+            capacity.options[i].disabled = false;
+          }
+        }
+
+        // Почему-то forEach  не работает
+        // capacity.forEach(function (value, index) {
+        //   if (value1.value !== '1') {
+        //     value.options[index].disabled = true;
+        //   } else {
+        //     value.options[index].disabled = false;
+        //   }
+        // });
+
       } else if (roomNumber.value === '2') {
-        capacity.value = '2';
+        for (i = 0; i < capacity.options.length; i++) {
+          if (capacity.options[i].value !== '1' && capacity.options[i].value !== '2') {
+            capacity.options[i].disabled = true;
+          } else {
+            capacity.options[i].disabled = false;
+          }
+        }
       } else if (roomNumber.value === '3') {
-        capacity.value = '3';
+        for (i = 0; i < capacity.options.length; i++) {
+          if (capacity.options[i].value !== '1' && capacity.options[i].value !== '2' && capacity.options[i].value !== '3') {
+            capacity.options[i].disabled = true;
+          } else {
+            capacity.options[i].disabled = false;
+          }
+        }
       } else {
         capacity.value = '0';
-      }
-    } else if (event.target.id === 'capacity') {
-      if (capacity.value === '1') {
-        roomNumber.value = '1';
-      } else if (capacity.value === '2') {
-        roomNumber.value = '2';
-      } else if (capacity.value === '3') {
-        roomNumber.value = '3';
-      } else {
-        roomNumber.value = '100';
+        for (i = 0; i < capacity.options.length; i++) {
+          if (capacity.options[i].value === '0') {
+            capacity.options[i].disabled = false;
+            capacity.options[i].selected = true;
+          } else {
+            capacity.options[i].disabled = true;
+          }
+        }
       }
     }
   }
