@@ -506,7 +506,7 @@ function checkForm() {
     var validAddress = checkValid(address);
     if (validTitle && validPrice && validAddress) {
       event.preventDefault();
-      clearForm();
+      // clearForm();
     }
   }
 
@@ -516,7 +516,7 @@ function checkForm() {
   price.addEventListener('change', onPriceChange);
   roomNumber.addEventListener('change', onCapacityChange);
   capacity.addEventListener('change', onCapacityChange);
-  buttonForm.addEventListener('click', onButtonForm);
+  // buttonForm.addEventListener('click', onButtonForm);
 }
 
 checkForm();
