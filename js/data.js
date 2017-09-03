@@ -87,17 +87,25 @@ window.dataSet = (function () {
     return advt;
   }
 
-  return {
+  // function createAdvtList() {
+  //   var advtList = [];
+  //     for (var i = 0; i < ADVT_COUNT; i++) {
+  //       advtList.push(createAdv());
+  //     }
+  //     return advtList;
+  // }
+
+  return function () {
     /**
     * Добавление созданных объектов в массив
     * @return {string} advtList - массив объектов
     */
-    createAdvtList: function () {
-      var advtList = [];
-      for (var i = 0; i < ADVT_COUNT; i++) {
-        advtList.push(createAdv());
-      }
-      return advtList;
+    var advtList = [];
+    for (var i = 0; i < ADVT_COUNT; i++) {
+      advtList.push(createAdv());
     }
+    return advtList;
   };
+
+
 })();
