@@ -438,6 +438,7 @@ function checkForm() {
             capacity.options[i].disabled = true;
           } else {
             capacity.options[i].disabled = false;
+            capacity.options[i].selected = true;
           }
         }
 
@@ -456,6 +457,7 @@ function checkForm() {
             capacity.options[i].disabled = true;
           } else {
             capacity.options[i].disabled = false;
+            capacity.options[i].selected = true;
           }
         }
       } else if (roomNumber.value === '3') {
@@ -464,6 +466,7 @@ function checkForm() {
             capacity.options[i].disabled = true;
           } else {
             capacity.options[i].disabled = false;
+            capacity.options[i].selected = true;
           }
         }
       } else {
@@ -506,7 +509,6 @@ function checkForm() {
     var validAddress = checkValid(address);
     if (validTitle && validPrice && validAddress) {
       event.preventDefault();
-      // noticeForm.action = get_action();
       HTMLFormElement.prototype.submit.call(noticeForm);
       clearForm();
     }
