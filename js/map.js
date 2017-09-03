@@ -28,51 +28,9 @@ var FEATURES = [
   'elevator',
   'conditioner'
 ];
-var ESCAPE_KEY_CODE = 27;
-var ENTER_KEY_CODE = 13;
-/**
-* Получение уникального номера
-* @param {string} array - массив объектов
-* @return {string} newArray - уникальный элемент из массива
-*/
-function getRandomUniqueItem(array) {
-  var newArray = getRefreshArray(array);
-  return newArray.splice(getRandomNumber(0, newArray.length - 1), 1);
-}
-/**
-* Перемешивание массива объектов
-* @param {string} array - массив объектов
-* @return {string} array - перемешанный массив
-*/
-function getRefreshArray(array) {
-  var m = array.length;
-  var t;
-  var i;
-  while (m) {
-    i = Math.floor(Math.random() * m--);
-    t = array[m];
-    array[m] = array[i];
-    array[i] = t;
-  }
-  return array;
-}
-/**
-* Получение случайного номера
-* @param {string} array - массив объектов
-* @return {string} array - случайный элемент из массива
-*/
-function getRandomNumber(array) {
-  return array[Math.floor(Math.random() * array.length)];
-}
-/**
-* Получение случайного значения в отрезке
-* @param {number} minValue - минимальное значение из отрезка
-* @param {number} maxValue - максимальное значение из отрезка
-* @return {number} случайное значение из данного отрезка
-*/
-function getRandomOfSet(minValue, maxValue) {
-  return Math.floor(Math.random() * (maxValue - minValue)) + minValue;
-}
+
+
+
 /**
 *Создание и присваивание уникального преимущества
 * @return {string} positions - уникальное преимущество
@@ -80,9 +38,9 @@ function getRandomOfSet(minValue, maxValue) {
 function createFeatures() {
   var someFeatures = FEATURES.slice(0);
   var positions = [];
-  var rand = getRandomOfSet(0, FEATURES.length - 1);
+  var rand = window.utilSet.getRandomOfSet(0, FEATURES.length - 1);
   for (var i = 0; i <= rand; i++) {
-    positions[i] = getRandomUniqueItem(someFeatures)[0];
+    positions[i] = window.utilSet.getRandomUniqueItem(someFeatures)[0];
   }
   return positions;
 }
@@ -93,7 +51,7 @@ function createFeatures() {
 * @return {string} priceByLevel - цена с учетом разрядов
 */
 function getPriceByLevel(minValue, maxValue) {
-  var priceByLevel = getRandomOfSet(minValue, maxValue);
+  var priceByLevel = window.utilSet.getRandomOfSet(minValue, maxValue);
   return priceByLevel.toLocaleString('ru');
 }
 /**
@@ -101,22 +59,22 @@ function getPriceByLevel(minValue, maxValue) {
 * @return {string} advt - созданный объект объявление
 */
 function createAdv() {
-  var locationX = getRandomOfSet(300, 600);
-  var locationY = getRandomOfSet(100, 400);
+  var locationX = window.utilSet.getRandomOfSet(300, 600);
+  var locationY = window.utilSet.getRandomOfSet(100, 400);
   var advt = {
     'author': {
-      'avatar': 'img/avatars/user' + getRandomUniqueItem(USER_ID) + '.png'
+      'avatar': 'img/avatars/user' + window.utilSet.getRandomUniqueItem(USER_ID) + '.png'
     },
 
     'offer': {
-      'title': getRandomUniqueItem(TITLES).toString(),
+      'title': window.utilSet.getRandomUniqueItem(TITLES).toString(),
       'address': locationX + ', ' + locationY,
       'price': getPriceByLevel(1000, 1000000),
-      'type': getRandomNumber(TYPE),
-      'rooms': getRandomOfSet(1, 5),
-      'guests': getRandomOfSet(1, 10),
-      'checkin': getRandomNumber(CHECKIN),
-      'checkout': getRandomNumber(CHECKIN),
+      'type': window.utilSet.getRandomNumber(TYPE),
+      'rooms': window.utilSet.getRandomOfSet(1, 5),
+      'guests': window.utilSet.getRandomOfSet(1, 10),
+      'checkin': window.utilSet.getRandomNumber(CHECKIN),
+      'checkout': window.utilSet.getRandomNumber(CHECKIN),
       'features': createFeatures(),
       'description': '',
       'photos': []
@@ -258,7 +216,7 @@ function getActiveNumber() {
 * @param {Objects} event - событие
 */
 function onOpenDialog() {
-  if (isEnterPressed(event) || isClicked(event)) {
+  if (window.utilSet.isEnterPressed(event) || window.utilSet.isClicked(event)) {
     var target = event.target;
     // цикл двигается вверх от target к родителям до table
     while (target !== pinMap) {
@@ -275,7 +233,7 @@ function onOpenDialog() {
 * Закрытие объявления
 */
 function onCloseDialog() {
-  if (isEscapePressed(event) || isClicked(event)) {
+  if (window.utilSet.isEscapePressed(event) || window.utilSet.isClicked(event)) {
     dialogWindow.style.display = 'none';
     pinActive.classList.remove('pin--active');
     selectedPin.classList.remove('pin--active');
@@ -286,38 +244,13 @@ function onCloseDialog() {
 * @param {Objects} event - событие
 */
 function onCloseDialogEsc(event) {
-  if (isEscapePressed(event)) {
+  if (window.utilSet.isEscapePressed(event)) {
     dialogWindow.style.display = 'none';
     selectedPin.classList.remove('pin--active');
   }
-}
-/**
-* Событие по нажатию на ESC
-* @param {Objects} event - событие
-* @return {boolean} event - было ли именно такое событие
-*/
-function isEscapePressed(event) {
-  return event && event.keyCode === ESCAPE_KEY_CODE;
-}
-/**
-* Событие по нажатию на ENTER
-* @param {Objects} event - событие
-* @return {boolean} event - было ли именно такое событие
-*/
-function isEnterPressed(event) {
-  return event && event.keyCode === ENTER_KEY_CODE;
-}
-/**
-* Событие по нажатию мыши
-* @param {Objects} event - событие
-* @return {boolean} event - было ли именно такое событие
-*/
-function isClicked(event) {
-  return event.type === 'click';
 }
 
 dialogClose.addEventListener('click', onCloseDialog);
 dialogClose.addEventListener('keydown', onCloseDialog);
 pinMap.addEventListener('click', onOpenDialog);
 pinMap.addEventListener('keydown', onOpenDialog);
-
