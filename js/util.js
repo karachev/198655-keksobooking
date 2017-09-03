@@ -74,5 +74,4 @@ window.utilSet = (function () {
       return event.type === 'click';
     }
   };
-
 })();
