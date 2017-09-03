@@ -1,7 +1,7 @@
 'use strict';
 // data.js — модуль, который создает данные
 
-window.utilData = (function () {
+window.dataSet = (function () {
   /** Переменные */
   var ADVT_COUNT = 8;
   var USER_ID = ['01', '02', '03', '04', '05', '06', '07', '08'];
