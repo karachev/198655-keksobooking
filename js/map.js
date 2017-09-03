@@ -430,55 +430,46 @@ function checkForm() {
   * @param {Objects} event - событие
   */
   function onCapacityChange(event) {
+    var optionsArray = Array.prototype.slice.call(capacity.options);
     if (event.target.id === 'room_number') {
       if (roomNumber.value === '1') {
         capacity.value = '1';
-        for (var i = 0; i < capacity.options.length; i++) {
-          if (capacity.options[i].value !== '1') {
-            capacity.options[i].disabled = true;
+        optionsArray.forEach(function (val) {
+          if (val.value !== '1') {
+            val.disabled = true;
           } else {
-            capacity.options[i].disabled = false;
-            capacity.options[i].selected = true;
+            val.disabled = false;
+            val.selected = true;
           }
-        }
-
-        // Почему-то forEach  не работает
-        // capacity.forEach(function (value, index) {
-        //   if (value1.value !== '1') {
-        //     value.options[index].disabled = true;
-        //   } else {
-        //     value.options[index].disabled = false;
-        //   }
-        // });
-
+        });
       } else if (roomNumber.value === '2') {
-        for (i = 0; i < capacity.options.length; i++) {
-          if (capacity.options[i].value !== '1' && capacity.options[i].value !== '2') {
-            capacity.options[i].disabled = true;
+        optionsArray.forEach(function (val) {
+          if (val.value !== '1' && val.value !== '2') {
+            val.disabled = true;
           } else {
-            capacity.options[i].disabled = false;
-            capacity.options[i].selected = true;
+            val.disabled = false;
+            val.selected = true;
           }
-        }
+        });
       } else if (roomNumber.value === '3') {
-        for (i = 0; i < capacity.options.length; i++) {
-          if (capacity.options[i].value !== '1' && capacity.options[i].value !== '2' && capacity.options[i].value !== '3') {
-            capacity.options[i].disabled = true;
+        optionsArray.forEach(function (val) {
+          if (val.value !== '1' && val.value !== '2' && val.value !== '3') {
+            val.disabled = true;
           } else {
-            capacity.options[i].disabled = false;
-            capacity.options[i].selected = true;
+            val.disabled = false;
+            val.selected = true;
           }
-        }
+        });
       } else {
         capacity.value = '0';
-        for (i = 0; i < capacity.options.length; i++) {
-          if (capacity.options[i].value === '0') {
-            capacity.options[i].disabled = false;
-            capacity.options[i].selected = true;
+        optionsArray.forEach(function (val) {
+          if (val.value === '0') {
+            val.disabled = false;
+            val.selected = true;
           } else {
-            capacity.options[i].disabled = true;
+            val.disabled = true;
           }
-        }
+        });
       }
     }
   }
