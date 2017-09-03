@@ -435,40 +435,24 @@ function checkForm() {
       if (roomNumber.value === '1') {
         capacity.value = '1';
         optionsArray.forEach(function (val) {
-          if (val.value !== '1') {
-            val.disabled = true;
-          } else {
-            val.disabled = false;
-            val.selected = true;
-          }
+          val.disabled = (val.value !== '1');
+          val.selected = !(val.value !== '1');
         });
       } else if (roomNumber.value === '2') {
         optionsArray.forEach(function (val) {
-          if (val.value !== '1' && val.value !== '2') {
-            val.disabled = true;
-          } else {
-            val.disabled = false;
-            val.selected = true;
-          }
+          val.disabled = (val.value !== '1' && val.value !== '2');
+          val.selected = !(val.value !== '1' && val.value !== '2');
         });
       } else if (roomNumber.value === '3') {
         optionsArray.forEach(function (val) {
-          if (val.value !== '1' && val.value !== '2' && val.value !== '3') {
-            val.disabled = true;
-          } else {
-            val.disabled = false;
-            val.selected = true;
-          }
+          val.disabled = (val.value !== '1' && val.value !== '2' && val.value !== '3');
+          val.selected = !(val.value !== '1' && val.value !== '2' && val.value !== '3');
         });
       } else {
         capacity.value = '0';
         optionsArray.forEach(function (val) {
-          if (val.value === '0') {
-            val.disabled = false;
-            val.selected = true;
-          } else {
-            val.disabled = true;
-          }
+          val.disabled = !(val.value === '0');
+          val.selected = (val.value === '0');
         });
       }
     }
