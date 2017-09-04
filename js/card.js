@@ -16,7 +16,6 @@ window.cardSet = (function () {
   function onCloseDialogEsc(event) {
     if (window.utilSet.isEscapePressed(event)) {
       dialogWindow.style.display = 'none';
-      selectedPin.classList.remove('pin--active');
     }
   }
 

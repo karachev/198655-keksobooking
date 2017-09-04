@@ -4,11 +4,9 @@
 
 window.pinSet = (function () {
   var pinMap = document.querySelector('.tokyo__pin-map');
-  // var pin = document.querySelector('.tokyo__pin-map');
   var selectedPin;
   var dialogWindow = document.querySelector('.dialog');
   var dialogClose = document.querySelector('.dialog__close');
-  var pinElements = pinMap.querySelectorAll('.pin');
   var pinActive = document.querySelector('.pin--active');
   dialogWindow.style.display = 'none';
   var listOfAdvt = window.dataSet();
@@ -20,36 +18,21 @@ window.pinSet = (function () {
   */
   function createPin(advt) {
     var pin = document.createElement('div');
-    var img = document.createElement('img');
-
     pin.className = 'pin';
-
     pin.style.left = advt.location.x + 'px';
     pin.style.top = advt.location.y + 'px';
 
+    var img = document.createElement('img');
     img.className = 'rounded';
     img.width = 40;
     img.height = 40;
     img.src = advt.author.avatar;
 
-    pin.appendChild(img); /** Добавляю img в текущий div */
+    pin.appendChild(img);
     pin.setAttribute('tabindex', 0);
 
     return pin;
   }
-
-
-  // function renderPin(advt) {
-  //   var pin = document.querySelector('.tokyo__pin-map');
-  //   var fragment = document.createDocumentFragment();
-
-  //   advt.forEach(function (value) {
-  //     fragment.appendChild(createPin(value));
-  //   });
-
-  //   pin.appendChild(fragment);
-  // }
-
   /**
   * Добавляем текущему элементу класс pin--active
   * @param {DocumentFragment} node - узел
@@ -70,8 +53,6 @@ window.pinSet = (function () {
   */
   function getActiveNumber() {
     var pinElements = pinMap.querySelectorAll('.pin');
-    // var listOfAdvt = window.dataSet();
-
     pinElements.forEach(function (value, index) {
       if (value.classList.contains('pin--active')) {
         window.cardSet.createOfferCard(listOfAdvt[index - 1]);
@@ -79,7 +60,6 @@ window.pinSet = (function () {
       }
     });
   }
-
   /**
   * Открываем объявление
   * @param {Objects} event - событие
@@ -87,10 +67,8 @@ window.pinSet = (function () {
   function onOpenDialog() {
     if (window.utilSet.isEnterPressed(event) || window.utilSet.isClicked(event)) {
       var target = event.target;
-      // цикл двигается вверх от target к родителям до table
       while (target !== pinMap) {
         if (target.className === 'pin') {
-          // нашли элемент, который нас интересует!
           getPinActive(target);
           return;
         }
@@ -109,24 +87,18 @@ window.pinSet = (function () {
     }
   }
 
-
   dialogClose.addEventListener('click', onCloseDialog);
   dialogClose.addEventListener('keydown', onCloseDialog);
 
-
-  // renderPin(window.dataSet.listOfAdvt);
-   /**
+  /**
   * Отрисовка в DOM-блок
   * @param {string} advt - объект объявление
   */
   return function () {
     var fragment = document.createDocumentFragment();
-    // var listOfAdvt = window.dataSet();
-
     listOfAdvt.forEach(function (value) {
       fragment.appendChild(createPin(value));
     });
-
     pinMap.appendChild(fragment);
     pinMap.addEventListener('click', onOpenDialog);
     pinMap.addEventListener('keydown', onOpenDialog);

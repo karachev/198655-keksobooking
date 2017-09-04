@@ -87,14 +87,6 @@ window.dataSet = (function () {
     return advt;
   }
 
-  // function createAdvtList() {
-  //   var advtList = [];
-  //     for (var i = 0; i < ADVT_COUNT; i++) {
-  //       advtList.push(createAdv());
-  //     }
-  //     return advtList;
-  // }
-
   return function () {
     /**
     * Добавление созданных объектов в массив
@@ -106,6 +98,5 @@ window.dataSet = (function () {
     }
     return advtList;
   };
-
 
 })();
