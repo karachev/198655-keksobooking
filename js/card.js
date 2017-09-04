@@ -6,6 +6,20 @@ window.cardSet = (function () {
   * Добавление на карту
   * @param {string} advtItem - один из элементов массива объектов
   */
+  var TYPE_RUS = {'flat': 'Квартира', 'house': 'Дом', 'bungalo': 'Бунгало'};
+  var dialogWindow = document.querySelector('.dialog');
+
+  /**
+  * Закрытие объявления в любой момент по ESC
+  * @param {Objects} event - событие
+  */
+  function onCloseDialogEsc(event) {
+    if (window.utilSet.isEscapePressed(event)) {
+      dialogWindow.style.display = 'none';
+      selectedPin.classList.remove('pin--active');
+    }
+  }
+
   return {
     createOfferCard: function (advtItem) {
       var lodgeTemplate = document.querySelector('#lodge-template').content;

@@ -11,7 +11,7 @@ window.pinSet = (function () {
   var pinElements = pinMap.querySelectorAll('.pin');
   var pinActive = document.querySelector('.pin--active');
   dialogWindow.style.display = 'none';
-  var TYPE_RUS = {'flat': 'Квартира', 'house': 'Дом', 'bungalo': 'Бунгало'};
+  var listOfAdvt = window.dataSet();
   /**
   * Создаем pin
   * @param {string} advt - объект объявление
@@ -69,6 +69,9 @@ window.pinSet = (function () {
   * Вызываем объявление активного элемента
   */
   function getActiveNumber() {
+    var pinElements = pinMap.querySelectorAll('.pin');
+    // var listOfAdvt = window.dataSet();
+
     pinElements.forEach(function (value, index) {
       if (value.classList.contains('pin--active')) {
         window.cardSet.createOfferCard(listOfAdvt[index - 1]);
@@ -105,16 +108,7 @@ window.pinSet = (function () {
       selectedPin.classList.remove('pin--active');
     }
   }
-  /**
-  * Закрытие объявления в любой момент по ESC
-  * @param {Objects} event - событие
-  */
-  function onCloseDialogEsc(event) {
-    if (window.utilSet.isEscapePressed(event)) {
-      dialogWindow.style.display = 'none';
-      selectedPin.classList.remove('pin--active');
-    }
-  }
+
 
   dialogClose.addEventListener('click', onCloseDialog);
   dialogClose.addEventListener('keydown', onCloseDialog);
@@ -127,7 +121,7 @@ window.pinSet = (function () {
   */
   return function () {
     var fragment = document.createDocumentFragment();
-    var listOfAdvt = window.dataSet();
+    // var listOfAdvt = window.dataSet();
 
     listOfAdvt.forEach(function (value) {
       fragment.appendChild(createPin(value));
