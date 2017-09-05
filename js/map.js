@@ -2,9 +2,10 @@
 
 window.pinSet();
 
-
 var pinHandle = document.querySelector('.pin__main');
 var currentCoords = null;
+var address = document.querySelector('#address');
+address.setAttribute('readonly', 'readonly');
 
 pinHandle.setAttribute('draggable', true);
 
@@ -31,6 +32,8 @@ pinHandle.addEventListener('mousedown', function (evt) {
 
     pinHandle.style.top = (pinHandle.offsetTop - shift.y) + 'px';
     pinHandle.style.left = (pinHandle.offsetLeft - shift.x) + 'px';
+
+    address.value = 'x: ' + (pinHandle.style.top) + ', y: ' + (pinHandle.style.top);
   };
 
   var onMouseUp = function (upEvt) {
