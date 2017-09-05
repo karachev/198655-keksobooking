@@ -5,7 +5,6 @@ window.pinSet();
 var pinHandle = document.querySelector('.pin__main');
 var address = document.querySelector('#address');
 address.setAttribute('readonly', 'readonly');
-
 pinHandle.setAttribute('draggable', true);
 
 pinHandle.addEventListener('mousedown', function (evt) {
