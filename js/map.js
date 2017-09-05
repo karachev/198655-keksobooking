@@ -3,7 +3,6 @@
 window.pinSet();
 
 var pinHandle = document.querySelector('.pin__main');
-var currentCoords = null;
 var address = document.querySelector('#address');
 address.setAttribute('readonly', 'readonly');
 
