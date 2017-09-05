@@ -33,7 +33,10 @@ pinHandle.addEventListener('mousedown', function (evt) {
     pinHandle.style.top = (pinHandle.offsetTop - shift.y) + 'px';
     pinHandle.style.left = (pinHandle.offsetLeft - shift.x) + 'px';
 
-    address.value = 'x: ' + (pinHandle.style.top) + ', y: ' + (pinHandle.style.top);
+    var addressY = pinHandle.offsetTop - shift.y + pinHandle.clientHeight;
+    var addressX = pinHandle.offsetLeft - shift.x + pinHandle.clientWidth / 2;
+
+    address.value = 'x: ' + Math.floor(addressX) + 'px, y: ' + Math.floor(addressY) + 'px';
   };
 
   var onMouseUp = function (upEvt) {
