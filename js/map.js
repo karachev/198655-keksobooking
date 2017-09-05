@@ -10,6 +10,7 @@ pinHandle.setAttribute('draggable', true);
 pinHandle.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
 
+
   var startCoords = {
     x: evt.clientX,
     y: evt.clientY
