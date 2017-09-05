@@ -2,50 +2,51 @@
 
 window.pinSet();
 
-var pinHandle = document.querySelector('.pin__main');
-var currentCoords = null;
-var address = document.querySelector('#address');
-address.setAttribute('readonly', 'readonly');
 
-pinHandle.setAttribute('draggable', true);
+// var pinHandle = document.querySelector('.pin__main');
+// var currentCoords = null;
+// var address = document.querySelector('#address');
+// address.setAttribute('readonly', 'readonly');
 
-pinHandle.addEventListener('mousedown', function (evt) {
-  evt.preventDefault();
+// pinHandle.setAttribute('draggable', true);
 
-  var startCoords = {
-    x: evt.clientX,
-    y: evt.clientY
-  };
+// pinHandle.addEventListener('mousedown', function (evt) {
+//   evt.preventDefault();
 
-  var onMouseMove = function (moveEvt) {
-    moveEvt.preventDefault();
+//   var startCoords = {
+//     x: evt.clientX,
+//     y: evt.clientY
+//   };
 
-    var shift = {
-      x: startCoords.x - moveEvt.clientX,
-      y: startCoords.y - moveEvt.clientY
-    };
+//   var onMouseMove = function (moveEvt) {
+//     moveEvt.preventDefault();
 
-    startCoords = {
-      x: moveEvt.clientX,
-      y: moveEvt.clientY
-    };
+//     var shift = {
+//       x: startCoords.x - moveEvt.clientX,
+//       y: startCoords.y - moveEvt.clientY
+//     };
 
-    pinHandle.style.top = (pinHandle.offsetTop - shift.y) + 'px';
-    pinHandle.style.left = (pinHandle.offsetLeft - shift.x) + 'px';
+//     startCoords = {
+//       x: moveEvt.clientX,
+//       y: moveEvt.clientY
+//     };
 
-    var addressY = pinHandle.offsetTop - shift.y + pinHandle.clientHeight;
-    var addressX = pinHandle.offsetLeft - shift.x + pinHandle.clientWidth / 2;
+//     pinHandle.style.top = (pinHandle.offsetTop - shift.y) + 'px';
+//     pinHandle.style.left = (pinHandle.offsetLeft - shift.x) + 'px';
 
-    address.value = 'x: ' + Math.floor(addressX) + 'px, y: ' + Math.floor(addressY) + 'px';
-  };
+//     var addressY = pinHandle.offsetTop - shift.y + pinHandle.clientHeight;
+//     var addressX = pinHandle.offsetLeft - shift.x + pinHandle.clientWidth / 2;
 
-  var onMouseUp = function (upEvt) {
-    upEvt.preventDefault();
+//     address.value = 'x: ' + Math.floor(addressX) + 'px, y: ' + Math.floor(addressY) + 'px';
+//   };
 
-    document.removeEventListener('mousemove', onMouseMove);
-    document.removeEventListener('mouseup', onMouseUp);
-  };
+//   var onMouseUp = function (upEvt) {
+//     upEvt.preventDefault();
 
-  document.addEventListener('mousemove', onMouseMove);
-  document.addEventListener('mouseup', onMouseUp);
-});
+//     document.removeEventListener('mousemove', onMouseMove);
+//     document.removeEventListener('mouseup', onMouseUp);
+//   };
+
+//   document.addEventListener('mousemove', onMouseMove);
+//   document.addEventListener('mouseup', onMouseUp);
+// });
