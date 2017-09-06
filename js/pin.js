@@ -10,6 +10,8 @@ window.pinSet = (function () {
   var pinActive = document.querySelector('.pin--active');
   dialogWindow.style.display = 'none';
   var listOfAdvt = window.dataSet();
+  var PIN_WIDTH = 56;
+  var PIN_HEIGHT = 75;
   /**
   * Создаем pin
   * @param {string} advt - объект объявление
@@ -19,8 +21,8 @@ window.pinSet = (function () {
   function createPin(advt) {
     var pin = document.createElement('div');
     pin.className = 'pin';
-    pin.style.left = advt.location.x + 'px';
-    pin.style.top = advt.location.y + 'px';
+    pin.style.left = advt.location.x - PIN_WIDTH / 2 + 'px';
+    pin.style.top = advt.location.y - PIN_HEIGHT + 'px';
 
     var img = document.createElement('img');
     img.className = 'rounded';
