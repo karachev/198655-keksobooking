@@ -1,6 +1,6 @@
 'use strict';
 
-window.pinSet();
+window.pin();
 
 var pinHandle = document.querySelector('.pin__main');
 var address = document.querySelector('#address');

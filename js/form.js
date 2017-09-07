@@ -1,7 +1,7 @@
 'use strict';
 // form.js — модуль, который работает с формой объявления
 
-window.formSet = (function () {
+window.form = (function () {
   /**
   * Валидация формы
   */

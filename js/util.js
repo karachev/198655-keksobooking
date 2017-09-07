@@ -1,6 +1,6 @@
 'use strict';
 
-window.utilSet = (function () {
+window.util = (function () {
 
   var ESCAPE_KEY_CODE = 27;
   var ENTER_KEY_CODE = 13;
@@ -12,8 +12,8 @@ window.utilSet = (function () {
     * @return {string} newArray - уникальный элемент из массива
     */
     getRandomUniqueItem: function (array) {
-      var newArray = window.utilSet.getRefreshArray(array);
-      return newArray.splice(window.utilSet.getRandomNumber(0, newArray.length - 1), 1);
+      var newArray = window.util.getRefreshArray(array);
+      return newArray.splice(window.util.getRandomNumber(0, newArray.length - 1), 1);
     },
     /**
     * Перемешивание массива объектов

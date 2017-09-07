@@ -2,14 +2,14 @@
 
 // pin.js — модуль для отрисовки пина и взаимодействия с ним
 
-window.pinSet = (function () {
+window.pin = (function () {
   var pinMap = document.querySelector('.tokyo__pin-map');
   var selectedPin;
   var dialogWindow = document.querySelector('.dialog');
   var dialogClose = document.querySelector('.dialog__close');
   var pinActive = document.querySelector('.pin--active');
   dialogWindow.style.display = 'none';
-  var listOfAdvt = window.dataSet();
+  var listOfAdvt = window.data();
   var PIN_WIDTH = 56;
   var PIN_HEIGHT = 75;
   /**
@@ -57,7 +57,7 @@ window.pinSet = (function () {
     var pinElements = pinMap.querySelectorAll('.pin');
     pinElements.forEach(function (value, index) {
       if (value.classList.contains('pin--active')) {
-        window.cardSet.createOfferCard(listOfAdvt[index - 1]);
+        window.card.createOfferCard(listOfAdvt[index - 1]);
         dialogWindow.style.display = 'block';
       }
     });
@@ -67,7 +67,7 @@ window.pinSet = (function () {
   * @param {Objects} event - событие
   */
   function onOpenDialog() {
-    if (window.utilSet.isEnterPressed(event) || window.utilSet.isClicked(event)) {
+    if (window.util.isEnterPressed(event) || window.util.isClicked(event)) {
       var target = event.target;
       while (target !== pinMap) {
         if (target.className === 'pin') {
@@ -82,7 +82,7 @@ window.pinSet = (function () {
   * Закрытие объявления
   */
   function onCloseDialog() {
-    if (window.utilSet.isEscapePressed(event) || window.utilSet.isClicked(event)) {
+    if (window.util.isEscapePressed(event) || window.util.isClicked(event)) {
       dialogWindow.style.display = 'none';
       pinActive.classList.remove('pin--active');
       selectedPin.classList.remove('pin--active');

@@ -1,7 +1,7 @@
 'use strict';
 // card.js — модуль для отрисовки элемента на карточке
 
-window.cardSet = (function () {
+window.card = (function () {
   /**
   * Добавление на карту
   * @param {string} advtItem - один из элементов массива объектов
@@ -14,7 +14,7 @@ window.cardSet = (function () {
   * @param {Objects} event - событие
   */
   function onCloseDialogEsc(event) {
-    if (window.utilSet.isEscapePressed(event)) {
+    if (window.util.isEscapePressed(event)) {
       dialogWindow.style.display = 'none';
     }
   }
