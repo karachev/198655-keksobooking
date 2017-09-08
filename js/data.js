@@ -1,7 +1,7 @@
 'use strict';
 // data.js — модуль, который создает данные
 
-window.dataSet = (function () {
+window.data = (function () {
   /** Переменные */
   var ADVT_COUNT = 8;
   var USER_ID = ['01', '02', '03', '04', '05', '06', '07', '08'];
@@ -37,9 +37,9 @@ window.dataSet = (function () {
   function createFeatures() {
     var someFeatures = FEATURES.slice(0);
     var positions = [];
-    var rand = window.utilSet.getRandomOfSet(0, FEATURES.length - 1);
+    var rand = window.util.getRandomOfSet(0, FEATURES.length - 1);
     for (var i = 0; i <= rand; i++) {
-      positions[i] = window.utilSet.getRandomUniqueItem(someFeatures)[0];
+      positions[i] = window.util.getRandomUniqueItem(someFeatures)[0];
     }
     return positions;
   }
@@ -50,7 +50,7 @@ window.dataSet = (function () {
   * @return {string} priceByLevel - цена с учетом разрядов
   */
   function getPriceByLevel(minValue, maxValue) {
-    var priceByLevel = window.utilSet.getRandomOfSet(minValue, maxValue);
+    var priceByLevel = window.util.getRandomOfSet(minValue, maxValue);
     return priceByLevel.toLocaleString('ru');
   }
   /**
@@ -58,22 +58,22 @@ window.dataSet = (function () {
   * @return {string} advt - созданный объект объявление
   */
   function createAdv() {
-    var locationX = window.utilSet.getRandomOfSet(300, 600);
-    var locationY = window.utilSet.getRandomOfSet(100, 400);
+    var locationX = window.util.getRandomOfSet(300, 600);
+    var locationY = window.util.getRandomOfSet(100, 400);
     var advt = {
       'author': {
-        'avatar': 'img/avatars/user' + window.utilSet.getRandomUniqueItem(USER_ID) + '.png'
+        'avatar': 'img/avatars/user' + window.util.getRandomUniqueItem(USER_ID) + '.png'
       },
 
       'offer': {
-        'title': window.utilSet.getRandomUniqueItem(TITLES).toString(),
+        'title': window.util.getRandomUniqueItem(TITLES).toString(),
         'address': locationX + ', ' + locationY,
         'price': getPriceByLevel(1000, 1000000),
-        'type': window.utilSet.getRandomNumber(TYPE),
-        'rooms': window.utilSet.getRandomOfSet(1, 5),
-        'guests': window.utilSet.getRandomOfSet(1, 10),
-        'checkin': window.utilSet.getRandomNumber(CHECKIN),
-        'checkout': window.utilSet.getRandomNumber(CHECKIN),
+        'type': window.util.getRandomNumber(TYPE),
+        'rooms': window.util.getRandomOfSet(1, 5),
+        'guests': window.util.getRandomOfSet(1, 10),
+        'checkin': window.util.getRandomNumber(CHECKIN),
+        'checkout': window.util.getRandomNumber(CHECKIN),
         'features': createFeatures(),
         'description': '',
         'photos': []
