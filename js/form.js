@@ -106,48 +106,46 @@ window.form = (function () {
     * Связь количества гостей и количеством комнат
     * @param {Objects} event - событие
     */
-    function onCapacityChange(event) {
-      var optionsArray = Array.prototype.slice.call(capacity.options);
-      if (event.target.id === 'room_number') {
-        if (roomNumber.value === '1') {
-          capacity.value = '1';
-          optionsArray.forEach(function (val) {
-            if (val.value !== '1') {
-              val.disabled = true;
-            } else {
-              val.disabled = false;
-              val.selected = true;
-            }
-          });
-        } else if (roomNumber.value === '2') {
-          optionsArray.forEach(function (val) {
-            if (val.value !== '1' && val.value !== '2') {
-              val.disabled = true;
-            } else {
-              val.disabled = false;
-              val.selected = true;
-            }
-          });
-        } else if (roomNumber.value === '3') {
-          optionsArray.forEach(function (val) {
-            if (val.value !== '1' && val.value !== '2' && val.value !== '3') {
-              val.disabled = true;
-            } else {
-              val.disabled = false;
-              val.selected = true;
-            }
-          });
-        } else {
-          capacity.value = '0';
-          optionsArray.forEach(function (val) {
-            if (val.value === '0') {
-              val.disabled = false;
-              val.selected = true;
-            } else {
-              val.disabled = true;
-            }
-          });
-        }
+    function onCapacityChange(fieldFirst, valueSecond) {
+      var optionsArray = Array.prototype.slice.call(fieldFirst.options);
+      if (valueSecond === '1') {
+        fieldFirst.value = '1';
+        optionsArray.forEach(function (val) {
+          if (val.value !== '1') {
+            val.disabled = true;
+          } else {
+            val.disabled = false;
+            val.selected = true;
+          }
+        });
+      } else if (valueSecond === '2') {
+        optionsArray.forEach(function (val) {
+          if (val.value !== '1' && val.value !== '2') {
+            val.disabled = true;
+          } else {
+            val.disabled = false;
+            val.selected = true;
+          }
+        });
+      } else if (valueSecond === '3') {
+        optionsArray.forEach(function (val) {
+          if (val.value !== '1' && val.value !== '2' && val.value !== '3') {
+            val.disabled = true;
+          } else {
+            val.disabled = false;
+            val.selected = true;
+          }
+        });
+      } else {
+        fieldFirst.value = '0';
+        optionsArray.forEach(function (val) {
+          if (val.value === '0') {
+            val.disabled = false;
+            val.selected = true;
+          } else {
+            val.disabled = true;
+          }
+        });
       }
     }
 
@@ -182,21 +180,12 @@ window.form = (function () {
       }
     }
 
-
-
-    // timeIn.addEventListener('change', onTimeChange);
-    // timeOut.addEventListener('change', onTimeChange);
-    // type.addEventListener('change', onTypeChange);
-    // price.addEventListener('change', onPriceChange);
-    roomNumber.addEventListener('change', onCapacityChange);
-    capacity.addEventListener('change', onCapacityChange);
-
     window.synchronizeFields(timeOut, timeIn, onTimeChange);
     window.synchronizeFields(timeIn, timeOut, onTimeChange);
-    // window.synchronizeFields(capacity, roomNumber, onCapacityChange);
-    // window.synchronizeFields(roomNumber, capacity, onCapacityChange);
     window.synchronizeFields(type, price, onTypeChange);
     window.synchronizeFields(price, type, onPriceChange);
+    window.synchronizeFields(roomNumber, capacity, onCapacityChange);
+    // window.synchronizeFields(capacity, roomNumber, onCapacityChange); Этого не должно быть?
 
 
     buttonForm.addEventListener('click', onButtonForm);
