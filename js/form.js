@@ -90,15 +90,15 @@ window.form = (function () {
     /**
     * Предложение жилья по стоимости
     */
-    function onPriceChange() {
-      if (price.value < PRICE_FLAT_MIN) {
-        type.value = 'bungalo';
-      } else if (price.value < PRICE_HOUSE_MIN) {
-        type.value = 'flat';
-      } else if (price.value < PRICE_PALACE_MIN) {
-        type.value = 'house';
+    function onPriceChange(fieldFirst, valueSecond) {
+      if (valueSecond < PRICE_FLAT_MIN) {
+        fieldFirst.value = 'bungalo';
+      } else if (valueSecond < PRICE_HOUSE_MIN) {
+        fieldFirst.value = 'flat';
+      } else if (valueSecond < PRICE_PALACE_MIN) {
+        fieldFirst.value = 'house';
       } else {
-        type.value = 'palace';
+        fieldFirst.value = 'palace';
       }
     }
 
@@ -187,7 +187,7 @@ window.form = (function () {
     // timeIn.addEventListener('change', onTimeChange);
     // timeOut.addEventListener('change', onTimeChange);
     type.addEventListener('change', onTypeChange);
-    price.addEventListener('change', onPriceChange);
+    // price.addEventListener('change', onPriceChange);
     roomNumber.addEventListener('change', onCapacityChange);
     capacity.addEventListener('change', onCapacityChange);
 
@@ -195,6 +195,7 @@ window.form = (function () {
     window.synchronizeFields(timeIn, timeOut, onTimeChange);
     // window.synchronizeFields(capacity, roomNumber, onCapacityChange);
     // window.synchronizeFields(roomNumber, capacity, onCapacityChange);
+    window.synchronizeFields(price, type, onPriceChange);
 
 
     buttonForm.addEventListener('click', onButtonForm);
