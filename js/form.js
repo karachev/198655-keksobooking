@@ -62,27 +62,27 @@ window.form = (function () {
     /**
     * Валидация типов жилья и интервала стоимости
     */
-    function onTypeChange() {
-      switch (type.value) {
+    function onTypeChange(fieldFirst, valueSecond) {
+      switch (valueSecond) {
         case 'bungalo':
-          price.min = PRICE_BUNGALO_MIN;
-          price.max = PRICE_MAX;
-          price.value = price.min;
+          fieldFirst.min = PRICE_BUNGALO_MIN;
+          fieldFirst.max = PRICE_MAX;
+          fieldFirst.value = price.min;
           break;
         case 'flat':
-          price.min = PRICE_FLAT_MIN;
-          price.max = PRICE_MAX;
-          price.value = price.min;
+          fieldFirst.min = PRICE_FLAT_MIN;
+          fieldFirst.max = PRICE_MAX;
+          fieldFirst.value = price.min;
           break;
         case 'house':
-          price.min = PRICE_HOUSE_MIN;
-          price.max = PRICE_MAX;
-          price.value = price.min;
+          fieldFirst.min = PRICE_HOUSE_MIN;
+          fieldFirst.max = PRICE_MAX;
+          fieldFirst.value = price.min;
           break;
         case 'palace':
-          price.min = PRICE_PALACE_MIN;
-          price.max = PRICE_MAX;
-          price.value = price.min;
+          fieldFirst.min = PRICE_PALACE_MIN;
+          fieldFirst.max = PRICE_MAX;
+          fieldFirst.value = price.min;
           break;
       }
     }
@@ -186,7 +186,7 @@ window.form = (function () {
 
     // timeIn.addEventListener('change', onTimeChange);
     // timeOut.addEventListener('change', onTimeChange);
-    type.addEventListener('change', onTypeChange);
+    // type.addEventListener('change', onTypeChange);
     // price.addEventListener('change', onPriceChange);
     roomNumber.addEventListener('change', onCapacityChange);
     capacity.addEventListener('change', onCapacityChange);
@@ -195,6 +195,7 @@ window.form = (function () {
     window.synchronizeFields(timeIn, timeOut, onTimeChange);
     // window.synchronizeFields(capacity, roomNumber, onCapacityChange);
     // window.synchronizeFields(roomNumber, capacity, onCapacityChange);
+    window.synchronizeFields(type, price, onTypeChange);
     window.synchronizeFields(price, type, onPriceChange);
 
 
