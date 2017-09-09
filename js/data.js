@@ -87,15 +87,22 @@ window.data = (function () {
     return advt;
   }
 
+  var advtList = [];
+  for (var i = 0; i < ADVT_COUNT; i++) {
+    advtList.push(createAdv());
+  }
+
   return function () {
     /**
     * Добавление созданных объектов в массив
     * @return {string} advtList - массив объектов
     */
-    var advtList = [];
-    for (var i = 0; i < ADVT_COUNT; i++) {
-      advtList.push(createAdv());
-    }
+
+    // var advtList = [];
+    // for (var i = 0; i < ADVT_COUNT; i++) {
+    //   advtList.push(createAdv());
+    // }
+
     return advtList;
   };
 
