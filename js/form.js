@@ -53,7 +53,8 @@ window.form = (function () {
 
     /**
     * Синхронизация времени въезда и времни отъезда
-    * @param {Objects} event - событие
+    * @param {integer} fieldFirst - изменяемое поле
+    * @param {integer} valueSecond - значение
     */
     function onTimeChange(fieldFirst, valueSecond) {
       fieldFirst.value = valueSecond;
@@ -61,6 +62,8 @@ window.form = (function () {
 
     /**
     * Валидация типов жилья и интервала стоимости
+    * @param {integer} fieldFirst - изменяемое поле
+    * @param {integer} valueSecond - значение
     */
     function onTypeChange(fieldFirst, valueSecond) {
       switch (valueSecond) {
@@ -89,6 +92,8 @@ window.form = (function () {
 
     /**
     * Предложение жилья по стоимости
+    * @param {integer} fieldFirst - изменяемое поле
+    * @param {integer} valueSecond - значение
     */
     function onPriceChange(fieldFirst, valueSecond) {
       if (valueSecond < PRICE_FLAT_MIN) {
@@ -104,7 +109,8 @@ window.form = (function () {
 
     /**
     * Связь количества гостей и количеством комнат
-    * @param {Objects} event - событие
+    * @param {integer} fieldFirst - изменяемое поле
+    * @param {integer} valueSecond - значение
     */
     function onCapacityChange(fieldFirst, valueSecond) {
       var optionsArray = Array.prototype.slice.call(fieldFirst.options);

@@ -2,7 +2,7 @@
 
 (function () {
 
-window.showCard = function () {
+  window.showCard = function () {
     var pinMap = document.querySelector('.tokyo__pin-map');
     var fragment = document.createDocumentFragment();
     var listOfAdvt = window.data();
