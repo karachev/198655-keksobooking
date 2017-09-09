@@ -92,17 +92,8 @@ window.pin = (function () {
   dialogClose.addEventListener('click', onCloseDialog);
   dialogClose.addEventListener('keydown', onCloseDialog);
 
-  /**
-  * Отрисовка в DOM-блок
-  * @param {string} advt - объект объявление
-  */
-  return function () {
-    var fragment = document.createDocumentFragment();
-    listOfAdvt.forEach(function (value) {
-      fragment.appendChild(createPin(value));
-    });
-    pinMap.appendChild(fragment);
-    pinMap.addEventListener('click', onOpenDialog);
-    pinMap.addEventListener('keydown', onOpenDialog);
+  return {
+    createPin: createPin,
+    onOpenDialog: onOpenDialog
   };
 })();
