@@ -59,7 +59,7 @@ window.data = (function () {
   */
   function createAdv() {
     var locationX = window.util.getRandomOfSet(300, 600);
-    var locationY = window.util.getRandomOfSet(100, 400);
+    var locationY = window.util.getRandomOfSet(200, 500); /* Изменил! */
     var advt = {
       'author': {
         'avatar': 'img/avatars/user' + window.util.getRandomUniqueItem(USER_ID) + '.png'

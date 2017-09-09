@@ -55,12 +55,8 @@ window.form = (function () {
     * Синхронизация времени въезда и времни отъезда
     * @param {Objects} event - событие
     */
-    function onTimeChange(event) {
-      if (event.target.id === 'timein') {
-        timeOut.value = timeIn.value;
-      } else if (event.target.id === 'timeout') {
-        timeIn.value = timeOut.value;
-      }
+    function onTimeChange(fieldFirst, valueSecond) {
+      fieldFirst.value = valueSecond;
     }
 
     /**
@@ -186,12 +182,21 @@ window.form = (function () {
       }
     }
 
-    timeIn.addEventListener('change', onTimeChange);
-    timeOut.addEventListener('change', onTimeChange);
+
+
+    // timeIn.addEventListener('change', onTimeChange);
+    // timeOut.addEventListener('change', onTimeChange);
     type.addEventListener('change', onTypeChange);
     price.addEventListener('change', onPriceChange);
     roomNumber.addEventListener('change', onCapacityChange);
     capacity.addEventListener('change', onCapacityChange);
+
+    window.synchronizeFields(timeOut, timeIn, onTimeChange);
+    window.synchronizeFields(timeIn, timeOut, onTimeChange);
+    // window.synchronizeFields(capacity, roomNumber, onCapacityChange);
+    // window.synchronizeFields(roomNumber, capacity, onCapacityChange);
+
+
     buttonForm.addEventListener('click', onButtonForm);
   }
 
