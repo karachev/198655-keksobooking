@@ -186,11 +186,11 @@ window.form = (function () {
       }
     }
 
-    window.synchronizeFields(timeOut, timeIn, onTimeChange);
-    window.synchronizeFields(timeIn, timeOut, onTimeChange);
-    window.synchronizeFields(type, price, onTypeChange);
-    window.synchronizeFields(price, type, onPriceChange);
-    window.synchronizeFields(roomNumber, capacity, onCapacityChange);
+    window.synchronizeFields('change', timeOut, timeIn, onTimeChange);
+    window.synchronizeFields('change', timeIn, timeOut, onTimeChange);
+    window.synchronizeFields('change', type, price, onTypeChange);
+    window.synchronizeFields('change', price, type, onPriceChange);
+    window.synchronizeFields('change', roomNumber, capacity, onCapacityChange);
     // window.synchronizeFields(capacity, roomNumber, onCapacityChange); Этого не должно быть?
 
 

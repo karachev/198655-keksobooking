@@ -84,7 +84,6 @@ window.pin = (function () {
   function onCloseDialog() {
     if (window.util.isEscapePressed(event) || window.util.isClicked(event)) {
       dialogWindow.style.display = 'none';
-      pinActive.classList.remove('pin--active');
       selectedPin.classList.remove('pin--active');
     }
   }
