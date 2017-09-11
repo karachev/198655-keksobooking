@@ -41,6 +41,19 @@ window.form = (function () {
       PRICE_PALACE_MIN,
     ];
 
+    var ROOMS_NUMBERS = [
+    '1',
+    '2',
+    '3',
+    '100'
+  ];
+  var CAPACITY_LIST = [
+    [0],
+    [1],
+    [1, 2],
+    [1, 2, 3]
+  ];
+
     address.setAttribute('required', 'required');
     title.setAttribute('required', 'required');
     title.setAttribute('min', TITLE_MIN_LENGTH);
@@ -118,7 +131,7 @@ window.form = (function () {
     */
     function onCapacityChange(fieldFirst, valueSecond) {
       var optionsArray = Array.prototype.slice.call(fieldFirst.options);
-      if (valueSecond === '1') {
+      if (valueSecond === [1]) {
         fieldFirst.value = '1';
         optionsArray.forEach(function (val) {
           if (val.value !== '1') {
@@ -128,7 +141,7 @@ window.form = (function () {
             val.selected = true;
           }
         });
-      } else if (valueSecond === '2') {
+      } else if (valueSecond === [2]) {
         optionsArray.forEach(function (val) {
           if (val.value !== '1' && val.value !== '2') {
             val.disabled = true;
@@ -137,7 +150,7 @@ window.form = (function () {
             val.selected = true;
           }
         });
-      } else if (valueSecond === '3') {
+      } else if (valueSecond === [3]) {
         optionsArray.forEach(function (val) {
           if (val.value !== '1' && val.value !== '2' && val.value !== '3') {
             val.disabled = true;
@@ -206,14 +219,16 @@ window.form = (function () {
       window.synchronizeFields(evt.target, type, MIN_PRICES, TYPE, onTypeChange);
     };
 
+    var roomNumberChangeHandler = function (evt) {
+      window.synchronizeFields(evt.target, capacity, ROOMS_NUMBERS, CAPACITY_LIST, onCapacityChange);
+    };
+
     timeIn.addEventListener('change', timeInChangeHandler);
     timeOut.addEventListener('change', timeOutChangeHandler);
     type.addEventListener('change', typeChangeHandler);
+    roomNumber.addEventListener('change', roomNumberChangeHandler);
     // price.addEventListener('change', typeChangeHandler);
     // roomNumber.addEventListener('change', roomNumberChangeHandler);
-
-    // window.synchronizeFields('change', timeOut, timeIn, onTimeChange);
-    // window.synchronizeFields('change', timeIn, timeOut, onTimeChange);
 
 
     // window.synchronizeFields('change', type, price, onTypeChange);
