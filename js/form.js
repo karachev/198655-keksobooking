@@ -26,6 +26,12 @@ window.form = (function () {
     var PRICE_HOUSE_MIN = 5000;
     var PRICE_PALACE_MIN = 10000;
 
+    var CHECKIN = [
+      '12:00',
+      '13:00',
+      '14:00'
+    ];
+
     address.setAttribute('required', 'required');
     title.setAttribute('required', 'required');
     title.setAttribute('min', TITLE_MIN_LENGTH);
@@ -50,6 +56,16 @@ window.form = (function () {
       description.value = '';
       address.value = '';
     }
+
+
+
+    var timeInChangeHandler = function (event) {
+      window.synchronizeFields(event.target, timeOut, CHECKIN, CHECKIN, onTimeChange);
+    };
+
+    var timeOutChangeHandler = function (event) {
+      window.synchronizeFields(event.target, timeIn, CHECKIN, CHECKIN, onTimeChange);
+    };
 
     /**
     * Синхронизация времени въезда и времни отъезда
@@ -186,11 +202,18 @@ window.form = (function () {
       }
     }
 
-    window.synchronizeFields('change', timeOut, timeIn, onTimeChange);
-    window.synchronizeFields('change', timeIn, timeOut, onTimeChange);
-    window.synchronizeFields('change', type, price, onTypeChange);
-    window.synchronizeFields('change', price, type, onPriceChange);
-    window.synchronizeFields('change', roomNumber, capacity, onCapacityChange);
+    timeIn.addEventListener('change', timeInChangeHandler);
+    timeOut.addEventListener('change', timeOutChangeHandler);
+
+    // window.synchronizeFields('change', timeOut, timeIn, onTimeChange);
+    // window.synchronizeFields('change', timeIn, timeOut, onTimeChange);
+
+
+    // window.synchronizeFields('change', type, price, onTypeChange);
+    // window.synchronizeFields('change', price, type, onPriceChange);
+    // window.synchronizeFields('change', roomNumber, capacity, onCapacityChange);
+
+
     // window.synchronizeFields(capacity, roomNumber, onCapacityChange); Этого не должно быть?
 
 

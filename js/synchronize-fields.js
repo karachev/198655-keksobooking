@@ -1,12 +1,10 @@
 'use strict';
 
 (function () {
-  window.synchronizeFields = function (browserEvt, firstItem, secondItem, callback) {
-    firstItem.addEventListener(browserEvt, function (evt) {
-      if (typeof callback === 'function') {
-        var currentValue = evt.target.value;
-        callback(secondItem, currentValue);
-      }
-    });
+  window.synchronizeFields = function(field1, field2, fieldData1, fieldData2, cb) {
+    var indexValue = fieldData1.indexOf(field1.value);
+    cb(field2, fieldData2[indexValue]);
   };
 })();
+
+
