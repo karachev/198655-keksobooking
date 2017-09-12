@@ -26,14 +26,6 @@ window.form = (function () {
     var PRICE_HOUSE_MIN = 5000;
     var PRICE_PALACE_MIN = 10000;
 
-    var TYPE = ['flat', 'house', 'bungalo', 'palace'];
-
-    var CHECKIN = [
-      '12:00',
-      '13:00',
-      '14:00'
-    ];
-
     var MIN_PRICES = [
       PRICE_FLAT_MIN,
       PRICE_HOUSE_MIN,
@@ -180,15 +172,15 @@ window.form = (function () {
     }
 
     var timeInChangeHandler = function (event) {
-      window.synchronizeFields(event.target, timeOut, CHECKIN, CHECKIN, onTimeChange);
+      window.synchronizeFields(event.target, timeOut, window.util.CHECKIN, window.util.CHECKIN, onTimeChange);
     };
 
     var timeOutChangeHandler = function (event) {
-      window.synchronizeFields(event.target, timeIn, CHECKIN, CHECKIN, onTimeChange);
+      window.synchronizeFields(event.target, timeIn, window.util.CHECKIN, window.util.CHECKIN, onTimeChange);
     };
 
     var typeChangeHandler = function (evt) {
-      window.synchronizeFields(evt.target, price, TYPE, MIN_PRICES, onPriceChange);
+      window.synchronizeFields(evt.target, price, window.util.TYPE, MIN_PRICES, onPriceChange);
     };
 
     var roomNumberChangeHandler = function (evt) {

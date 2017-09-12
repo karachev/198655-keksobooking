@@ -15,13 +15,6 @@ window.data = (function () {
     'Уютное бунгало далеко от моря',
     'Неуютное бунгало по колено в воде'
   ];
-  var TYPE = ['flat', 'house', 'bungalo', 'palace'];
-
-  var CHECKIN = [
-    '12:00',
-    '13:00',
-    '14:00'
-  ];
   var FEATURES = [
     'wifi',
     'dishwasher',
@@ -69,11 +62,11 @@ window.data = (function () {
         'title': window.util.getRandomUniqueItem(TITLES).toString(),
         'address': locationX + ', ' + locationY,
         'price': getPriceByLevel(1000, 1000000),
-        'type': window.util.getRandomNumber(TYPE),
+        'type': window.util.getRandomNumber(window.util.TYPE),
         'rooms': window.util.getRandomOfSet(1, 5),
         'guests': window.util.getRandomOfSet(1, 10),
-        'checkin': window.util.getRandomNumber(CHECKIN),
-        'checkout': window.util.getRandomNumber(CHECKIN),
+        'checkin': window.util.getRandomNumber(window.util.CHECKIN),
+        'checkout': window.util.getRandomNumber(window.util.CHECKIN),
         'features': createFeatures(),
         'description': '',
         'photos': []
