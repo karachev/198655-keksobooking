@@ -88,9 +88,8 @@ window.form = (function () {
     */
     function onPriceChange(fieldFirst, valueSecond) {
       fieldFirst.min = valueSecond;
-      onTimeChange(fieldFirst, valueSecond)
+      onTimeChange(fieldFirst, valueSecond);
     }
-
 
     /**
     * Связь количества гостей и количеством комнат
@@ -99,7 +98,7 @@ window.form = (function () {
     */
     function onCapacityChange(fieldFirst, valueSecond) {
       var optionsArray = Array.prototype.slice.call(fieldFirst.options);
-      if (valueSecond == 0) {
+      if (valueSecond[0] === 0) {
         fieldFirst.value = '1';
         optionsArray.forEach(function (val) {
           if (val.value !== '1') {
@@ -109,7 +108,7 @@ window.form = (function () {
             val.selected = true;
           }
         });
-      } else if (valueSecond == 1) {
+      } else if (valueSecond.length === 1) {
         optionsArray.forEach(function (val) {
           if (val.value !== '1' && val.value !== '2') {
             val.disabled = true;
@@ -118,7 +117,7 @@ window.form = (function () {
             val.selected = true;
           }
         });
-      } else if (valueSecond.length == 2) {
+      } else if (valueSecond.length === 2) {
         optionsArray.forEach(function (val) {
           if (val.value !== '1' && val.value !== '2' && val.value !== '3') {
             val.disabled = true;
