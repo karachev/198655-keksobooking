@@ -26,7 +26,7 @@ window.form = (function () {
     var PRICE_HOUSE_MIN = 5000;
     var PRICE_PALACE_MIN = 10000;
 
-    var TYPE = ['flat', 'house', 'bungalo'];
+    var TYPE = ['flat', 'house', 'bungalo', 'palace'];
 
     var CHECKIN = [
       '12:00',
@@ -35,10 +35,10 @@ window.form = (function () {
     ];
 
     var MIN_PRICES = [
-      PRICE_FLAT_MIN,
-      PRICE_HOUSE_MIN,
-      PRICE_BUNGALO_MIN,
-      PRICE_PALACE_MIN,
+      '1000',
+      '5000',
+      '0',
+      '10000',
     ];
 
     var ROOMS_NUMBERS = [
@@ -88,40 +88,15 @@ window.form = (function () {
       fieldFirst.value = valueSecond;
     }
 
-    function onPriceChange(fieldFirst, valueSecond) {
-      fieldFirst.min = valueSecond;
-      onTimeChange(fieldFirst, valueSecond)
-    }
-
     /**
     * Валидация типов жилья и интервала стоимости
     * @param {integer} fieldFirst - изменяемое поле
     * @param {integer} valueSecond - значение
     */
-    // function onTypeChange(fieldFirst, valueSecond) {
-    //   switch (valueSecond) {
-    //     case 'bungalo':
-    //       fieldFirst.min = PRICE_BUNGALO_MIN;
-    //       fieldFirst.max = PRICE_MAX;
-    //       fieldFirst.value = price.min;
-    //       break;
-    //     case 'flat':
-    //       fieldFirst.min = PRICE_FLAT_MIN;
-    //       fieldFirst.max = PRICE_MAX;
-    //       fieldFirst.value = price.min;
-    //       break;
-    //     case 'house':
-    //       fieldFirst.min = PRICE_HOUSE_MIN;
-    //       fieldFirst.max = PRICE_MAX;
-    //       fieldFirst.value = price.min;
-    //       break;
-    //     case 'palace':
-    //       fieldFirst.min = PRICE_PALACE_MIN;
-    //       fieldFirst.max = PRICE_MAX;
-    //       fieldFirst.value = price.min;
-    //       break;
-    //   }
-    // }
+    function onPriceChange(fieldFirst, valueSecond) {
+      fieldFirst.min = valueSecond;
+      onTimeChange(fieldFirst, valueSecond)
+    }
 
 
     /**
@@ -213,10 +188,6 @@ window.form = (function () {
 
     var typeChangeHandler = function (evt) {
       window.synchronizeFields(evt.target, price, TYPE, MIN_PRICES, onPriceChange);
-    };
-
-    var priceChangeHandler = function (evt) {
-      window.synchronizeFields(evt.target, type, MIN_PRICES, TYPE, onTypeChange);
     };
 
     var roomNumberChangeHandler = function (evt) {

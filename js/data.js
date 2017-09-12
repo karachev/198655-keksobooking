@@ -15,7 +15,7 @@ window.data = (function () {
     'Уютное бунгало далеко от моря',
     'Неуютное бунгало по колено в воде'
   ];
-  var TYPE = ['flat', 'house', 'bungalo'];
+  var TYPE = ['flat', 'house', 'bungalo', 'palace'];
 
   var CHECKIN = [
     '12:00',
