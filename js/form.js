@@ -35,24 +35,25 @@ window.form = (function () {
     ];
 
     var MIN_PRICES = [
-      '1000',
-      '5000',
-      '0',
-      '10000',
+      PRICE_FLAT_MIN,
+      PRICE_HOUSE_MIN,
+      PRICE_BUNGALO_MIN,
+      PRICE_PALACE_MIN
     ];
 
     var ROOMS_NUMBERS = [
-    '1',
-    '2',
-    '3',
-    '100'
-  ];
-  var CAPACITY_LIST = [
-    [0],
-    [1],
-    [1, 2],
-    [1, 2, 3]
-  ];
+      '1',
+      '2',
+      '3',
+      '100'
+    ];
+
+    var CAPACITY_LIST = [
+      [0],
+      [1],
+      [1, 2],
+      [1, 2, 3]
+    ];
 
     address.setAttribute('required', 'required');
     title.setAttribute('required', 'required');
@@ -106,7 +107,7 @@ window.form = (function () {
     */
     function onCapacityChange(fieldFirst, valueSecond) {
       var optionsArray = Array.prototype.slice.call(fieldFirst.options);
-      if (valueSecond === [1]) {
+      if (valueSecond == 0) {
         fieldFirst.value = '1';
         optionsArray.forEach(function (val) {
           if (val.value !== '1') {
@@ -116,7 +117,7 @@ window.form = (function () {
             val.selected = true;
           }
         });
-      } else if (valueSecond === [2]) {
+      } else if (valueSecond == 1) {
         optionsArray.forEach(function (val) {
           if (val.value !== '1' && val.value !== '2') {
             val.disabled = true;
@@ -125,7 +126,7 @@ window.form = (function () {
             val.selected = true;
           }
         });
-      } else if (valueSecond === [3]) {
+      } else if (valueSecond.length == 2) {
         optionsArray.forEach(function (val) {
           if (val.value !== '1' && val.value !== '2' && val.value !== '3') {
             val.disabled = true;
@@ -198,18 +199,6 @@ window.form = (function () {
     timeOut.addEventListener('change', timeOutChangeHandler);
     type.addEventListener('change', typeChangeHandler);
     roomNumber.addEventListener('change', roomNumberChangeHandler);
-    // price.addEventListener('change', typeChangeHandler);
-    // roomNumber.addEventListener('change', roomNumberChangeHandler);
-
-
-    // window.synchronizeFields('change', type, price, onTypeChange);
-    // window.synchronizeFields('change', price, type, onPriceChange);
-    // window.synchronizeFields('change', roomNumber, capacity, onCapacityChange);
-
-
-    // window.synchronizeFields(capacity, roomNumber, onCapacityChange); Этого не должно быть?
-
-
     buttonForm.addEventListener('click', onButtonForm);
   }
 
