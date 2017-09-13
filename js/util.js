@@ -4,8 +4,18 @@ window.util = (function () {
 
   var ESCAPE_KEY_CODE = 27;
   var ENTER_KEY_CODE = 13;
+  var pinMap = document.querySelector('.tokyo__pin-map');
+  var TYPE = ['flat', 'house', 'bungalo', 'palace'];
+  var CHECKIN = [
+    '12:00',
+    '13:00',
+    '14:00'
+  ];
 
   return {
+    pinMap: pinMap,
+    TYPE: TYPE,
+    CHECKIN: CHECKIN,
     /**
     * Получение уникального номера
     * @param {string} array - массив объектов

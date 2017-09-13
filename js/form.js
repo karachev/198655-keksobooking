@@ -26,6 +26,27 @@ window.form = (function () {
     var PRICE_HOUSE_MIN = 5000;
     var PRICE_PALACE_MIN = 10000;
 
+    var MIN_PRICES = [
+      PRICE_FLAT_MIN,
+      PRICE_HOUSE_MIN,
+      PRICE_BUNGALO_MIN,
+      PRICE_PALACE_MIN
+    ];
+
+    var ROOMS_NUMBERS = [
+      '1',
+      '2',
+      '3',
+      '100'
+    ];
+
+    var CAPACITY_LIST = [
+      [0],
+      [1],
+      [1, 2],
+      [1, 2, 3]
+    ];
+
     address.setAttribute('required', 'required');
     title.setAttribute('required', 'required');
     title.setAttribute('min', TITLE_MIN_LENGTH);
@@ -53,105 +74,68 @@ window.form = (function () {
 
     /**
     * Синхронизация времени въезда и времни отъезда
-    * @param {Objects} event - событие
+    * @param {integer} fieldFirst - изменяемое поле
+    * @param {integer} valueSecond - значение
     */
-    function onTimeChange(event) {
-      if (event.target.id === 'timein') {
-        timeOut.value = timeIn.value;
-      } else if (event.target.id === 'timeout') {
-        timeIn.value = timeOut.value;
-      }
+    function onTimeChange(fieldFirst, valueSecond) {
+      fieldFirst.value = valueSecond;
     }
 
     /**
     * Валидация типов жилья и интервала стоимости
+    * @param {integer} fieldFirst - изменяемое поле
+    * @param {integer} valueSecond - значение
     */
-    function onTypeChange() {
-      switch (type.value) {
-        case 'bungalo':
-          price.min = PRICE_BUNGALO_MIN;
-          price.max = PRICE_MAX;
-          price.value = price.min;
-          break;
-        case 'flat':
-          price.min = PRICE_FLAT_MIN;
-          price.max = PRICE_MAX;
-          price.value = price.min;
-          break;
-        case 'house':
-          price.min = PRICE_HOUSE_MIN;
-          price.max = PRICE_MAX;
-          price.value = price.min;
-          break;
-        case 'palace':
-          price.min = PRICE_PALACE_MIN;
-          price.max = PRICE_MAX;
-          price.value = price.min;
-          break;
-      }
-    }
-
-    /**
-    * Предложение жилья по стоимости
-    */
-    function onPriceChange() {
-      if (price.value < PRICE_FLAT_MIN) {
-        type.value = 'bungalo';
-      } else if (price.value < PRICE_HOUSE_MIN) {
-        type.value = 'flat';
-      } else if (price.value < PRICE_PALACE_MIN) {
-        type.value = 'house';
-      } else {
-        type.value = 'palace';
-      }
+    function onPriceChange(fieldFirst, valueSecond) {
+      fieldFirst.min = valueSecond;
+      onTimeChange(fieldFirst, valueSecond);
     }
 
     /**
     * Связь количества гостей и количеством комнат
-    * @param {Objects} event - событие
+    * @param {integer} fieldFirst - изменяемое поле
+    * @param {integer} valueSecond - значение
     */
-    function onCapacityChange(event) {
-      var optionsArray = Array.prototype.slice.call(capacity.options);
-      if (event.target.id === 'room_number') {
-        if (roomNumber.value === '1') {
-          capacity.value = '1';
-          optionsArray.forEach(function (val) {
-            if (val.value !== '1') {
-              val.disabled = true;
-            } else {
-              val.disabled = false;
-              val.selected = true;
-            }
-          });
-        } else if (roomNumber.value === '2') {
-          optionsArray.forEach(function (val) {
-            if (val.value !== '1' && val.value !== '2') {
-              val.disabled = true;
-            } else {
-              val.disabled = false;
-              val.selected = true;
-            }
-          });
-        } else if (roomNumber.value === '3') {
-          optionsArray.forEach(function (val) {
-            if (val.value !== '1' && val.value !== '2' && val.value !== '3') {
-              val.disabled = true;
-            } else {
-              val.disabled = false;
-              val.selected = true;
-            }
-          });
-        } else {
-          capacity.value = '0';
-          optionsArray.forEach(function (val) {
-            if (val.value === '0') {
-              val.disabled = false;
-              val.selected = true;
-            } else {
-              val.disabled = true;
-            }
-          });
-        }
+    function onCapacityChange(fieldFirst, valueSecond) {
+      var optionsArray = Array.prototype.slice.call(fieldFirst.options);
+      if (valueSecond[0] === 0) {
+        fieldFirst.value = '1';
+        optionsArray.forEach(function (val) {
+          if (val.value !== '1') {
+            val.disabled = true;
+          } else {
+            val.disabled = false;
+            val.selected = true;
+          }
+        });
+      } else if (valueSecond.length === 1) {
+        optionsArray.forEach(function (val) {
+          if (val.value !== '1' && val.value !== '2') {
+            val.disabled = true;
+          } else {
+            val.disabled = false;
+            val.selected = true;
+          }
+        });
+      } else if (valueSecond.length === 2) {
+        optionsArray.forEach(function (val) {
+          if (val.value !== '1' && val.value !== '2' && val.value !== '3') {
+            val.disabled = true;
+          } else {
+            val.disabled = false;
+            val.selected = true;
+          }
+        });
+      } else {
+        fieldFirst.value = '0';
+        optionsArray.forEach(function (val) {
+          if (val.value === '0') {
+            val.disabled = false;
+            val.selected = true;
+          } else {
+            val.disabled = true;
+          }
+        });
       }
     }
 
@@ -186,12 +170,26 @@ window.form = (function () {
       }
     }
 
-    timeIn.addEventListener('change', onTimeChange);
-    timeOut.addEventListener('change', onTimeChange);
-    type.addEventListener('change', onTypeChange);
-    price.addEventListener('change', onPriceChange);
-    roomNumber.addEventListener('change', onCapacityChange);
-    capacity.addEventListener('change', onCapacityChange);
+    var timeInChangeHandler = function (event) {
+      window.synchronizeFields(event.target, timeOut, window.util.CHECKIN, window.util.CHECKIN, onTimeChange);
+    };
+
+    var timeOutChangeHandler = function (event) {
+      window.synchronizeFields(event.target, timeIn, window.util.CHECKIN, window.util.CHECKIN, onTimeChange);
+    };
+
+    var typeChangeHandler = function (evt) {
+      window.synchronizeFields(evt.target, price, window.util.TYPE, MIN_PRICES, onPriceChange);
+    };
+
+    var roomNumberChangeHandler = function (evt) {
+      window.synchronizeFields(evt.target, capacity, ROOMS_NUMBERS, CAPACITY_LIST, onCapacityChange);
+    };
+
+    timeIn.addEventListener('change', timeInChangeHandler);
+    timeOut.addEventListener('change', timeOutChangeHandler);
+    type.addEventListener('change', typeChangeHandler);
+    roomNumber.addEventListener('change', roomNumberChangeHandler);
     buttonForm.addEventListener('click', onButtonForm);
   }
 

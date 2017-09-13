@@ -1,6 +1,6 @@
 'use strict';
 
-window.pin();
+window.showCard();
 
 var pinHandle = document.querySelector('.pin__main');
 var address = document.querySelector('#address');

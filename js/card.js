@@ -6,7 +6,7 @@ window.card = (function () {
   * Добавление на карту
   * @param {string} advtItem - один из элементов массива объектов
   */
-  var TYPE_RUS = {'flat': 'Квартира', 'house': 'Дом', 'bungalo': 'Бунгало'};
+  var TYPE_RUS = {'flat': 'Квартира', 'house': 'Дом', 'bungalo': 'Бунгало', 'palace': 'Дворец'};
   var dialogWindow = document.querySelector('.dialog');
 
   /**

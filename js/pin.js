@@ -3,7 +3,6 @@
 // pin.js — модуль для отрисовки пина и взаимодействия с ним
 
 window.pin = (function () {
-  var pinMap = document.querySelector('.tokyo__pin-map');
   var selectedPin;
   var dialogWindow = document.querySelector('.dialog');
   var dialogClose = document.querySelector('.dialog__close');
@@ -54,7 +53,7 @@ window.pin = (function () {
   * Вызываем объявление активного элемента
   */
   function getActiveNumber() {
-    var pinElements = pinMap.querySelectorAll('.pin');
+    var pinElements = window.util.pinMap.querySelectorAll('.pin');
     pinElements.forEach(function (value, index) {
       if (value.classList.contains('pin--active')) {
         window.card.createOfferCard(listOfAdvt[index - 1]);
@@ -69,7 +68,7 @@ window.pin = (function () {
   function onOpenDialog() {
     if (window.util.isEnterPressed(event) || window.util.isClicked(event)) {
       var target = event.target;
-      while (target !== pinMap) {
+      while (target !== window.util.pinMap) {
         if (target.className === 'pin') {
           getPinActive(target);
           return;
@@ -84,7 +83,6 @@ window.pin = (function () {
   function onCloseDialog() {
     if (window.util.isEscapePressed(event) || window.util.isClicked(event)) {
       dialogWindow.style.display = 'none';
-      pinActive.classList.remove('pin--active');
       selectedPin.classList.remove('pin--active');
     }
   }
@@ -92,17 +90,8 @@ window.pin = (function () {
   dialogClose.addEventListener('click', onCloseDialog);
   dialogClose.addEventListener('keydown', onCloseDialog);
 
-  /**
-  * Отрисовка в DOM-блок
-  * @param {string} advt - объект объявление
-  */
-  return function () {
-    var fragment = document.createDocumentFragment();
-    listOfAdvt.forEach(function (value) {
-      fragment.appendChild(createPin(value));
-    });
-    pinMap.appendChild(fragment);
-    pinMap.addEventListener('click', onOpenDialog);
-    pinMap.addEventListener('keydown', onOpenDialog);
+  return {
+    createPin: createPin,
+    onOpenDialog: onOpenDialog
   };
 })();

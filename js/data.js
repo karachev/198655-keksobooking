@@ -15,13 +15,6 @@ window.data = (function () {
     'Уютное бунгало далеко от моря',
     'Неуютное бунгало по колено в воде'
   ];
-  var TYPE = ['flat', 'house', 'bungalo'];
-
-  var CHECKIN = [
-    '12:00',
-    '13:00',
-    '14:00'
-  ];
   var FEATURES = [
     'wifi',
     'dishwasher',
@@ -59,7 +52,7 @@ window.data = (function () {
   */
   function createAdv() {
     var locationX = window.util.getRandomOfSet(300, 600);
-    var locationY = window.util.getRandomOfSet(100, 400);
+    var locationY = window.util.getRandomOfSet(200, 500); /* Изменил! */
     var advt = {
       'author': {
         'avatar': 'img/avatars/user' + window.util.getRandomUniqueItem(USER_ID) + '.png'
@@ -69,11 +62,11 @@ window.data = (function () {
         'title': window.util.getRandomUniqueItem(TITLES).toString(),
         'address': locationX + ', ' + locationY,
         'price': getPriceByLevel(1000, 1000000),
-        'type': window.util.getRandomNumber(TYPE),
+        'type': window.util.getRandomNumber(window.util.TYPE),
         'rooms': window.util.getRandomOfSet(1, 5),
         'guests': window.util.getRandomOfSet(1, 10),
-        'checkin': window.util.getRandomNumber(CHECKIN),
-        'checkout': window.util.getRandomNumber(CHECKIN),
+        'checkin': window.util.getRandomNumber(window.util.CHECKIN),
+        'checkout': window.util.getRandomNumber(window.util.CHECKIN),
         'features': createFeatures(),
         'description': '',
         'photos': []
@@ -87,15 +80,22 @@ window.data = (function () {
     return advt;
   }
 
+  var advtList = [];
+  for (var i = 0; i < ADVT_COUNT; i++) {
+    advtList.push(createAdv());
+  }
+
   return function () {
     /**
     * Добавление созданных объектов в массив
     * @return {string} advtList - массив объектов
     */
-    var advtList = [];
-    for (var i = 0; i < ADVT_COUNT; i++) {
-      advtList.push(createAdv());
-    }
+
+    // var advtList = [];
+    // for (var i = 0; i < ADVT_COUNT; i++) {
+    //   advtList.push(createAdv());
+    // }
+
     return advtList;
   };
 
