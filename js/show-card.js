@@ -3,7 +3,7 @@
 (function () {
 
   window.showCard = function () {
-    var fragment = document.createDocumentFragment();  
+    var fragment = document.createDocumentFragment();
     window.map.allOffers.forEach(function (value) {
       fragment.appendChild(window.pin.createPin(value));
     });

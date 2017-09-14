@@ -4,7 +4,7 @@
   var GET_URL = 'https://1510.dump.academy/keksobooking/data';
   var POST_URL = 'https://1510.dump.academy/keksobooking';
 
-  var sendRequest = function (method, url, onLoad, onError, data) {
+  function sendRequest(method, url, onLoad, onError, data) {
     var xhr = new XMLHttpRequest();
 
     xhr.responseType = 'json';
@@ -47,16 +47,16 @@
     xhr.send(data);
   };
 
-  var load = function (onLoad, onError) {
+  function load(onLoad, onError) {
     sendRequest('GET', GET_URL, onLoad, onError);
   };
 
-  var save = function (onLoad, onError, data) {
+  function save(onLoad, onError, data) {
     console.log(data);
     sendRequest('POST', POST_URL, onLoad, onError, data);
   };
 
-  var showError = function (message) {
+  function showError(message) {
     var errorTooltip = document.createElement('div');
     var errorTooltipText = document.createElement('span');
 

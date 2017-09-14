@@ -34,7 +34,7 @@
     fillPinsContainer(window.filters.setFilters());
   }
 
-  var fillPinsContainer = function (pinsArray) {
+  function fillPinsContainer(pinsArray) {
     var pinsFragment = document.createDocumentFragment();
     for (var i = 0; i < pinsArray.length; i++) {
       var element = window.pin.createPin(pinsArray[i]);
@@ -43,7 +43,7 @@
     pinsContainer.appendChild(pinsFragment);
   };
 
-  var setPins = function (data) {
+  function setPins(data) {
     window.map.allOffers = data;
     fillPinsContainer(window.map.allOffers);
   }
@@ -67,7 +67,7 @@
       y: evt.clientY
     };
 
-    var onMouseMove = function (moveEvt) {
+    function onMouseMove(moveEvt) {
       moveEvt.preventDefault();
 
       var shift = {
@@ -90,7 +90,7 @@
       }
     };
 
-    var onMouseUp = function (upEvt) {
+    function onMouseUp(upEvt) {
       upEvt.preventDefault();
 
       document.removeEventListener('mousemove', onMouseMove);
