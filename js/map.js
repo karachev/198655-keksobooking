@@ -6,12 +6,32 @@ var pinHandle = document.querySelector('.pin__main');
 var address = document.querySelector('#address');
 address.setAttribute('readonly', 'readonly');
 
+
+// Создание пина для каждого объявления
+var fillPinsContainer = function (data) {
+  var similarAds = data;
+
+  for (var i = 0; i < data.length; i++) {
+    var element = window.pin.createPin(data[i]);
+
+    pinsFragment.appendChild(element);
+  }
+
+  pinsContainer.appendChild(pinsFragment);
+
+  window.similarAds = similarAds;
+};
+window.backend.load(fillPinsContainer, window.backend.showError);
+
+
 var pinLocation = {
   minX: 0,
   maxX: pinHandle.offsetParent.clientWidth - pinHandle.clientWidth,
   minY: 0,
   maxY: pinHandle.offsetParent.clientHeight - pinHandle.clientHeight
 };
+
+
 
 pinHandle.setAttribute('draggable', true);
 

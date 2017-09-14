@@ -59,17 +59,18 @@ window.form = (function () {
     * Очистка всех значений в форме
     */
     function clearForm() {
-      var description = noticeForm.querySelector('#description');
+      // var description = noticeForm.querySelector('#description');
 
-      title.value = '';
-      type.value = 'flat';
-      price.value = '1000';
-      price.max = PRICE_MAX;
-      price.min = PRICE_MIN;
-      roomNumber.value = 1;
-      capacity.value = 1;
-      description.value = '';
-      address.value = '';
+      // title.value = '';
+      // type.value = 'flat';
+      // price.value = '1000';
+      // price.max = PRICE_MAX;
+      // price.min = PRICE_MIN;
+      // roomNumber.value = 1;
+      // capacity.value = 1;
+      // description.value = '';
+      // address.value = '';
+      form.reset();
     }
 
     /**
@@ -165,8 +166,7 @@ window.form = (function () {
       var validAddress = checkValid(address);
       if (validTitle && validPrice && validAddress) {
         event.preventDefault();
-        HTMLFormElement.prototype.submit.call(noticeForm);
-        clearForm();
+        window.backend.save(clearForm, window.backend.showError, new FormData(form));
       }
     }
 
