@@ -1,6 +1,6 @@
 'use strict';
 
-window.pin = (function () {
+(function () {
   var PIN_WIDTH = 56;
   var PIN_HEIGHT = 75;
   var selectedPin;
@@ -8,7 +8,7 @@ window.pin = (function () {
   var dialogClose = document.querySelector('.dialog__close');
   var pinActive = document.querySelector('.pin--active');
   var pinsContainer = document.querySelector('.tokyo__pin-map');
-  dialogWindow.style.display = 'none';
+  dialogWindow.classList.add('hidden');
 
   function createPin(advt) {
     var pin = document.createElement('div');
@@ -44,7 +44,7 @@ window.pin = (function () {
     pinElements.forEach(function (value, index) {
       if (value.classList.contains('pin--active')) {
         window.card.createOfferCard(window.map.allOffers[index - 1]);
-        dialogWindow.style.display = 'block';
+        dialogWindow.classList.remove('hidden');
       }
     });
   }
@@ -64,14 +64,13 @@ window.pin = (function () {
 
   function onCloseDialog(evt) {
     if (window.util.isEscapePressed(evt) || window.util.isClicked(evt)) {
-      dialogWindow.style.display = 'none';
+      dialogWindow.classList.add('hidden');
       selectedPin.classList.remove('pin--active');
     }
   }
 
   dialogClose.addEventListener('click', onCloseDialog);
   dialogClose.addEventListener('keydown', onCloseDialog);
-
   pinsContainer.addEventListener('click', onOpenDialog);
 
   window.pin = {

@@ -2,11 +2,16 @@
 
 (function () {
   var TYPE_RUS = {'flat': 'Квартира', 'house': 'Дом', 'bungalo': 'Бунгало', 'palace': 'Дворец'};
+  var ADVT_PIC_SIZE = {
+      width: 52,
+      height: 42
+    };
   var dialogWindow = document.querySelector('.dialog');
+
 
   function onCloseDialogEsc(evt) {
     if (window.util.isEscapePressed(evt)) {
-      dialogWindow.style.display = 'none';
+      dialogWindow.classList.add('hidden');
     }
   }
 
@@ -19,8 +24,11 @@
     var lodgeType = lodgeItem.querySelector('.lodge__type');
     var lodgeRooms = lodgeItem.querySelector('.lodge__rooms-and-guests');
     var lodgeCheck = lodgeItem.querySelector('.lodge__checkin-time');
+    var lodgePhotos = lodgeItem.querySelector('.lodge__photos');
     var dialog = document.querySelector('.dialog');
     var dialogPanel = dialog.querySelector('.dialog__panel');
+    var information = advtItem.offer;
+    var picAdvt = getPicAdvt(information.photos);
     lodgeTitle.textContent = advtItem.offer.title;
     lodgeAddress.textContent = advtItem.offer.address;
     lodgePrice.textContent = advtItem.offer.price + '\u20BD/ночь';
@@ -37,6 +45,20 @@
 
     lodgeItem.querySelector('.lodge__description').textContent = advtItem.offer.description;
     document.querySelector('.dialog__title img').src = advtItem.author.avatar;
+    lodgePhotos.appendChild(picAdvt);
+
+    function getPicAdvt(photos) {
+      var picAdvt = document.createDocumentFragment();
+      photos.forEach(function (item) {
+        var img = document.createElement('img');
+        img.width = ADVT_PIC_SIZE.width;
+        img.height = ADVT_PIC_SIZE.height;
+        img.src = item;
+
+        picAdvt.appendChild(img);
+      });
+      return picAdvt;
+    };
 
     dialog.replaceChild(lodgeItem, dialogPanel);
     document.addEventListener('keydown', onCloseDialogEsc);
