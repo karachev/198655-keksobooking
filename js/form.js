@@ -109,35 +109,51 @@ window.form = (function () {
         return false;
       }
     }
-    function onButtonForm(event) {
+    function onButtonForm(evt) {
       var validTitle = checkValid(title);
       var validPrice = checkValid(price);
       var validAddress = checkValid(address);
       if (validTitle && validPrice && validAddress) {
-        event.preventDefault();
+        evt.preventDefault();
         window.backend.save(clearForm, window.backend.showError, new FormData(noticeForm));
       }
     }
 
-    var timeInChangeHandler = function (event) {
-      window.synchronizeFields(event.target, timeOut, window.util.CHECKIN, window.util.CHECKIN, onTimeChange);
-    };
-    var timeOutChangeHandler = function (event) {
-      window.synchronizeFields(event.target, timeIn, window.util.CHECKIN, window.util.CHECKIN, onTimeChange);
-    };
-    var typeChangeHandler = function (evt) {
+    function timeInChangeHandler(evt) {
+      window.synchronizeFields(evt.target, timeOut, window.util.CHECKIN, window.util.CHECKIN, onTimeChange);
+    }
+    function timeOutChangeHandler(evt) {
+      window.synchronizeFields(evt.target, timeIn, window.util.CHECKIN, window.util.CHECKIN, onTimeChange);
+    }
+    function typeChangeHandler(evt) {
       window.synchronizeFields(evt.target, price, window.util.TYPE, MIN_PRICES, onPriceChange);
-    };
-    var roomNumberChangeHandler = function (evt) {
+    }
+    function roomNumberChangeHandler(evt) {
       window.synchronizeFields(evt.target, capacity, ROOMS_NUMBERS, CAPACITY_LIST, onCapacityChange);
-    };
+    }
 
     timeIn.addEventListener('change', timeInChangeHandler);
     timeOut.addEventListener('change', timeOutChangeHandler);
     type.addEventListener('change', typeChangeHandler);
     roomNumber.addEventListener('change', roomNumberChangeHandler);
     buttonForm.addEventListener('click', onButtonForm);
+    window.form = {
+      clearForm: clearForm,
+      onTimeChange: onTimeChange,
+      onPriceChange: onPriceChange,
+      onCapacityChange: onCapacityChange,
+      checkValid: checkValid,
+      onButtonForm: onButtonForm,
+      timeInChangeHandler: timeInChangeHandler,
+      timeOutChangeHandler: timeOutChangeHandler,
+      typeChangeHandler: typeChangeHandler,
+      roomNumberChangeHandler: roomNumberChangeHandler
+    };
   }
 
   checkForm();
+
+
+
+
 })();

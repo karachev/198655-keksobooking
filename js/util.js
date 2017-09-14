@@ -38,14 +38,14 @@ window.util = (function () {
     getRandomOfSet: function (minValue, maxValue) {
       return Math.floor(Math.random() * (maxValue - minValue)) + minValue;
     },
-    isEscapePressed: function (event) {
-      return event && event.keyCode === ESCAPE_KEY_CODE;
+    isEscapePressed: function (evt) {
+      return evt && evt.keyCode === ESCAPE_KEY_CODE;
     },
-    isEnterPressed: function (event) {
-      return event && event.keyCode === ENTER_KEY_CODE;
+    isEnterPressed: function (evt) {
+      return evt && evt.keyCode === ENTER_KEY_CODE;
     },
-    isClicked: function (event) {
-      return event.type === 'click';
+    isClicked: function (evt) {
+      return evt.type === 'click';
     }
   };
 })();

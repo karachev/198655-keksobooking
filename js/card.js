@@ -1,11 +1,11 @@
 'use strict';
 
-window.card = (function () {
+(function () {
   var TYPE_RUS = {'flat': 'Квартира', 'house': 'Дом', 'bungalo': 'Бунгало', 'palace': 'Дворец'};
   var dialogWindow = document.querySelector('.dialog');
 
-  function onCloseDialogEsc(event) {
-    if (window.util.isEscapePressed(event)) {
+  function onCloseDialogEsc(evt) {
+    if (window.util.isEscapePressed(evt)) {
       dialogWindow.style.display = 'none';
     }
   }
@@ -42,7 +42,8 @@ window.card = (function () {
     document.addEventListener('keydown', onCloseDialogEsc);
   }
 
-  return {
+  window.card = {
+    onCloseDialogEsc: onCloseDialogEsc,
     createOfferCard: createOfferCard
   };
 })();

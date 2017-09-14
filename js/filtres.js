@@ -63,6 +63,9 @@
   }
 
   window.filters = {
-    setFilters: setFilters
+    setFilters: setFilters,
+    setFilterByHousesTypes: setFilterByHousesTypes,
+    setFilterByHousesPrice: setFilterByHousesPrice,
+    setFilterByHousesFeautures: setFilterByHousesFeautures
   };
 })();

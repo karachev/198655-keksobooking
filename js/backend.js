@@ -73,6 +73,7 @@
   }
 
   window.backend = {
+    sendRequest: sendRequest,
     load: load,
     save: save,
     showError: showError

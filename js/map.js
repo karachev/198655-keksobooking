@@ -3,7 +3,11 @@
 (function () {
 
   window.map = {
-    allOffers: []
+    allOffers: [],
+    onFilterChange: onFilterChange,
+    renderPinsAfterSetFilters: renderPinsAfterSetFilters,
+    fillPinsContainer: fillPinsContainer,
+    setPins: setPins
   };
 
   var pinHandle = document.querySelector('.pin__main');
@@ -54,8 +58,6 @@
   }
 
   window.backend.load(setPins, window.backend.showError);
-
-
   pinHandle.setAttribute('draggable', true);
 
   pinHandle.addEventListener('mousedown', function (evt) {
@@ -97,6 +99,9 @@
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
+
+
+
   });
 }());
 

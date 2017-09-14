@@ -74,6 +74,14 @@ window.pin = (function () {
 
   pinsContainer.addEventListener('click', onOpenDialog);
 
+  window.pin = {
+    createPin: createPin,
+    getPinActive: getPinActive,
+    getActiveNumber: getActiveNumber,
+    onOpenDialog: onOpenDialog,
+    onCloseDialog: onCloseDialog
+  };
+
   return {
     createPin: createPin,
     onOpenDialog: onOpenDialog
