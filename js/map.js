@@ -1,15 +1,20 @@
 'use strict';
 
-(function() {
+(function () {
 
   window.map = {
     allOffers: []
-  }
+  };
 
   var pinHandle = document.querySelector('.pin__main');
   var address = document.querySelector('#address');
   var pinsContainer = document.querySelector('.tokyo__pin-map');
-
+  var pinLocation = {
+    minX: 0,
+    maxX: pinHandle.offsetParent.clientWidth - pinHandle.clientWidth,
+    minY: 0,
+    maxY: pinHandle.offsetParent.clientHeight - pinHandle.clientHeight
+  };
   var tokyoFiltersForm = document.querySelector('.tokyo__filters');
   tokyoFiltersForm.addEventListener('change', onFilterChange);
 
@@ -41,7 +46,7 @@
       pinsFragment.appendChild(element);
     }
     pinsContainer.appendChild(pinsFragment);
-  };
+  }
 
   function setPins(data) {
     window.map.allOffers = data;
@@ -50,12 +55,6 @@
 
   window.backend.load(setPins, window.backend.showError);
 
-  var pinLocation = {
-    minX: 0,
-    maxX: pinHandle.offsetParent.clientWidth - pinHandle.clientWidth,
-    minY: 0,
-    maxY: pinHandle.offsetParent.clientHeight - pinHandle.clientHeight
-  };
 
   pinHandle.setAttribute('draggable', true);
 
@@ -88,14 +87,13 @@
         pinHandle.style.left = (pinHandle.offsetLeft - shift.x) + 'px';
         address.value = 'x: ' + Math.floor(addressX) + 'px, y: ' + Math.floor(addressY) + 'px';
       }
-    };
+    }
 
     function onMouseUp(upEvt) {
       upEvt.preventDefault();
-
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
-    };
+    }
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);

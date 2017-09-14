@@ -665,3 +665,21 @@ select option:hover {
 .rounded {
     border-radius: 50%;
 }
+
+.request-error {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  padding: 25px 10px;
+  background-color: #ff0000;
+}
+
+.request-error__text {
+  display: block;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  color: #ffffff;
+}

@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-
   window.showCard = function () {
     var fragment = document.createDocumentFragment();
     window.map.allOffers.forEach(function (value) {

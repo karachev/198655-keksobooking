@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   var filtersContainer = document.querySelector('.tokyo__filters');
   var housesTypeElement = filtersContainer.querySelector('#housing_type');
   var housesPriceElement = filtersContainer.querySelector('#housing_price');
@@ -8,11 +8,11 @@
   var housesGuestCountElement = filtersContainer.querySelector('#housing_guests-number');
   var featuresElements = filtersContainer.querySelectorAll('input[name="feature"]');
 
-  function setFilterByHousesTypes (filterValue, itemValue) {
+  function setFilterByHousesTypes(filterValue, itemValue) {
     return filterValue === 'any' || itemValue === filterValue;
   }
 
-  function setFilterByHousesPrice (price) {
+  function setFilterByHousesPrice(price) {
     var currentValue = housesPriceElement.value;
     switch (currentValue) {
       case 'middle':
@@ -26,7 +26,7 @@
     }
   }
 
-  function setFilterByHousesFeautures (filterFeatures, itemFeatures) {
+  function setFilterByHousesFeautures(filterFeatures, itemFeatures) {
     for (var i = 0; i < filterFeatures.length; i++) {
       if (itemFeatures.indexOf(filterFeatures[i]) === -1) {
         return false;

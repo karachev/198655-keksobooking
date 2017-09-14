@@ -1,15 +1,14 @@
 'use strict';
 
 window.pin = (function () {
+  var PIN_WIDTH = 56;
+  var PIN_HEIGHT = 75;
   var selectedPin;
   var dialogWindow = document.querySelector('.dialog');
   var dialogClose = document.querySelector('.dialog__close');
   var pinActive = document.querySelector('.pin--active');
   var pinsContainer = document.querySelector('.tokyo__pin-map');
   dialogWindow.style.display = 'none';
-
-  var PIN_WIDTH = 56;
-  var PIN_HEIGHT = 75;
 
   function createPin(advt) {
     var pin = document.createElement('div');

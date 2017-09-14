@@ -45,16 +45,15 @@
 
     xhr.open(method, url);
     xhr.send(data);
-  };
+  }
 
   function load(onLoad, onError) {
     sendRequest('GET', GET_URL, onLoad, onError);
-  };
+  }
 
   function save(onLoad, onError, data) {
-    console.log(data);
     sendRequest('POST', POST_URL, onLoad, onError, data);
-  };
+  }
 
   function showError(message) {
     var errorTooltip = document.createElement('div');
@@ -71,7 +70,7 @@
     setTimeout(function () {
       errorTooltip.remove();
     }, 4000);
-  };
+  }
 
   window.backend = {
     load: load,

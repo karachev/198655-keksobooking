@@ -21,7 +21,6 @@ window.card = (function () {
     var lodgeCheck = lodgeItem.querySelector('.lodge__checkin-time');
     var dialog = document.querySelector('.dialog');
     var dialogPanel = dialog.querySelector('.dialog__panel');
-
     lodgeTitle.textContent = advtItem.offer.title;
     lodgeAddress.textContent = advtItem.offer.address;
     lodgePrice.textContent = advtItem.offer.price + '\u20BD/ночь';

@@ -2,6 +2,32 @@
 
 window.form = (function () {
   function checkForm() {
+    var TITLE_MIN_LENGTH = 30;
+    var TITLE_MAX_LENGTH = 100;
+    var PRICE_MIN = 0;
+    var PRICE_MAX = 1000000;
+    var PRICE_BUNGALO_MIN = 0;
+    var PRICE_FLAT_MIN = 1000;
+    var PRICE_HOUSE_MIN = 5000;
+    var PRICE_PALACE_MIN = 10000;
+    var MIN_PRICES = [
+      PRICE_FLAT_MIN,
+      PRICE_HOUSE_MIN,
+      PRICE_BUNGALO_MIN,
+      PRICE_PALACE_MIN
+    ];
+    var ROOMS_NUMBERS = [
+      '1',
+      '2',
+      '3',
+      '100'
+    ];
+    var CAPACITY_LIST = [
+      [0],
+      [1],
+      [1, 2],
+      [1, 2, 3]
+    ];
     var noticeForm = document.querySelector('.notice__form');
     var title = noticeForm.querySelector('#title');
     var address = noticeForm.querySelector('#address');
@@ -12,36 +38,6 @@ window.form = (function () {
     var roomNumber = noticeForm.querySelector('#room_number');
     var capacity = noticeForm.querySelector('#capacity');
     var buttonForm = noticeForm.querySelector('.form__submit');
-
-    var TITLE_MIN_LENGTH = 30;
-    var TITLE_MAX_LENGTH = 100;
-    var PRICE_MIN = 0;
-    var PRICE_MAX = 1000000;
-    var PRICE_BUNGALO_MIN = 0;
-    var PRICE_FLAT_MIN = 1000;
-    var PRICE_HOUSE_MIN = 5000;
-    var PRICE_PALACE_MIN = 10000;
-
-    var MIN_PRICES = [
-      PRICE_FLAT_MIN,
-      PRICE_HOUSE_MIN,
-      PRICE_BUNGALO_MIN,
-      PRICE_PALACE_MIN
-    ];
-
-    var ROOMS_NUMBERS = [
-      '1',
-      '2',
-      '3',
-      '100'
-    ];
-
-    var CAPACITY_LIST = [
-      [0],
-      [1],
-      [1, 2],
-      [1, 2, 3]
-    ];
 
     address.setAttribute('required', 'required');
     title.setAttribute('required', 'required');
