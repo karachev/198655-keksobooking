@@ -1,11 +1,33 @@
 'use strict';
-// form.js — модуль, который работает с формой объявления
 
-window.form = (function () {
-  /**
-  * Валидация формы
-  */
+(function () {
   function checkForm() {
+    var TITLE_MIN_LENGTH = 30;
+    var TITLE_MAX_LENGTH = 100;
+    var PRICE_MIN = 0;
+    var PRICE_MAX = 1000000;
+    var PRICE_BUNGALO_MIN = 0;
+    var PRICE_FLAT_MIN = 1000;
+    var PRICE_HOUSE_MIN = 5000;
+    var PRICE_PALACE_MIN = 10000;
+    var MIN_PRICES = [
+      PRICE_FLAT_MIN,
+      PRICE_HOUSE_MIN,
+      PRICE_BUNGALO_MIN,
+      PRICE_PALACE_MIN
+    ];
+    var ROOMS_NUMBERS = [
+      '1',
+      '2',
+      '3',
+      '100'
+    ];
+    var CAPACITY_LIST = [
+      [0],
+      [1],
+      [1, 2],
+      [1, 2, 3]
+    ];
     var noticeForm = document.querySelector('.notice__form');
     var title = noticeForm.querySelector('#title');
     var address = noticeForm.querySelector('#address');
@@ -17,36 +39,6 @@ window.form = (function () {
     var capacity = noticeForm.querySelector('#capacity');
     var buttonForm = noticeForm.querySelector('.form__submit');
 
-    var TITLE_MIN_LENGTH = 30;
-    var TITLE_MAX_LENGTH = 100;
-    var PRICE_MIN = 0;
-    var PRICE_MAX = 1000000;
-    var PRICE_BUNGALO_MIN = 0;
-    var PRICE_FLAT_MIN = 1000;
-    var PRICE_HOUSE_MIN = 5000;
-    var PRICE_PALACE_MIN = 10000;
-
-    var MIN_PRICES = [
-      PRICE_FLAT_MIN,
-      PRICE_HOUSE_MIN,
-      PRICE_BUNGALO_MIN,
-      PRICE_PALACE_MIN
-    ];
-
-    var ROOMS_NUMBERS = [
-      '1',
-      '2',
-      '3',
-      '100'
-    ];
-
-    var CAPACITY_LIST = [
-      [0],
-      [1],
-      [1, 2],
-      [1, 2, 3]
-    ];
-
     address.setAttribute('required', 'required');
     title.setAttribute('required', 'required');
     title.setAttribute('min', TITLE_MIN_LENGTH);
@@ -55,47 +47,16 @@ window.form = (function () {
     price.setAttribute('min', PRICE_MIN);
     price.setAttribute('max', PRICE_MAX);
 
-    /**
-    * Очистка всех значений в форме
-    */
     function clearForm() {
-      var description = noticeForm.querySelector('#description');
-
-      title.value = '';
-      type.value = 'flat';
-      price.value = '1000';
-      price.max = PRICE_MAX;
-      price.min = PRICE_MIN;
-      roomNumber.value = 1;
-      capacity.value = 1;
-      description.value = '';
-      address.value = '';
+      noticeForm.reset();
     }
-
-    /**
-    * Синхронизация времени въезда и времни отъезда
-    * @param {integer} fieldFirst - изменяемое поле
-    * @param {integer} valueSecond - значение
-    */
     function onTimeChange(fieldFirst, valueSecond) {
       fieldFirst.value = valueSecond;
     }
-
-    /**
-    * Валидация типов жилья и интервала стоимости
-    * @param {integer} fieldFirst - изменяемое поле
-    * @param {integer} valueSecond - значение
-    */
     function onPriceChange(fieldFirst, valueSecond) {
       fieldFirst.min = valueSecond;
       onTimeChange(fieldFirst, valueSecond);
     }
-
-    /**
-    * Связь количества гостей и количеством комнат
-    * @param {integer} fieldFirst - изменяемое поле
-    * @param {integer} valueSecond - значение
-    */
     function onCapacityChange(fieldFirst, valueSecond) {
       var optionsArray = Array.prototype.slice.call(fieldFirst.options);
       if (valueSecond[0] === 0) {
@@ -138,12 +99,6 @@ window.form = (function () {
         });
       }
     }
-
-    /**
-    * Рисую рамку, если значение не валидно
-    * @param {Objects} checkedField  - првоеряемое поле
-    * @return {boolean} event - проходит ли валидацию
-    */
     function checkValid(checkedField) {
       if (checkedField.validity.valid) {
         checkedField.style.border = '1px solid #d9d9d3';
@@ -154,43 +109,46 @@ window.form = (function () {
         return false;
       }
     }
-
-    /**
-    * Нажатие на кнопку и валидация полей
-    * @param {Objects} event - событие
-    */
-    function onButtonForm(event) {
+    function onButtonForm(evt) {
       var validTitle = checkValid(title);
       var validPrice = checkValid(price);
       var validAddress = checkValid(address);
       if (validTitle && validPrice && validAddress) {
-        event.preventDefault();
-        HTMLFormElement.prototype.submit.call(noticeForm);
-        clearForm();
+        evt.preventDefault();
+        window.backend.save(clearForm, window.backend.showError, new FormData(noticeForm));
       }
     }
 
-    var timeInChangeHandler = function (event) {
-      window.synchronizeFields(event.target, timeOut, window.util.CHECKIN, window.util.CHECKIN, onTimeChange);
-    };
-
-    var timeOutChangeHandler = function (event) {
-      window.synchronizeFields(event.target, timeIn, window.util.CHECKIN, window.util.CHECKIN, onTimeChange);
-    };
-
-    var typeChangeHandler = function (evt) {
+    function syncTimeInChange(evt) {
+      window.synchronizeFields(evt.target, timeOut, window.util.CHECKIN, window.util.CHECKIN, onTimeChange);
+    }
+    function syncTimeOutChange(evt) {
+      window.synchronizeFields(evt.target, timeIn, window.util.CHECKIN, window.util.CHECKIN, onTimeChange);
+    }
+    function syncTypeChange(evt) {
       window.synchronizeFields(evt.target, price, window.util.TYPE, MIN_PRICES, onPriceChange);
-    };
-
-    var roomNumberChangeHandler = function (evt) {
+    }
+    function syncRoomChange(evt) {
       window.synchronizeFields(evt.target, capacity, ROOMS_NUMBERS, CAPACITY_LIST, onCapacityChange);
-    };
+    }
 
-    timeIn.addEventListener('change', timeInChangeHandler);
-    timeOut.addEventListener('change', timeOutChangeHandler);
-    type.addEventListener('change', typeChangeHandler);
-    roomNumber.addEventListener('change', roomNumberChangeHandler);
+    timeIn.addEventListener('change', syncTimeInChange);
+    timeOut.addEventListener('change', syncTimeOutChange);
+    type.addEventListener('change', syncTypeChange);
+    roomNumber.addEventListener('change', syncRoomChange);
     buttonForm.addEventListener('click', onButtonForm);
+    window.form = {
+      clearForm: clearForm,
+      onTimeChange: onTimeChange,
+      onPriceChange: onPriceChange,
+      onCapacityChange: onCapacityChange,
+      checkValid: checkValid,
+      onButtonForm: onButtonForm,
+      syncTimeInChange: syncTimeInChange,
+      syncTimeOutChange: syncTimeOutChange,
+      syncTypeChange: syncTypeChange,
+      syncRoomChange: syncRoomChange
+    };
   }
 
   checkForm();

@@ -1,21 +1,16 @@
 'use strict';
-// card.js — модуль для отрисовки элемента на карточке
 
-window.card = (function () {
-  /**
-  * Добавление на карту
-  * @param {string} advtItem - один из элементов массива объектов
-  */
+(function () {
   var TYPE_RUS = {'flat': 'Квартира', 'house': 'Дом', 'bungalo': 'Бунгало', 'palace': 'Дворец'};
+  var ADVT_PIC_SIZE = {
+    width: 52,
+    height: 42
+  };
   var dialogWindow = document.querySelector('.dialog');
 
-  /**
-  * Закрытие объявления в любой момент по ESC
-  * @param {Objects} event - событие
-  */
-  function onCloseDialogEsc(event) {
-    if (window.util.isEscapePressed(event)) {
-      dialogWindow.style.display = 'none';
+  function onCloseDialogEsc(evt) {
+    if (window.util.isEscapePressed(evt)) {
+      dialogWindow.classList.add('hidden');
     }
   }
 
@@ -28,9 +23,10 @@ window.card = (function () {
     var lodgeType = lodgeItem.querySelector('.lodge__type');
     var lodgeRooms = lodgeItem.querySelector('.lodge__rooms-and-guests');
     var lodgeCheck = lodgeItem.querySelector('.lodge__checkin-time');
+    var lodgePhotos = lodgeItem.querySelector('.lodge__photos');
     var dialog = document.querySelector('.dialog');
     var dialogPanel = dialog.querySelector('.dialog__panel');
-    /** Задаем шаблону значения */
+    var information = advtItem.offer;
     lodgeTitle.textContent = advtItem.offer.title;
     lodgeAddress.textContent = advtItem.offer.address;
     lodgePrice.textContent = advtItem.offer.price + '\u20BD/ночь';
@@ -48,11 +44,27 @@ window.card = (function () {
     lodgeItem.querySelector('.lodge__description').textContent = advtItem.offer.description;
     document.querySelector('.dialog__title img').src = advtItem.author.avatar;
 
+    var picAdvt = getPicAdvt(information.photos);
+    lodgePhotos.appendChild(picAdvt);
+    function getPicAdvt(photos) {
+      picAdvt = document.createDocumentFragment();
+      photos.forEach(function (item) {
+        var img = document.createElement('img');
+        img.width = ADVT_PIC_SIZE.width;
+        img.height = ADVT_PIC_SIZE.height;
+        img.src = item;
+
+        picAdvt.appendChild(img);
+      });
+      return picAdvt;
+    }
+
     dialog.replaceChild(lodgeItem, dialogPanel);
     document.addEventListener('keydown', onCloseDialogEsc);
   }
 
-  return {
+  window.card = {
+    onCloseDialogEsc: onCloseDialogEsc,
     createOfferCard: createOfferCard
   };
 })();

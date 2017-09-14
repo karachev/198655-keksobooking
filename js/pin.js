@@ -1,22 +1,15 @@
 'use strict';
 
-// pin.js — модуль для отрисовки пина и взаимодействия с ним
-
-window.pin = (function () {
+(function () {
+  var PIN_WIDTH = 56;
+  var PIN_HEIGHT = 75;
   var selectedPin;
   var dialogWindow = document.querySelector('.dialog');
   var dialogClose = document.querySelector('.dialog__close');
   var pinActive = document.querySelector('.pin--active');
-  dialogWindow.style.display = 'none';
-  var listOfAdvt = window.data();
-  var PIN_WIDTH = 56;
-  var PIN_HEIGHT = 75;
-  /**
-  * Создаем pin
-  * @param {string} advt - объект объявление
-  * @param {number} stage - номер объявления при нанесение
-  * @return {object} pin - блок на карте
-  */
+  var pinsContainer = document.querySelector('.tokyo__pin-map');
+  dialogWindow.classList.add('hidden');
+
   function createPin(advt) {
     var pin = document.createElement('div');
     pin.className = 'pin';
@@ -34,10 +27,6 @@ window.pin = (function () {
 
     return pin;
   }
-  /**
-  * Добавляем текущему элементу класс pin--active
-  * @param {DocumentFragment} node - узел
-  */
   function getPinActive(node) {
     if (selectedPin) {
       selectedPin.classList.remove('pin--active');
@@ -49,25 +38,20 @@ window.pin = (function () {
     selectedPin.classList.add('pin--active');
     getActiveNumber();
   }
-  /**
-  * Вызываем объявление активного элемента
-  */
+
   function getActiveNumber() {
     var pinElements = window.util.pinMap.querySelectorAll('.pin');
     pinElements.forEach(function (value, index) {
       if (value.classList.contains('pin--active')) {
-        window.card.createOfferCard(listOfAdvt[index - 1]);
-        dialogWindow.style.display = 'block';
+        window.card.createOfferCard(window.map.allOffers[index - 1]);
+        dialogWindow.classList.remove('hidden');
       }
     });
   }
-  /**
-  * Открываем объявление
-  * @param {Objects} event - событие
-  */
-  function onOpenDialog() {
-    if (window.util.isEnterPressed(event) || window.util.isClicked(event)) {
-      var target = event.target;
+
+  function onOpenDialog(evt) {
+    if (window.util.isEnterPressed(evt) || window.util.isClicked(evt)) {
+      var target = evt.target;
       while (target !== window.util.pinMap) {
         if (target.className === 'pin') {
           getPinActive(target);
@@ -77,18 +61,25 @@ window.pin = (function () {
       }
     }
   }
-  /**
-  * Закрытие объявления
-  */
-  function onCloseDialog() {
-    if (window.util.isEscapePressed(event) || window.util.isClicked(event)) {
-      dialogWindow.style.display = 'none';
+
+  function onCloseDialog(evt) {
+    if (window.util.isEscapePressed(evt) || window.util.isClicked(evt)) {
+      dialogWindow.classList.add('hidden');
       selectedPin.classList.remove('pin--active');
     }
   }
 
   dialogClose.addEventListener('click', onCloseDialog);
   dialogClose.addEventListener('keydown', onCloseDialog);
+  pinsContainer.addEventListener('click', onOpenDialog);
+
+  window.pin = {
+    createPin: createPin,
+    getPinActive: getPinActive,
+    getActiveNumber: getActiveNumber,
+    onOpenDialog: onOpenDialog,
+    onCloseDialog: onCloseDialog
+  };
 
   return {
     createPin: createPin,

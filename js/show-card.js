@@ -1,11 +1,9 @@
 'use strict';
 
 (function () {
-
   window.showCard = function () {
     var fragment = document.createDocumentFragment();
-    var listOfAdvt = window.data();
-    listOfAdvt.forEach(function (value) {
+    window.map.allOffers.forEach(function (value) {
       fragment.appendChild(window.pin.createPin(value));
     });
     window.util.pinMap.appendChild(fragment);
