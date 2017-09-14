@@ -34,10 +34,6 @@
   }
 
   function renderPinsAfterSetFilters() {
-    // TODO. Написать функцию которая будет закрывать карточку.
-    // Функция должна быть объявлена в соответствующем модуле - pin.js
-    // window.card.closeAdDetailsDialog();
-
     while (pinsContainer.children.length !== 1) {
       pinsContainer.removeChild(pinsContainer.children[1]);
     }
