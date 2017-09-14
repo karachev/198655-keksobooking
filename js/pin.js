@@ -1,23 +1,16 @@
 'use strict';
 
-// pin.js — модуль для отрисовки пина и взаимодействия с ним
-
 window.pin = (function () {
   var selectedPin;
   var dialogWindow = document.querySelector('.dialog');
   var dialogClose = document.querySelector('.dialog__close');
   var pinActive = document.querySelector('.pin--active');
   var pinsContainer = document.querySelector('.tokyo__pin-map');
-  dialogWindow.style.display = 'none';  
+  dialogWindow.style.display = 'none';
 
   var PIN_WIDTH = 56;
   var PIN_HEIGHT = 75;
-  /**
-  * Создаем pin
-  * @param {string} advt - объект объявление
-  * @param {number} stage - номер объявления при нанесение
-  * @return {object} pin - блок на карте
-  */
+
   function createPin(advt) {
     var pin = document.createElement('div');
     pin.className = 'pin';
@@ -35,10 +28,6 @@ window.pin = (function () {
 
     return pin;
   }
-  /**
-  * Добавляем текущему элементу класс pin--active
-  * @param {DocumentFragment} node - узел
-  */
   function getPinActive(node) {
     if (selectedPin) {
       selectedPin.classList.remove('pin--active');
@@ -50,9 +39,7 @@ window.pin = (function () {
     selectedPin.classList.add('pin--active');
     getActiveNumber();
   }
-  /**
-  * Вызываем объявление активного элемента
-  */
+
   function getActiveNumber() {
     var pinElements = window.util.pinMap.querySelectorAll('.pin');
     pinElements.forEach(function (value, index) {
@@ -62,10 +49,7 @@ window.pin = (function () {
       }
     });
   }
-  /**
-  * Открываем объявление
-  * @param {Objects} event - событие
-  */
+
   function onOpenDialog(evt) {
     if (window.util.isEnterPressed(evt) || window.util.isClicked(evt)) {
       var target = evt.target;
@@ -79,10 +63,6 @@ window.pin = (function () {
     }
   }
 
-  
-  /**
-  * Закрытие объявления
-  */
   function onCloseDialog(evt) {
     if (window.util.isEscapePressed(evt) || window.util.isClicked(evt)) {
       dialogWindow.style.display = 'none';
@@ -92,7 +72,7 @@ window.pin = (function () {
 
   dialogClose.addEventListener('click', onCloseDialog);
   dialogClose.addEventListener('keydown', onCloseDialog);
-  
+
   pinsContainer.addEventListener('click', onOpenDialog);
 
   return {

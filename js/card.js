@@ -1,18 +1,9 @@
 'use strict';
-// card.js — модуль для отрисовки элемента на карточке
 
 window.card = (function () {
-  /**
-  * Добавление на карту
-  * @param {string} advtItem - один из элементов массива объектов
-  */
   var TYPE_RUS = {'flat': 'Квартира', 'house': 'Дом', 'bungalo': 'Бунгало', 'palace': 'Дворец'};
   var dialogWindow = document.querySelector('.dialog');
 
-  /**
-  * Закрытие объявления в любой момент по ESC
-  * @param {Objects} event - событие
-  */
   function onCloseDialogEsc(event) {
     if (window.util.isEscapePressed(event)) {
       dialogWindow.style.display = 'none';
@@ -30,7 +21,7 @@ window.card = (function () {
     var lodgeCheck = lodgeItem.querySelector('.lodge__checkin-time');
     var dialog = document.querySelector('.dialog');
     var dialogPanel = dialog.querySelector('.dialog__panel');
-    /** Задаем шаблону значения */
+
     lodgeTitle.textContent = advtItem.offer.title;
     lodgeAddress.textContent = advtItem.offer.address;
     lodgePrice.textContent = advtItem.offer.price + '\u20BD/ночь';

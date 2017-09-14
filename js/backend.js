@@ -1,11 +1,7 @@
 'use strict';
 
 (function () {
-
-  // Адрес, с которого получаем данные
   var GET_URL = 'https://1510.dump.academy/keksobooking/data';
-
-  // Адрес, на который отправляем данные
   var POST_URL = 'https://1510.dump.academy/keksobooking';
 
   var sendRequest = function (method, url, onLoad, onError, data) {
@@ -51,12 +47,10 @@
     xhr.send(data);
   };
 
-  // Для получения данных с сервера
   var load = function (onLoad, onError) {
     sendRequest('GET', GET_URL, onLoad, onError);
   };
 
-  // Для отправки данных на сервер
   var save = function (onLoad, onError, data) {
     console.log(data);
     sendRequest('POST', POST_URL, onLoad, onError, data);

@@ -1,10 +1,6 @@
 'use strict';
-// form.js — модуль, который работает с формой объявления
 
 window.form = (function () {
-  /**
-  * Валидация формы
-  */
   function checkForm() {
     var noticeForm = document.querySelector('.notice__form');
     var title = noticeForm.querySelector('#title');
@@ -55,48 +51,16 @@ window.form = (function () {
     price.setAttribute('min', PRICE_MIN);
     price.setAttribute('max', PRICE_MAX);
 
-    /**
-    * Очистка всех значений в форме
-    */
     function clearForm() {
-      // var description = noticeForm.querySelector('#description');
-
-      // title.value = '';
-      // type.value = 'flat';
-      // price.value = '1000';
-      // price.max = PRICE_MAX;
-      // price.min = PRICE_MIN;
-      // roomNumber.value = 1;
-      // capacity.value = 1;
-      // description.value = '';
-      // address.value = '';
       noticeForm.reset();
     }
-
-    /**
-    * Синхронизация времени въезда и времни отъезда
-    * @param {integer} fieldFirst - изменяемое поле
-    * @param {integer} valueSecond - значение
-    */
     function onTimeChange(fieldFirst, valueSecond) {
       fieldFirst.value = valueSecond;
     }
-
-    /**
-    * Валидация типов жилья и интервала стоимости
-    * @param {integer} fieldFirst - изменяемое поле
-    * @param {integer} valueSecond - значение
-    */
     function onPriceChange(fieldFirst, valueSecond) {
       fieldFirst.min = valueSecond;
       onTimeChange(fieldFirst, valueSecond);
     }
-
-    /**
-    * Связь количества гостей и количеством комнат
-    * @param {integer} fieldFirst - изменяемое поле
-    * @param {integer} valueSecond - значение
-    */
     function onCapacityChange(fieldFirst, valueSecond) {
       var optionsArray = Array.prototype.slice.call(fieldFirst.options);
       if (valueSecond[0] === 0) {
@@ -139,12 +103,6 @@ window.form = (function () {
         });
       }
     }
-
-    /**
-    * Рисую рамку, если значение не валидно
-    * @param {Objects} checkedField  - првоеряемое поле
-    * @return {boolean} event - проходит ли валидацию
-    */
     function checkValid(checkedField) {
       if (checkedField.validity.valid) {
         checkedField.style.border = '1px solid #d9d9d3';
@@ -155,11 +113,6 @@ window.form = (function () {
         return false;
       }
     }
-
-    /**
-    * Нажатие на кнопку и валидация полей
-    * @param {Objects} event - событие
-    */
     function onButtonForm(event) {
       var validTitle = checkValid(title);
       var validPrice = checkValid(price);
@@ -167,22 +120,18 @@ window.form = (function () {
       if (validTitle && validPrice && validAddress) {
         event.preventDefault();
         window.backend.save(clearForm, window.backend.showError, new FormData(noticeForm));
-
       }
     }
 
     var timeInChangeHandler = function (event) {
       window.synchronizeFields(event.target, timeOut, window.util.CHECKIN, window.util.CHECKIN, onTimeChange);
     };
-
     var timeOutChangeHandler = function (event) {
       window.synchronizeFields(event.target, timeIn, window.util.CHECKIN, window.util.CHECKIN, onTimeChange);
     };
-
     var typeChangeHandler = function (evt) {
       window.synchronizeFields(evt.target, price, window.util.TYPE, MIN_PRICES, onPriceChange);
     };
-
     var roomNumberChangeHandler = function (evt) {
       window.synchronizeFields(evt.target, capacity, ROOMS_NUMBERS, CAPACITY_LIST, onCapacityChange);
     };
