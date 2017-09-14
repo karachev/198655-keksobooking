@@ -7,8 +7,9 @@ window.pin = (function () {
   var dialogWindow = document.querySelector('.dialog');
   var dialogClose = document.querySelector('.dialog__close');
   var pinActive = document.querySelector('.pin--active');
-  dialogWindow.style.display = 'none';
-  var listOfAdvt = window.data();
+  var pinsContainer = document.querySelector('.tokyo__pin-map');
+  dialogWindow.style.display = 'none';  
+
   var PIN_WIDTH = 56;
   var PIN_HEIGHT = 75;
   /**
@@ -56,7 +57,7 @@ window.pin = (function () {
     var pinElements = window.util.pinMap.querySelectorAll('.pin');
     pinElements.forEach(function (value, index) {
       if (value.classList.contains('pin--active')) {
-        window.card.createOfferCard(listOfAdvt[index - 1]);
+        window.card.createOfferCard(window.map.allOffers[index - 1]);
         dialogWindow.style.display = 'block';
       }
     });
@@ -65,9 +66,9 @@ window.pin = (function () {
   * Открываем объявление
   * @param {Objects} event - событие
   */
-  function onOpenDialog() {
-    if (window.util.isEnterPressed(event) || window.util.isClicked(event)) {
-      var target = event.target;
+  function onOpenDialog(evt) {
+    if (window.util.isEnterPressed(evt) || window.util.isClicked(evt)) {
+      var target = evt.target;
       while (target !== window.util.pinMap) {
         if (target.className === 'pin') {
           getPinActive(target);
@@ -77,11 +78,13 @@ window.pin = (function () {
       }
     }
   }
+
+  
   /**
   * Закрытие объявления
   */
-  function onCloseDialog() {
-    if (window.util.isEscapePressed(event) || window.util.isClicked(event)) {
+  function onCloseDialog(evt) {
+    if (window.util.isEscapePressed(evt) || window.util.isClicked(evt)) {
       dialogWindow.style.display = 'none';
       selectedPin.classList.remove('pin--active');
     }
@@ -89,6 +92,8 @@ window.pin = (function () {
 
   dialogClose.addEventListener('click', onCloseDialog);
   dialogClose.addEventListener('keydown', onCloseDialog);
+  
+  pinsContainer.addEventListener('click', onOpenDialog);
 
   return {
     createPin: createPin,

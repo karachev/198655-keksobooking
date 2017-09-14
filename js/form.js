@@ -70,7 +70,7 @@ window.form = (function () {
       // capacity.value = 1;
       // description.value = '';
       // address.value = '';
-      form.reset();
+      noticeForm.reset();
     }
 
     /**
@@ -166,7 +166,8 @@ window.form = (function () {
       var validAddress = checkValid(address);
       if (validTitle && validPrice && validAddress) {
         event.preventDefault();
-        window.backend.save(clearForm, window.backend.showError, new FormData(form));
+        window.backend.save(clearForm, window.backend.showError, new FormData(noticeForm));
+
       }
     }
 

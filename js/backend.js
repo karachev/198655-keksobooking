@@ -58,29 +58,30 @@
 
   // Для отправки данных на сервер
   var save = function (onLoad, onError, data) {
+    console.log(data);
     sendRequest('POST', POST_URL, onLoad, onError, data);
   };
 
-  // var showError = function (message) {
-  //   var errorTooltip = document.createElement('div');
-  //   var errorTooltipText = document.createElement('span');
+  var showError = function (message) {
+    var errorTooltip = document.createElement('div');
+    var errorTooltipText = document.createElement('span');
 
-  //   errorTooltip.appendChild(errorTooltipText);
+    errorTooltip.appendChild(errorTooltipText);
 
-  //   errorTooltip.classList.add('request-error');
-  //   errorTooltipText.classList.add('request-error__text');
-  //   errorTooltipText.textContent = message;
+    errorTooltip.classList.add('request-error');
+    errorTooltipText.classList.add('request-error__text');
+    errorTooltipText.textContent = message;
 
-  //   document.body.insertAdjacentElement('afterbegin', errorTooltip);
+    document.body.insertAdjacentElement('afterbegin', errorTooltip);
 
-  //   setTimeout(function () {
-  //     errorTooltip.remove();
-  //   }, 4000);
-  // };
+    setTimeout(function () {
+      errorTooltip.remove();
+    }, 4000);
+  };
 
   window.backend = {
     load: load,
-    save: save
-    // showError: showError
+    save: save,
+    showError: showError
   };
 })();
