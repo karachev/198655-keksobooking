@@ -28,7 +28,9 @@
 
   function setFilterByHousesFeautures(filterFeatures, itemFeatures) {
     for (var i = 0; i < filterFeatures.length; i++) {
-      if (itemFeatures.indexOf(filterFeatures[i]) === -1) return false;
+      if (itemFeatures.indexOf(filterFeatures[i]) === -1) {
+        return false;
+      }
     }
     return true;
   }
@@ -41,11 +43,21 @@
     });
 
     return window.map.allOffers.filter(function (item) {
-      if (!setFilterTypes(typeFilter.value, item.offer.type)) return false;
-      if (!setFilterPrice(item.offer.price)) return false;
-      if (!setFilterTypes(roomFilter.value, item.offer.rooms + '')) return false;
-      if (!setFilterTypes(guestsFilter.value, item.offer.guests + '')) return false;
-      if (!setFilterByHousesFeautures(hausesFeautures, item.offer.features)) return false;
+      if (!setFilterTypes(typeFilter.value, item.offer.type)) {
+        return false;
+      }
+      if (!setFilterPrice(item.offer.price)) {
+        return false;
+      }
+      if (!setFilterTypes(roomFilter.value, item.offer.rooms + '')) {
+        return false;
+      }
+      if (!setFilterTypes(guestsFilter.value, item.offer.guests + '')) {
+        return false;
+      }
+      if (!setFilterByHousesFeautures(hausesFeautures, item.offer.features)) {
+        return false;
+      }
       return true;
     });
   }

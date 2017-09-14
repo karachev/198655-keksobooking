@@ -8,7 +8,6 @@
   };
   var dialogWindow = document.querySelector('.dialog');
 
-
   function onCloseDialogEsc(evt) {
     if (window.util.isEscapePressed(evt)) {
       dialogWindow.classList.add('hidden');

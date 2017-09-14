@@ -12,6 +12,7 @@
 
   var pinHandle = document.querySelector('.pin__main');
   var address = document.querySelector('#address');
+  address.value = 'x: 600px, y: 300px';
   var pinsContainer = document.querySelector('.tokyo__pin-map');
   var pinLocation = {
     minX: 0,

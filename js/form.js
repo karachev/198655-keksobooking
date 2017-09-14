@@ -119,23 +119,23 @@
       }
     }
 
-    function timeInChangeHandler(evt) {
+    function syncTimeInChange(evt) {
       window.synchronizeFields(evt.target, timeOut, window.util.CHECKIN, window.util.CHECKIN, onTimeChange);
     }
-    function timeOutChangeHandler(evt) {
+    function syncTimeOutChange(evt) {
       window.synchronizeFields(evt.target, timeIn, window.util.CHECKIN, window.util.CHECKIN, onTimeChange);
     }
-    function typeChangeHandler(evt) {
+    function syncTypeChange(evt) {
       window.synchronizeFields(evt.target, price, window.util.TYPE, MIN_PRICES, onPriceChange);
     }
-    function roomNumberChangeHandler(evt) {
+    function syncRoomChange(evt) {
       window.synchronizeFields(evt.target, capacity, ROOMS_NUMBERS, CAPACITY_LIST, onCapacityChange);
     }
 
-    timeIn.addEventListener('change', timeInChangeHandler);
-    timeOut.addEventListener('change', timeOutChangeHandler);
-    type.addEventListener('change', typeChangeHandler);
-    roomNumber.addEventListener('change', roomNumberChangeHandler);
+    timeIn.addEventListener('change', syncTimeInChange);
+    timeOut.addEventListener('change', syncTimeOutChange);
+    type.addEventListener('change', syncTypeChange);
+    roomNumber.addEventListener('change', syncRoomChange);
     buttonForm.addEventListener('click', onButtonForm);
     window.form = {
       clearForm: clearForm,
@@ -144,10 +144,10 @@
       onCapacityChange: onCapacityChange,
       checkValid: checkValid,
       onButtonForm: onButtonForm,
-      timeInChangeHandler: timeInChangeHandler,
-      timeOutChangeHandler: timeOutChangeHandler,
-      typeChangeHandler: typeChangeHandler,
-      roomNumberChangeHandler: roomNumberChangeHandler
+      syncTimeInChange: syncTimeInChange,
+      syncTimeOutChange: syncTimeOutChange,
+      syncTypeChange: syncTypeChange,
+      syncRoomChange: syncRoomChange
     };
   }
 
