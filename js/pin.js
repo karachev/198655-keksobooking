@@ -43,7 +43,7 @@
     var pinElements = window.util.pinMap.querySelectorAll('.pin');
     pinElements.forEach(function (value, index) {
       if (value.classList.contains('pin--active')) {
-        window.card.createOfferCard(window.map.allOffers[index - 1]);
+        window.card.createOfferCard(window.map.filterArray[index - 1]);
         dialogWindow.classList.remove('hidden');
       }
     });
