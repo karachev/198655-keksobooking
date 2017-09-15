@@ -118,7 +118,6 @@
         window.backend.save(clearForm, window.backend.showError, new FormData(noticeForm));
       }
     }
-
     function syncTimeInChange(evt) {
       window.synchronizeFields(evt.target, timeOut, window.util.CHECKIN, window.util.CHECKIN, onTimeChange);
     }
