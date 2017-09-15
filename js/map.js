@@ -22,7 +22,6 @@
   };
   var tokyoFiltersForm = document.querySelector('.tokyo__filters');
   tokyoFiltersForm.addEventListener('change', onFilterChange);
-
   address.setAttribute('readonly', 'readonly');
 
   function onFilterChange(evt) {
