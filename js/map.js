@@ -7,7 +7,8 @@
     onFilterChange: onFilterChange,
     renderPinsAfterSetFilters: renderPinsAfterSetFilters,
     fillPinsContainer: fillPinsContainer,
-    setPins: setPins
+    setPins: setPins,
+    filterArray: []
   };
 
   var pinHandle = document.querySelector('.pin__main');
@@ -41,9 +42,11 @@
 
   function fillPinsContainer(pinsArray) {
     var pinsFragment = document.createDocumentFragment();
+    window.map.filterArray = [];
     for (var i = 0; i < pinsArray.length; i++) {
       var element = window.pin.createPin(pinsArray[i]);
       pinsFragment.appendChild(element);
+      window.map.filterArray.push(pinsArray[i]);
     }
     pinsContainer.appendChild(pinsFragment);
   }
