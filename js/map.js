@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-
   window.map = {
     allOffers: [],
     onFilterChange: onFilterChange,
@@ -52,6 +51,7 @@
   }
 
   function setPins(data) {
+    // window.map.allOffers = data.slice(0,3);
     window.map.allOffers = data;
     fillPinsContainer(window.map.allOffers);
   }
