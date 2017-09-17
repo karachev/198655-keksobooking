@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var LOW_PRICE = 1000;
+  var HIGH_PRICE = 50000;
   var filterBlock = document.querySelector('.tokyo__filters');
   var typeFilter = filterBlock.querySelector('#housing_type');
   var priceFilter = filterBlock.querySelector('#housing_price');
@@ -16,11 +18,11 @@
     var currentValue = priceFilter.value;
     switch (currentValue) {
       case 'middle':
-        return price >= 10000 && price < 50000;
+        return price >= LOW_PRICE && price < HIGH_PRICE;
       case 'low':
-        return price < 10000;
+        return price < LOW_PRICE;
       case 'high':
-        return price >= 50000;
+        return price >= HIGH_PRICE;
       default:
         return true;
     }

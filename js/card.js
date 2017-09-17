@@ -7,6 +7,7 @@
     height: 42
   };
   var dialogWindow = document.querySelector('.dialog');
+  var lodgeTemplate = document.querySelector('#lodge-template').content;
 
   function onCloseDialogEsc(evt) {
     if (window.util.isEscapePressed(evt)) {
@@ -15,7 +16,6 @@
   }
 
   function createOfferCard(advtItem) {
-    var lodgeTemplate = document.querySelector('#lodge-template').content;
     var lodgeItem = lodgeTemplate.cloneNode(true);
     var lodgeTitle = lodgeItem.querySelector('.lodge__title');
     var lodgeAddress = lodgeItem.querySelector('.lodge__address');

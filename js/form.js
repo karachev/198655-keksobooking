@@ -104,11 +104,10 @@
       if (checkedField.validity.valid) {
         checkedField.style.border = '1px solid #d9d9d3';
         return true;
-      } else {
-        checkedField.style.boxShadow = 'none';
-        checkedField.style.border = '2px solid red';
-        return false;
       }
+      checkedField.style.boxShadow = 'none';
+      checkedField.style.border = '2px solid red';
+      return false;
     }
     function onButtonForm(evt) {
       var validTitle = checkValid(title);
