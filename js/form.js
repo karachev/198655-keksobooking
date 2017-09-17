@@ -49,6 +49,7 @@
 
     function clearForm() {
       noticeForm.reset();
+      address.value = 'x: 600px, y: 300px';
     }
     function onTimeChange(fieldFirst, valueSecond) {
       fieldFirst.value = valueSecond;

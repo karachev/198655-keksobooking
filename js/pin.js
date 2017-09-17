@@ -40,8 +40,15 @@
   }
 
   function getActiveNumber() {
-    var pinElements = window.util.pinMap.querySelectorAll('.pin');
-    pinElements.forEach(function (value, index) {
+    var pinElementsList = window.util.pinMap.querySelectorAll('.pin');
+    var pinElementsListArray = Array.prototype.slice.call(pinElementsList);
+    // for (var i = 0; i < pinElements.length; i++) {
+    //   if (pinElements[i].classList.contains('pin--active')) {
+    //     window.card.createOfferCard(window.map.filterArray[i - 1]);
+    //     dialogWindow.classList.remove('hidden');
+    //   }
+    // }
+    pinElementsListArray.forEach(function (value, index) {
       if (value.classList.contains('pin--active')) {
         window.card.createOfferCard(window.map.filterArray[index - 1]);
         dialogWindow.classList.remove('hidden');
@@ -70,7 +77,6 @@
   }
 
   dialogClose.addEventListener('click', onCloseDialog);
-  dialogClose.addEventListener('keydown', onCloseDialog);
   pinsContainer.addEventListener('click', onOpenDialog);
 
   window.pin = {
@@ -79,10 +85,5 @@
     getActiveNumber: getActiveNumber,
     onOpenDialog: onOpenDialog,
     onCloseDialog: onCloseDialog
-  };
-
-  return {
-    createPin: createPin,
-    onOpenDialog: onOpenDialog
   };
 })();
