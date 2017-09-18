@@ -38,6 +38,7 @@
     }
     fillPinsContainer(window.filters.setFilters());
   }
+  var a = 0;
 
   function fillPinsContainer(pinsArray) {
     var pinsFragment = document.createDocumentFragment();
@@ -45,6 +46,10 @@
     for (var i = 0; i < pinsArray.length; i++) {
       var element = window.pin.createPin(pinsArray[i]);
       pinsFragment.appendChild(element);
+      if (a == 0) {
+        pinsArray = pinsArray.slice(0,3);
+        a++;
+      }
       window.map.filterArray.push(pinsArray[i]);
     }
     pinsContainer.appendChild(pinsFragment);
