@@ -46,8 +46,8 @@
     for (var i = 0; i < pinsArray.length; i++) {
       var element = window.pin.createPin(pinsArray[i]);
       pinsFragment.appendChild(element);
-      if (a == 0) {
-        pinsArray = pinsArray.slice(0,3);
+      if (a === 0) {
+        pinsArray = pinsArray.slice(0, 3);
         a++;
       }
       window.map.filterArray.push(pinsArray[i]);

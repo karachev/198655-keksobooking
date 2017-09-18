@@ -14,10 +14,6 @@
     var newArray = window.util.getRefreshArray(array);
     return newArray.splice(window.util.getRandomNumber(0, newArray.length - 1), 1);
   }
-  function getRandomUniqueItem(array) {
-    var newArray = window.util.getRefreshArray(array);
-    return newArray.splice(window.util.getRandomNumber(0, newArray.length - 1), 1);
-  }
   function getRefreshArray(array) {
     var m = array.length;
     var t;
@@ -46,13 +42,12 @@
     return evt.type === 'click';
   }
 
-  window.util= {
+  window.util = {
     ESCAPE_KEY_CODE: ESCAPE_KEY_CODE,
     ENTER_KEY_CODE: ENTER_KEY_CODE,
     TYPE: TYPE,
     CHECKIN: CHECKIN,
     pinMap: pinMap,
-    getRandomUniqueItem: getRandomUniqueItem,
     getRandomUniqueItem: getRandomUniqueItem,
     getRefreshArray: getRefreshArray,
     getRandomNumber: getRandomNumber,
