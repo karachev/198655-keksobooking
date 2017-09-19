@@ -13,6 +13,7 @@
     if (window.util.isEscapePressed(evt)) {
       dialogWindow.classList.add('hidden');
     }
+    document.removeEventListener('keydown', onCloseDialogEsc);
   }
 
   function createOfferCard(advtItem) {
