@@ -10,6 +10,7 @@
     '14:00'
   ];
   var pinMap = document.querySelector('.tokyo__pin-map');
+  var dialogWindow = document.querySelector('.dialog');
   function getRandomUniqueItem(array) {
     var newArray = window.util.getRefreshArray(array);
     return newArray.splice(window.util.getRandomNumber(0, newArray.length - 1), 1);
@@ -48,6 +49,7 @@
     TYPE: TYPE,
     CHECKIN: CHECKIN,
     pinMap: pinMap,
+    dialogWindow: dialogWindow,
     getRandomUniqueItem: getRandomUniqueItem,
     getRefreshArray: getRefreshArray,
     getRandomNumber: getRandomNumber,

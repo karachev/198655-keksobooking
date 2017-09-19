@@ -4,10 +4,9 @@
   var PIN_WIDTH = 56;
   var PIN_HEIGHT = 75;
   var selectedPin;
-  var dialogWindow = document.querySelector('.dialog');
   var dialogClose = document.querySelector('.dialog__close');
   var pinsContainer = document.querySelector('.tokyo__pin-map');
-  dialogWindow.classList.add('hidden');
+  window.util.dialogWindow.classList.add('hidden');
 
   function createPin(advt) {
     var pin = document.createElement('div');
@@ -42,7 +41,7 @@
 
   function onCloseDialog(evt) {
     if (window.util.isEscapePressed(evt) || window.util.isClicked(evt)) {
-      dialogWindow.classList.add('hidden');
+      window.util.dialogWindow.classList.add('hidden');
       selectedPin.classList.remove('pin--active');
     }
   }

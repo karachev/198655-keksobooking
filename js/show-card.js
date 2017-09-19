@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var dialogWindow = document.querySelector('.dialog');
   function getPinActive(node) {
     if (window.pin.selectedPin) {
       window.pin.selectedPin.classList.remove('pin--active');
@@ -20,7 +19,7 @@
     pinElementsListArray.forEach(function (value, index) {
       if (value.classList.contains('pin--active')) {
         window.card.createOfferCard(window.map.filterArray[index - 1]);
-        dialogWindow.classList.remove('hidden');
+        window.util.dialogWindow.classList.remove('hidden');
       }
     });
   }
