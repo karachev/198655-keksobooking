@@ -27,35 +27,35 @@
 
     return pin;
   }
-  function getPinActive(node) {
-    if (selectedPin) {
-      selectedPin.classList.remove('pin--active');
-    }
-    if (pinActive) {
-      pinActive.classList.remove('pin--active');
-    }
-    selectedPin = node;
-    selectedPin.classList.add('pin--active');
-    getActiveNumber();
-  }
+  // function getPinActive(node) {
+  //   if (selectedPin) {
+  //     selectedPin.classList.remove('pin--active');
+  //   }
+  //   if (pinActive) {
+  //     pinActive.classList.remove('pin--active');
+  //   }
+  //   selectedPin = node;
+  //   selectedPin.classList.add('pin--active');
+  //   getActiveNumber();
+  // }
 
-  function getActiveNumber() {
-    var pinElementsList = window.util.pinMap.querySelectorAll('.pin');
-    var pinElementsListArray = Array.prototype.slice.call(pinElementsList);
-    pinElementsListArray.forEach(function (value, index) {
-      if (value.classList.contains('pin--active')) {
-        window.card.createOfferCard(window.map.filterArray[index - 1]);
-        dialogWindow.classList.remove('hidden');
-      }
-    });
-  }
+  // function getActiveNumber() {
+  //   var pinElementsList = window.util.pinMap.querySelectorAll('.pin');
+  //   var pinElementsListArray = Array.prototype.slice.call(pinElementsList);
+  //   pinElementsListArray.forEach(function (value, index) {
+  //     if (value.classList.contains('pin--active')) {
+  //       window.card.createOfferCard(window.map.filterArray[index - 1]);
+  //       dialogWindow.classList.remove('hidden');
+  //     }
+  //   });
+  // }
 
   function onOpenDialog(evt) {
     if (window.util.isEnterPressed(evt) || window.util.isClicked(evt)) {
       var target = evt.target;
       while (target !== window.util.pinMap) {
         if (target.className === 'pin') {
-          getPinActive(target);
+          window.showCard.getPinActive(target);
           return;
         }
         target = target.parentNode;
@@ -75,8 +75,8 @@
 
   window.pin = {
     createPin: createPin,
-    getPinActive: getPinActive,
-    getActiveNumber: getActiveNumber,
+    // getPinActive: getPinActive,
+    // getActiveNumber: getActiveNumber,
     onOpenDialog: onOpenDialog,
     onCloseDialog: onCloseDialog
   };

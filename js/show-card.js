@@ -1,13 +1,31 @@
 'use strict';
 
 (function () {
-  window.showCard = function () {
-  //   var fragment = document.createDocumentFragment();
-  //   window.map.allOffers.forEach(function (value) {
-  //     fragment.appendChild(window.pin.createPin(value));
-  //   });
-  //   window.util.pinMap.appendChild(fragment);
-  //   window.util.pinMap.addEventListener('click', window.pin.onOpenDialog);
-  //   window.util.pinMap.addEventListener('keydown', window.pin.onOpenDialog);
+  var dialogWindow = document.querySelector('.dialog');
+  function getPinActive(node) {
+    if (window.pin.selectedPin) {
+      window.pin.selectedPin.classList.remove('pin--active');
+    }
+    if (window.pin.pinActive) {
+      window.pin.pinActive.classList.remove('pin--active');
+    }
+    window.pin.selectedPin = node;
+    window.pin.selectedPin.classList.add('pin--active');
+    getActiveNumber();
+  }
+
+  function getActiveNumber() {
+    var pinElementsList = window.util.pinMap.querySelectorAll('.pin');
+    var pinElementsListArray = Array.prototype.slice.call(pinElementsList);
+    pinElementsListArray.forEach(function (value, index) {
+      if (value.classList.contains('pin--active')) {
+        window.card.createOfferCard(window.map.filterArray[index - 1]);
+        dialogWindow.classList.remove('hidden');
+      }
+    });
+  }
+  window.showCard =  {
+    getPinActive: getPinActive,
+    getActiveNumber: getActiveNumber
   };
 })();
