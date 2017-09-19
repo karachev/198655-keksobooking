@@ -12,7 +12,7 @@
 
   var pinHandle = document.querySelector('.pin__main');
   var address = document.querySelector('#address');
-  address.value = 'x: 600px, y: 300px';
+  address.value = 'x: 600, y: 300';
   var pinsContainer = document.querySelector('.tokyo__pin-map');
   var pinLocation = {
     minX: 0,
@@ -38,7 +38,7 @@
     }
     fillPinsContainer(window.filters.setFilters());
   }
-  var a = 0;
+  // var a = 0;
 
   function fillPinsContainer(pinsArray) {
     var pinsFragment = document.createDocumentFragment();
@@ -46,19 +46,18 @@
     for (var i = 0; i < pinsArray.length; i++) {
       var element = window.pin.createPin(pinsArray[i]);
       pinsFragment.appendChild(element);
-      if (a === 0) {
-        pinsArray = pinsArray.slice(0, 3);
-        a++;
-      }
+      // if (a === 0) {
+      //   pinsArray = pinsArray.slice(0, 3);
+      //   a++;
+      // }
       window.map.filterArray.push(pinsArray[i]);
     }
     pinsContainer.appendChild(pinsFragment);
   }
 
   function setPins(data) {
-    // window.map.allOffers = data.slice(0,3);
     window.map.allOffers = data;
-    fillPinsContainer(window.map.allOffers);
+    fillPinsContainer(window.map.allOffers.slice(0, 3));
   }
 
   window.backend.load(setPins, window.backend.showError);
@@ -91,7 +90,7 @@
       if (addressX >= pinLocation.minX && addressX <= pinLocation.maxX && addressY >= pinLocation.minY && addressY <= pinLocation.maxY) {
         pinHandle.style.top = (pinHandle.offsetTop - shift.y) + 'px';
         pinHandle.style.left = (pinHandle.offsetLeft - shift.x) + 'px';
-        address.value = 'x: ' + Math.floor(addressX) + 'px, y: ' + Math.floor(addressY) + 'px';
+        address.value = 'x: ' + Math.floor(addressX) + ', y: ' + Math.floor(addressY);
       }
     }
 
