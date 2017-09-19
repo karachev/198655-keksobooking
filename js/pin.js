@@ -6,7 +6,6 @@
   var selectedPin;
   var dialogWindow = document.querySelector('.dialog');
   var dialogClose = document.querySelector('.dialog__close');
-  var pinActive = document.querySelector('.pin--active');
   var pinsContainer = document.querySelector('.tokyo__pin-map');
   dialogWindow.classList.add('hidden');
 
@@ -27,28 +26,6 @@
 
     return pin;
   }
-  // function getPinActive(node) {
-  //   if (selectedPin) {
-  //     selectedPin.classList.remove('pin--active');
-  //   }
-  //   if (pinActive) {
-  //     pinActive.classList.remove('pin--active');
-  //   }
-  //   selectedPin = node;
-  //   selectedPin.classList.add('pin--active');
-  //   getActiveNumber();
-  // }
-
-  // function getActiveNumber() {
-  //   var pinElementsList = window.util.pinMap.querySelectorAll('.pin');
-  //   var pinElementsListArray = Array.prototype.slice.call(pinElementsList);
-  //   pinElementsListArray.forEach(function (value, index) {
-  //     if (value.classList.contains('pin--active')) {
-  //       window.card.createOfferCard(window.map.filterArray[index - 1]);
-  //       dialogWindow.classList.remove('hidden');
-  //     }
-  //   });
-  // }
 
   function onOpenDialog(evt) {
     if (window.util.isEnterPressed(evt) || window.util.isClicked(evt)) {
@@ -75,8 +52,6 @@
 
   window.pin = {
     createPin: createPin,
-    // getPinActive: getPinActive,
-    // getActiveNumber: getActiveNumber,
     onOpenDialog: onOpenDialog,
     onCloseDialog: onCloseDialog
   };

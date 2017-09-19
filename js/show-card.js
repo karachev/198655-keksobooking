@@ -24,7 +24,8 @@
       }
     });
   }
-  window.showCard =  {
+
+  window.showCard = {
     getPinActive: getPinActive,
     getActiveNumber: getActiveNumber
   };
