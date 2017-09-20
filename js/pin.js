@@ -8,7 +8,7 @@
   var pinsContainer = document.querySelector('.tokyo__pin-map');
   window.util.dialogWindow.classList.add('hidden');
 
-  function createPin(advt) {
+  function create(advt) {
     var pin = document.createElement('div');
     pin.className = 'pin';
     pin.style.left = advt.location.x - PIN_WIDTH / 2 + 'px';
@@ -50,7 +50,7 @@
   pinsContainer.addEventListener('click', onOpenDialog);
 
   window.pin = {
-    createPin: createPin,
+    create: create,
     onOpenDialog: onOpenDialog,
     onCloseDialog: onCloseDialog
   };

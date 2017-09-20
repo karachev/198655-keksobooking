@@ -43,7 +43,7 @@
     var pinsFragment = document.createDocumentFragment();
     window.map.filterArray = [];
     for (var i = 0; i < pinsArray.length; i++) {
-      var element = window.pin.createPin(pinsArray[i]);
+      var element = window.pin.create(pinsArray[i]);
       pinsFragment.appendChild(element);
       window.map.filterArray.push(pinsArray[i]);
     }
